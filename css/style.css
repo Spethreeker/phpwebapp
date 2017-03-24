@@ -8,3 +8,17 @@
     background-color: #025D8C;
     color: #eeeeee;
 }
+.menu{
+    width: 200px;
+    height: 100%;
+    float: left;   
+}
+.box{
+    background-color: #025D8C;
+}
+.menu-label {
+    color: #eee;
+}
+.menu-list a{
+    color: #eee;
+}

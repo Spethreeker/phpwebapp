@@ -598,7 +598,7 @@ table th {
 
 .box {
   background-color: white;
-  border-radius: 5px;
+  border-radius: 0px 0px 5px 0px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   display: block;
   padding: 1.25rem;
@@ -3244,8 +3244,8 @@ input[type="submit"].button {
 }
 
 .menu-list a:hover {
-  background-color: whitesmoke;
-  color: #00d1b2;
+  background-color:#024364;
+
 }
 
 .menu-list a.is-active {
