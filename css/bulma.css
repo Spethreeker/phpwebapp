@@ -598,7 +598,7 @@ table th {
 
 .box {
   background-color: white;
-  border-radius: 0px 0px 5px 0px;
+  border-radius: 0px 0px 0px 5px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   display: block;
   padding: 1.25rem;
@@ -3218,9 +3218,9 @@ input[type="submit"].button {
 }
 
 .media + .media {
-  border-top: 1px solid rgba(219, 219, 219, 0.5);
+  /*border-top: 1px solid rgba(219, 219, 219, 0.5);
   margin-top: 1rem;
-  padding-top: 1rem;
+  padding-top: 1rem;*/
 }
 
 .media.is-large + .media {
