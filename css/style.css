@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+.customer-name{
+    font-family: 'Raleway', sans-serif;
+}
 .grey{
     background-color: #666666;
 }
@@ -23,20 +27,27 @@
 .menu-list a{
     color: #eee;
 }
-.media-left{
+.date{
     text-align: center;
-    box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.1);
-    margin: 15px;
-    padding: 5px;
+    box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.5);
+    margin-right: 15px;
+    padding: 10px;
+    width: 120px;
+    background: whitesmoke;
 }
 .media-content{
     margin-top:10px;}
 
 .monthday{
-    margin-top: -20px;
+    margin-top: -10px;
 }
-.day{
+
+ .weekday{
+    font-size: 16px;
+}
+.log{
     box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.4);
-    margin-right: 20px;
+    margin: 10px;
     border-radius: 3px;
+    padding: 10px;
 }

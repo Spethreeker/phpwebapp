@@ -1524,7 +1524,7 @@ input[type="submit"].button {
   box-shadow: none;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
-  display: inline-flex;
+  display: inline-block;
   font-size: 1rem;
   height: 2.25em;
   -webkit-box-pack: start;
@@ -1570,7 +1570,8 @@ input[type="submit"].button {
 .textarea.is-focused,
 .textarea:active,
 .textarea.is-active {
-  border-color: #00d1b2;
+  /*border-color: #00d1b2;*/
+  border-color: #025D8C
 }
 
 .input[disabled], .input.is-disabled,
