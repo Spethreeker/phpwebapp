@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
+@font-face{
+    font-family: 'Marine', sans-serif;
+    src('marineregular.otf');
+}
 .customer-name{
     font-family: 'Raleway', sans-serif;
 }
@@ -50,4 +54,7 @@
     margin: 10px;
     border-radius: 3px;
     padding: 10px;
+}
+body{
+    font-family: 'Marine', sans-serif;
 }
