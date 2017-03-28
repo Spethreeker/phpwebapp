@@ -3,6 +3,9 @@
     font-family: 'Marine', sans-serif;
     src('marineregular.otf');
 }
+body{
+    font-family: 'Marine', sans-serif;
+}
 .customer-name{
     font-family: 'Raleway', sans-serif;
 }

@@ -9,49 +9,17 @@
 </html>
 <body>
 <div class="container notification">
-  <form id='register' name="register" action='register.php' method='post' accept-charset='UTF-8'>
-
-    <div class="field">
-
-    <legend>Register</legend>
-    <input type='hidden' class="input" name='submitted' id='submitted' value='1'/>
-      
-    
-        <div class="level is-block">
-            <label for='FirstName' class="label heading">First Name</label>
-            <input type='text' class="input is-block" name='FirstName' id='FirstName' maxlength="50" required/>
-       
-       
-       
-            <label for='LastName' class="label heading" >Last Name</label>
-            <input type='text' class="input is-block" name='LastName' id='LastName' maxlength="50" required/>
-        </div>
-    
-     
- 
+  <form id='register' class="notification" name="register" action='register.php' method='post' accept-charset='UTF-8'>
     <label for='Email' class="label heading" >Email Address</label>
     <input type='email' class="input" name='Email' id='Email' maxlength="50" required/>
     <label class="label heading"  for='password' >Password</label>
     <input class="input"  type='password' name='password' id='password' maxlength="50" required/>
     <br>
     <input class="button blue"  type='submit' name='Submit' value='Submit'>
-
+    <a class="button blue" href="register.php">Register</a>
     </div>
     <a class="button blue" href="home.html">Home</a>
   </form>
-  <script type="text/javascript" xml:space="preserve">
-var frmvalidator  = new Validator("register");
-    frmvalidator.addValidation("FirstName","req","Please enter your First Name");
-  frmvalidator.addValidation("FirstName","maxlen=20",	"Max length for FirstName is 20");
-  frmvalidator.addValidation("FirstName","alpha","Alphabetic chars only");
-  
-  frmvalidator.addValidation("LastName","req","Please enter your Last Name");
-  frmvalidator.addValidation("LastName","maxlen=20","Max length is 20");
-  
-  frmvalidator.addValidation("Email","maxlen=50");
-  frmvalidator.addValidation("Email","req");
-  frmvalidator.addValidation("Email","email");
-</script>
 </div>
 
 </body>
