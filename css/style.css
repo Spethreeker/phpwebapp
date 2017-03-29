@@ -6,7 +6,7 @@
 body{
     font-family: 'Marine', sans-serif;
 }
-.customer-name{
+.customer-name, .month, .day{
     font-family: 'Raleway', sans-serif;
 }
 .grey{
@@ -22,8 +22,9 @@ body{
 .menu{
     width: 200px;
     height: 100%;
-    float: left;
-    position: static;
+    position: absolute;
+    right: 0;
+    margin-left: 100%;
 }
 .box{
     background-color: #025D8C;
@@ -42,15 +43,18 @@ body{
     width: 120px;
     background: whitesmoke;
 }
+.date .subtitle {
+    margin-top: -5px;
+}
 .media-content{
     margin-top:10px;}
 
-.monthday{
+/*.day{
     margin-top: -10px;
-}
+}*/
 
- .weekday{
-    font-size: 16px;
+ .month{
+    font-size: 20px;
 }
 .log{
     box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.4);
@@ -60,4 +64,15 @@ body{
 }
 body{
     font-family: 'Marine', sans-serif;
+}
+@media screen and (max-width: 768px) {
+  .date {
+      display: none;
+  }
+  .title{
+      font-size: 1.5rem;
+  }
+  .subtitle{
+      font-size: 1rem
+  }
 }
