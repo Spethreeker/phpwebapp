@@ -11,8 +11,13 @@
             <p class="title white-font">Hello, Spencer</p>
         </div>
     </div>
+    <buton class="nav-toggle" onclick="navtoggle()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </nav>
-<div class="menu blue nav-menu">
+<div class="menu blue nav-menu" id="navbar">
     <ul class="menu-list">
         <li><a>+ Add Log</a></li>
         <li><a>* Edit Log</a></li>
@@ -22,24 +27,42 @@
 
     <section>
 
-       <article class="media log">
-         <figure class="media-left date">
+       <article class="media day">
+         <p class="subtitle is-5 log-group-date">Wednesday, March 22</p>
+         <!--<figure class="media-left date">
             <p class="title month">March</p>
             <p class="subtitle day">22</p>
-         </figure>
-         <div class="media-content">
-            <h3 class="title customer-name">Doug's Dog Pound</h3>
-            <p class="subtitle">Reinstalled Doggy software</p>
+         </figure>-->
+         <div class="media log">
+            <div class="media-content">
+                <h3 class="title customer-name">Doug's Dog Pound</h3>
+                <p class="subtitle">Reinstalled Doggy software</p>
+            </div>
+         </div>
+         <div class="media log">
+            <div class="media-content">
+                <h3 class="title customer-name">Doug's Dog Pound</h3>
+                <p class="subtitle">Reinstalled Doggy software</p>
+            </div>
          </div>
        </article>
-       <article class="media log">
-         <figure class="media-left date">
-            <p class="title month">Tuesday</p>
-            <p class="subtitle day">March 21</p>
-         </figure>
-         <div class="media-content">
-            <h3 class="title customer-name">Doug's Dog Pound</h3>
-            <p class="subtitle">Reinstalled Doggy software</p>
+       <article class="media day">
+         <p class="subtitle is-5">Wednesday, March 22</p>
+         <!--<figure class="media-left date">
+            <p class="title month">March</p>
+            <p class="subtitle day">22</p>
+         </figure>-->
+         <div class="media log">
+            <div class="media-content">
+                <h3 class="title customer-name">Doug's Dog Pound</h3>
+                <p class="subtitle">Reinstalled Doggy software</p>
+            </div>
+         </div>
+         <div class="media log">
+            <div class="media-content">
+                <h3 class="title customer-name">Doug's Dog Pound</h3>
+                <p class="subtitle">Reinstalled Doggy software</p>
+            </div>
          </div>
        </article>
        <article class="media log">
@@ -55,5 +78,14 @@
 
     </section>
 </body>
+<script>	
+				function navtoggle() {
+					var d = document.getElementById("navbar");
+					if (d.classList.contains("is-active")) {
+						d.classList.remove("is-active");
+					} else {
+						d.classList.add("is-active");
+					}
+				}	 </script>
 
 </html>

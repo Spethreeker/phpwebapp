@@ -3198,11 +3198,11 @@ input[type="submit"].button {
 }
 
 .media .media {
-  border-top: 1px solid rgba(219, 219, 219, 0.5);
+  border: 1px solid rgba(219, 219, 219, 0.5);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding-top: 0.75rem;
+  padding: 0.75rem;
 }
 
 .media .media .content:not(:last-child),
@@ -3211,11 +3211,11 @@ input[type="submit"].button {
 }
 
 .media .media .media {
-  padding-top: 0.5rem;
+  /*padding-top: 0.5rem;*/
 }
 
 .media .media .media + .media {
-  margin-top: 0.5rem;
+  /*margin-top: 0.5rem;*/
 }
 
 .media + .media {
@@ -3843,18 +3843,18 @@ a.nav-item.is-tab.is-active {
   .nav-menu {
     background-color: white;
     box-shadow: 0 4px 7px rgba(10, 10, 10, 0.1);
-    left: 0;
+    /*left: 0;*/
     display: none;
-    right: 0;
-    top: 100%;
-    position: absolute;
+    /*right: -200;*/
+    /*top: 100%;*/
+    /*position: absolute;*/
   }
   .nav-menu .nav-item {
     border-top: 1px solid rgba(219, 219, 219, 0.5);
     padding: 0.75rem;
   }
   .nav-menu.is-active {
-    display: block;
+display: block
   }
 }
 
