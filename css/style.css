@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 @font-face{
     font-family: 'Marine', sans-serif;
-    src('marineregular.otf');
+    src: url('marineregular.otf');
 }
-body{
+body, .customer-name{
     font-family: 'Marine', sans-serif;
 }
-.customer-name, .month, .day{
+.work-description, .month, .day{
     font-family: 'Raleway', sans-serif;
 }
 .grey{
@@ -15,15 +15,19 @@ body{
 .white-font{
     color: #eeeeee;
 }
-.blue{
+.blue, .day{
     background-color: #025D8C;
     color: #eeeeee;
+}
+.blue .button:hover{
+    background: #025D9D;
 }
 .menu{
     width: 200px;
     height: 100%;
     position: absolute;
     right: 0;
+    top: 64px;  
 }
 .box{
     background-color: #025D8C;
@@ -34,47 +38,45 @@ body{
 .menu-list a{
     color: #eee;
 }
-.date{
+/*.date{
     text-align: center;
     box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.5);
     margin-right: 15px;
     padding: 10px;
     width: 120px;
     background: whitesmoke;
-}
-.date .subtitle {
+}*/
+/*.date .subtitle {
     margin-top: -5px;
-}
+}*/
 .media-content{
     padding-left: 5px;
     padding-right: 5px;
   }
-
 .day{
-    background: #ddd;
-    padding: 5px;
+    padding: 12px;
     margin: 5px;
     flex-direction: column;
     box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.5);
 }
-.day > .p {
+.day .p {
     font-weight: 700;
-}
-
- .month{
-    font-size: 20px;
+   
 }
 .log{
-    /*box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.4);*/
-    margin: 0px 5px 5px 10px;
     border-radius: 3px;
     background: #eee;
 }
-.log-group-date{
-    margin-bottom: 0.5rem !important;
+.log + .log{
+    margin-top: 10px;
 }
-body{
-    font-family: 'Marine', sans-serif;
+.log + .log + .log{
+    margin-top: 10px;
+}
+.day-date-title{
+    color: #eee;
+    font-weight: 500;
+    font-size: 28px;
 }
 @media screen and (max-width: 768px) {
   .date {
@@ -86,8 +88,14 @@ body{
   .subtitle{
       font-size: 1rem
   }
-  
 }
-.worklog-logo{
-    background-image: url("")
+a.button{
+    border-radius: 0px;
+    border: none;
+}
+.logo{
+    height: 100%;
+}
+.log-form{
+    display: none;
 }

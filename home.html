@@ -3,16 +3,36 @@
     <head>
         <link rel="stylesheet" href="css/bulma.css">
         <link rel="stylesheet" href="css/style.css">
+        <script src="jquery-3.2.0.min.js"></script>
+        <script src="scripts.js"></script>
+        <script>
+            $(window).on("load",function(a) {
+               var screenwidth = window.innerWidth > 768 ? window.innerWidth - 220 : window.innerWidth - 15;
+            var e = document.getElementById("whole-thing").style.width = screenwidth + "px";
+            
+            
+         });
+           $(window).on("resize",function(a) {
+               var screenwidth = ((window.innerWidth > 768) ? window.innerWidth : screen.width) - 220;
+            var e = document.getElementById("whole-thing").style.width = screenwidth + "px";
+            
+         });
+         
+        </script>
     </head>
 <body>
-    <nav class="nav has-shadow">
+    <nav class="nav grey has-shadow">
         <div class="nav-left">
-            <figure>
-                <img src="worklogs.svg"/>
-            </figure>
+         <div class="nav-item is-hidden-touch">
+                <img src="hammerpen.png" alt="logo"/>
+         </div>
+              <div class="nav-item">   
+                  <p class="white-font title">WorkLogs</p>
+              </div>
+                
         </div>
-    <div class="nav-right grey">
-        <div class="nav-item white-font blue">
+    <div class="nav-right">
+        <div class="nav-item">
             <p class="title white-font">Hello, Spencer</p>
         </div>
     </div>
@@ -22,51 +42,53 @@
         <span></span>
     </button>
 </nav>
-<div class="menu blue nav-menu" id="navbar">
-    <ul class="menu-list">
-        <li><a>+ Add Log</a></li>
-        <li><a>* Edit Log</a></li>
-        <li><a href="index.html">- Log Out</a></li>
-    </ul>
+<div id="whole-thing">
+<div id="log-form" class="notification day" hidden>
+ <form name="newlog" action="makelog.php" method="POST">
+        
+        <label class="label white-font" for="clientname">Client's Name</label>
+        <input type="text" class="input" name="clientname" placeholder="Client name" required/>
+
+        <label class="label white-font" for="workdescription">Work Description</label>
+        <input type="text" class="input" name="description" placeholder="Description" required/>
+
+       
+        
+   
+        <input class="button blue"  type="submit" name='Submit' for="newlog" value="Submit">
+ </form>
+    <button onclick="showlog()">Close</button>
 </div>
-
-    <section>
-
+    <div id="saved-logs">
        <article class="media day">
-         <p class="subtitle is-5 log-group-date">Wednesday, March 22</p>
-         <!--<figure class="media-left date">
-            <p class="title month">March</p>
-            <p class="subtitle day">22</p>
-         </figure>-->
+         <p class="subtitle day-date-title" id="wed-mar-22">Wednesday, March 22</p>
+        
          <div class="media log">
             <div class="media-content">
-                <h3 class="title customer-name">Doug's Dog Pound</h3>
-                <p class="subtitle">Reinstalled Doggy software</p>
+                <h3 class="title customer-name">Adam's Apple Farm</h3>
+                <p class="subtitle work-description">Ran cleaning tools</p>
             </div>
          </div>
          <div class="media log">
             <div class="media-content">
                 <h3 class="title customer-name">Doug's Dog Pound</h3>
-                <p class="subtitle">Reinstalled Doggy software</p>
+                <p class="subtitle work-description">Reinstalled Doggy software</p>
             </div>
          </div>
        </article>
        <article class="media day">
-         <p class="subtitle is-5">Wednesday, March 22</p>
-         <!--<figure class="media-left date">
-            <p class="title month">March</p>
-            <p class="subtitle day">22</p>
-         </figure>-->
+         <p class="subtitle day-date-title">Tuesday, March 21</p>
+       
          <div class="media log">
             <div class="media-content">
-                <h3 class="title customer-name">Doug's Dog Pound</h3>
-                <p class="subtitle">Reinstalled Doggy software</p>
+                <h3 class="title customer-name">Sal's Sacks</h3>
+                <p class="subtitle work-description">Fixed checkout computer</p>
             </div>
          </div>
          <div class="media log">
             <div class="media-content">
                 <h3 class="title customer-name">Doug's Dog Pound</h3>
-                <p class="subtitle">Reinstalled Doggy software</p>
+                <p class="subtitle work-description">Reinstalled Doggy software</p>
             </div>
          </div>
        </article>
@@ -77,20 +99,41 @@
          </figure>
          <div class="media-content">
             <h3 class="title customer-name">Doug's Dog Pound</h3>
-            <p class="subtitle">Reinstalled Doggy software</p>
+            <p class="subtitle work-desctription">Reinstalled Doggy software</p>
          </div>
        </article>
-
-    </section>
+<div class="menu blue nav-menu" id="navbar">
+    <ul class="menu-list">
+        <li><button class="button blue is-fullwidth" onclick="showlog()" id="add-log">+ Add Log</button></li>
+        <li><a class="button blue is-fullwidth">* Edit Log</a></li>
+        <li><a class="button blue is-fullwidth" href="index.html">Log out</a></li>
+    </ul>
+</div>
+    </div>
+</div>
 </body>
 <script>	
-				function navtoggle() {
-					var d = document.getElementById("navbar");
-					if (d.classList.contains("is-active")) {
-						d.classList.remove("is-active");
-					} else {
-						d.classList.add("is-active");
-					}
-				}	 </script>
+    function navtoggle() {
+        var d = document.getElementById("navbar");
+        if (d.classList.contains("is-active")) {
+            d.classList.remove("is-active");
+        } else {
+            d.classList.add("is-active");
+        }
+    }	 
+    </script>
+    <script>
+    function addLog() {
+        var d = document.getElementById("log-form");
+        if (d.style.display == 'block'){
+            d.style.display = 'none';
+        }
+        else{
+            d.style.display = 'block';
+        }
+    }	 
+    
+        </script>
+
 
 </html>
