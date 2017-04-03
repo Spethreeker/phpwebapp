@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="css/bulma.css">
         <link rel="stylesheet" href="css/style.css">
         <script src="jquery-3.2.0.min.js"></script>
+        <script src="parsley.js"></script>
         <script src="scripts.js"></script>
         <script>
             $(window).on("load",function(a) {
@@ -47,17 +48,19 @@
  <form name="newlog" action="makelog.php" method="POST">
         
         <label class="label white-font" for="clientname">Client's Name</label>
-        <input type="text" class="input" name="clientname" placeholder="Client name" required/>
+        <input type="text" class="input" name="clientname" placeholder="Client name" required/><br><br>
 
         <label class="label white-font" for="workdescription">Work Description</label>
-        <input type="text" class="input" name="description" placeholder="Description" required/>
+        <input type="text" class="input" name="description" placeholder="Description" required/><br><br>
 
-       
+       <label class="label white-font" for "date-occurred">Date Occurred</label>
+       <input type="checkbox"/>
         
    
-        <input class="button blue"  type="submit" name='Submit' for="newlog" value="Submit">
+       <br> <input class="button light-blue"  type="submit" name='Submit' for="newlog" value="Submit">
+           <button class="button red" onclick="showlog()">Cancel</button>
  </form>
-    <button onclick="showlog()">Close</button>
+
 </div>
     <div id="saved-logs">
        <article class="media day">
@@ -104,9 +107,9 @@
        </article>
 <div class="menu blue nav-menu" id="navbar">
     <ul class="menu-list">
-        <li><button class="button blue is-fullwidth" onclick="showlog()" id="add-log">+ Add Log</button></li>
-        <li><a class="button blue is-fullwidth">* Edit Log</a></li>
-        <li><a class="button blue is-fullwidth" href="index.html">Log out</a></li>
+        <li><button class="button light-blue is-fullwidth" onclick="showlog()" id="add-log">+ Add Log</button></li>
+        <li><a class="button light-blue is-fullwidth">* Edit Log</a></li>
+        <li><a class="button light-blue is-fullwidth" href="index.html">Log out</a></li>
     </ul>
 </div>
     </div>

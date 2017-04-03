@@ -10,17 +10,25 @@ body, .customer-name{
     font-family: 'Raleway', sans-serif;
 }
 .grey{
-    background-color: #666666;
+    background-color: #556270;
 }
 .white-font{
-    color: #eeeeee;
+    color: #FCF9FC;
 }
 .blue, .day{
     background-color: #025D8C;
-    color: #eeeeee;
+    color: #FCF9FC;
 }
 .blue .button:hover{
     background: #025D9D;
+}
+.red{
+    background: #A40802;
+    color: #eee;
+}
+.light-blue{
+    background-color: #2A8FBD;
+    color: #fff;
 }
 .menu{
     width: 200px;
@@ -98,4 +106,7 @@ a.button{
 }
 .log-form{
     display: none;
+}
+li a{
+    background-color: #2A8FBD;
 }
