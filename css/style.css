@@ -3,7 +3,7 @@
     font-family: 'Marine', sans-serif;
     src: url('marineregular.otf');
 }
-body, .customer-name{
+body, .customer-name, .work-duration{
     font-family: 'Marine', sans-serif;
 }
 .work-description, .month, .day{
@@ -14,6 +14,9 @@ body, .customer-name{
 }
 .white-font{
     color: #FCF9FC;
+}
+.black-font{
+    color: slategrey;
 }
 .blue, .day{
     background-color: #025D8C;
@@ -26,17 +29,15 @@ body, .customer-name{
     background: #A40802;
     color: #eee;
 }
+
+.change-to-red{
+    background: #A40802;
+}
 .light-blue{
     background-color: #2A8FBD;
     color: #fff;
 }
-.menu{
-    width: 200px;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    top: 64px;  
-}
+
 .box{
     background-color: #025D8C;
 }
@@ -109,4 +110,18 @@ a.button{
 }
 li a{
     background-color: #2A8FBD;
+}
+.work-duration{
+    margin-top: -15px;
+    display: flex;
+    flex-direction: row;
+     color: slategray;
+     line-height: 0.5rem;
+
+}
+.work-start-time, .work-end-time{
+    font-size: 14px;
+    text-transform: uppercase;
+
+
 }
