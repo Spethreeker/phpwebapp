@@ -1,7 +1,11 @@
 <form action="user-man.php" method="POST">
-    Username:<br>
-    <input type="text" name="user" size="60"><br>
+    <input type="hidden" name="op" value="new">
+    Name:<br>
+    <input type="text" name="name" size="60"><br>
+    Email:<br>
+    <input type="text" name="email"><br>
     Password:<br>
     <input type="password" name="pass" size="60"><br>
     <input type="submit" value="Create User">
+    
 </form>

@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<?php
+    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
+        header("Location: index.php");
+
+    }
+
+?>
+
+
 <html>
     <head>
         <link rel="stylesheet" href="css/bulma.css">

@@ -1,18 +1,22 @@
+<!DOCTYPE html>
+<?php
+session_start();
+$_SESSION['message'] = '';
+?>
+
 <html>
     <head>
         <link rel="stylesheet" href="css/bulma.css">
         <link rel="stylesheet" href="css/style.css">
-       <script language="JavaScript" src="gen_validatorv4.js"
-    type="text/javascript" xml:space="preserve"></script>
     </head>
 </html>
 <body>
 <div class="container notification">
   <div class="columns">
             <div class="column is-half">
-            <form id='register' name="register" class="notification" action='adduser.php' method='post' accept-charset='UTF-8'>
+            <form id='register' name="register" class="notification" action='user-man.php' method='post' accept-charset='UTF-8'>
                 <legend>Register</legend>
-                <input type='hidden' name='submitted' id='submitted' value='1'/>
+                <input type="hidden" name="op" value="new">
                 <label for='FirstName' class="label heading">First Name</label>
                     <input type='text' class="input is-block" name='name' id='name' maxlength="50" required/>
                 <label for='Email' class="label heading" >Email Address</label>
@@ -28,19 +32,7 @@
 
     
   </div>
-  <script type="text/javascript" xml:space="preserve">
-var frmvalidator  = new Validator("register");
-    frmvalidator.addValidation("FirstName","req","Please enter your First Name");
-  frmvalidator.addValidation("FirstName","maxlen=20",	"Max length for FirstName is 20");
-  frmvalidator.addValidation("FirstName","alpha","Alphabetic chars only");
   
-  frmvalidator.addValidation("LastName","req","Please enter your Last Name");
-  frmvalidator.addValidation("LastName","maxlen=20","Max length is 20");
-  
-  frmvalidator.addValidation("Email","maxlen=50");
-  frmvalidator.addValidation("Email","req");
-  frmvalidator.addValidation("Email","email");
-</script>
 
 
 </body>
