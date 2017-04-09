@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+session_start();
     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
         header("Location: index.php");
 
@@ -44,35 +45,37 @@
    <div class="level-left">
         <button class="level-item button light-blue" onclick="showlog()" id="add-log-button">+ Add Log</button>
         <button class="level-item button light-blue">* Edit Log</button>
-        <button class="level-item button light-blue" href="index.html">Log out</button>
+        <button class="level-item button light-blue" href="index.php">Log out</button>
    </div>
 </div>
 <div id="log-form" class="day">
- <form name="newlog" action="makelog.php" method="POST" class="log">
+ <form class="notification" name="newlog" action="makelog.php" method="POST" class="log">
         <div class="field">
-        <label class="label" for="clientname">Client's Name</label>
-        <input type="text" class="input" name="clientname" placeholder="Client name" required/>
- <div class="field">
-            <legend class="field-label">Date Occured</legend>
-            <p class="control has-addons">
+            <label class="label" for="clientname">Client's Name</label>
+            <button class="button is-link is-small">+ Details</button><br>
+            <input type="text" class="input" name="clientname" placeholder="Client name" required/>
+        </div>
+        <div class="field">
+            <legend class="title blue-font">Date Occured</legend>
+            <div class="control has-addons">
                 <input type="radio" name="date-today" class="checkbox"/> 
-                  <label for="date-today" class="black-font">Today</label>
-            </p>
+                  <label for="date-today" class="black-font">Today</label><br>
+            </div>
             <p class="control">
                 <input type="date" name="date-specific" disabled><label for="date-specific" class="black-font">On This Day</label>
 
             </p>
         </div>
-        <label class="label" for="workdescription">Work Description</label>
+        <label class="label" for="workdescription">Work Description</label><br>
         <input type="text" class="input" name="description" placeholder="Description" required/><br><br>
-        </div>
-       
         
-   
-       <br> 
+        
+        <input class="button light-blue"  type="submit" name='Submit' for="newlog" value="Submit">
+        <button class="button red" onclick="showlog()">Cancel</button>
+       
  </form>
- <input class="button light-blue"  type="submit" name='Submit' for="newlog" value="Submit">
-           <button class="button red" onclick="showlog()">Cancel</button>
+ <br>
+ 
 
 </div>
     <div id="saved-logs">

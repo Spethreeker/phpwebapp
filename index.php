@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<?php
-  session_start();
+<!--<?php
+  // session_start();
 
-  $email = "email";
-  $password = "password";
+  // $email = "email";
+  // $password = "password";
 
-  if (isset($_SESSION['loggedin']) && $session['loggedin'] == true) {
-    header("Location: home.php");
-  }
+  // if (isset($_SESSION['loggedin']) && $session['loggedin'] == true) {
+  //   header("Location: home.php");
+  // }
 
-  if (isset ($_POST['email']) && isset($_POST['password'])){
-    if($_POST['email'] == $email && $_POST['password'] == $password){
-      $_SESSION['loggedin'] = true;
-      header("Location: home.php");
-    }
+  // if (isset ($_POST['email']) && isset($_POST['password'])){
+  //   if($_POST['email'] == $email && $_POST['password'] == $password){
+  //     $_SESSION['loggedin'] = true;
+  //     header("Location: home.php");
+  //   }
 
-  }
+  // }
 ?>
-
+-->
 
 <html>
     <head>
@@ -30,7 +30,7 @@
 </html>
 <body>
 <div class="container notification">
-  <form id='login' class="notification" name="login" action='user-man.php' method='post' accept-charset='UTF-8'>
+  <form id='login' class="notification" name="loginform" action='user-login.php' method='post' accept-charset='UTF-8'>
     <input type="hidden" name="op" value="login">
     <label for='email' class="label heading light-gray" >Email Address</label>
     <input type='email' class="input" name='email' id='Email' maxlength="50" required/>

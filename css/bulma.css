@@ -1867,7 +1867,7 @@ input[type="submit"].button {
 
 .label {
   color: #363636;
-  display: block;
+  display: inline;
   font-size: 1rem;
   font-weight: 700;
 }

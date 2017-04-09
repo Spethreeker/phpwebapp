@@ -29,8 +29,8 @@
     $db_name = 'worklogs';
 
     $name = get_post_var('name');
-    // if (!preg_match('/^[a-zA-Z0-9_]{1,60}$/', $name))
-    //     fail('Invalid First Name. Please use alphanumeric characters');
+    if (!preg_match('/^[a-zA-Z0-9_]{1,60}$/', $name))
+        fail('Invalid First Name. Please use alphanumeric characters');
     $email = get_post_var('email');
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
         fail('Invalid email. Please use alphanumeric characters');}
@@ -67,26 +67,6 @@
             fail ('MySQL execute', $db->error);
     }
     $_SESSION['result'] = 'User Created!';
-    }else{
-        $hash = '*'; //in case the user is not found
-        ($stmt = $db->prepare('select password from users where email=?'))
-            || fail('MySQL prepare', $db->error);
-        $stmt->bind_param('s', $name)
-            || fail('MySQL bind_param', $db->error);
-        $stmt->execute()
-            || fail('MySQL execute', $db->error);
-        $stmt->bind_result($hash)
-            || fail('MySQL bind_result', $db->error);
-        if($stmt->fetch() && $db->errno)
-            fail('MySQL fetch', $db->error);
-
-        if ($hasher->CheckPassword($pass, $hash)) {
-            $_SESSION['result'] = 'Authentication Succeeded!' ;
-        }
-        else{
-           $_SESSION['result'] = 'Authentication Failed :(';
-        }
-        unset($hasher);
     }
     header("Location: success.php");
 

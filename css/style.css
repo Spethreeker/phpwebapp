@@ -18,6 +18,9 @@ body, .customer-name, .work-duration{
 .black-font{
     color: slategrey;
 }
+.blue-font{
+    color: #025D8C !important;
+}
 .blue, .day{
     background-color: #025D8C;
     color: #FCF9FC;
@@ -47,17 +50,7 @@ body, .customer-name, .work-duration{
 .menu-list a{
     color: #eee;
 }
-/*.date{
-    text-align: center;
-    box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.5);
-    margin-right: 15px;
-    padding: 10px;
-    width: 120px;
-    background: whitesmoke;
-}*/
-/*.date .subtitle {
-    margin-top: -5px;
-}*/
+
 .media-content{
     padding-left: 5px;
     padding-right: 5px;
@@ -124,4 +117,7 @@ li a{
     text-transform: uppercase;
 
 
+}
+.blue-font{
+    color: #025D8C !important;
 }
