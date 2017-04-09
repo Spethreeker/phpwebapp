@@ -9,38 +9,22 @@ body, .customer-name, .work-duration{
 .work-description, .month, .day{
     font-family: 'Raleway', sans-serif;
 }
-.grey{
-    background-color: #556270;
-}
-.white-font{
-    color: #FCF9FC;
-}
-.black-font{
-    color: slategrey;
-}
-.blue-font{
-    color: #025D8C !important;
-}
-.blue, .day{
-    background-color: #025D8C;
-    color: #FCF9FC;
-}
-.blue .button:hover{
-    background: #025D9D;
-}
-.red{
-    background: #A40802;
+.grey{    background-color: #556270;}
+.white-font{    color: #FCF9FC;}
+.black-font{    color: slategrey;}
+.blue-font{    color: #025D8C !important;}
+.blue, .day{    background-color: #025D8C;
+    color: #FCF9FC;}
+.blue .button:hover{    background: #025D9D;}
+.red{    background: #A40802;
+    color: #eee;}
+.change-to-red{    background: #A40802;}
+.light-blue{    background-color: #2A8FBD;
+    color: #fff;}
+.green{
+    background: #06B083;
     color: #eee;
 }
-
-.change-to-red{
-    background: #A40802;
-}
-.light-blue{
-    background-color: #2A8FBD;
-    color: #fff;
-}
-
 .box{
     background-color: #025D8C;
 }
@@ -110,13 +94,10 @@ li a{
     flex-direction: row;
      color: slategray;
      line-height: 0.5rem;
-
 }
 .work-start-time, .work-end-time{
     font-size: 14px;
     text-transform: uppercase;
-
-
 }
 .blue-font{
     color: #025D8C !important;

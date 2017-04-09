@@ -690,7 +690,7 @@ a.box:active {
   margin-right: calc(-0.375em - 1px);
 }
 .button:focus, .button.is-focused {
-  border-color: #00d1b2;
+  border-color: #2A8FBD;
   box-shadow: 0 0 0.5em rgba(0, 209, 178, 0.25);
   color: #363636;
 }
