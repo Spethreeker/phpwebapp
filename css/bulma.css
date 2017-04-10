@@ -656,6 +656,7 @@ a.box:active {
   padding-right: 0.75em;
   text-align: center;
   white-space: nowrap;
+  margin-top: 1px;
 }
 
 .button:focus, .button.is-focused, .button:active, .button.is-active {
@@ -692,7 +693,7 @@ a.box:active {
 .button:focus, .button.is-focused {
   border-color: #2A8FBD;
   box-shadow: 0 0 0.5em rgba(0, 209, 178, 0.25);
-  color: #363636;
+  color: #eee;
 }
 
 .button:active, .button.is-active {
@@ -712,7 +713,10 @@ a.box:active {
   background-color: whitesmoke;
   color: #363636;
 }
-
+.button.is-link.light-blue{
+  background: #2A8FBD;
+  color: #eee;
+}
 .button.is-white {
   background-color: white;
   border-color: transparent;
@@ -1869,7 +1873,7 @@ input[type="submit"].button {
   color: #363636;
   display: inline;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .label:not(:last-child) {
@@ -3674,7 +3678,7 @@ input[type="submit"].button {
 }
 
 .nav-toggle span {
-  background-color: #4a4a4a;
+  background-color: #eee;
   display: block;
   height: 1px;
   left: 50%;
@@ -3707,7 +3711,7 @@ input[type="submit"].button {
 }
 
 .nav-toggle.is-active span {
-  background-color: #00d1b2;
+  /*background-color: #00d1b2;*/
 }
 
 .nav-toggle.is-active span:nth-child(1) {

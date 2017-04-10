@@ -7,11 +7,3 @@ function showlog() {
        
    }
 };
-function showClientDetails() {
-                  $('#client-details').fadeIn("fast");
-   
-};
-function hideClientDetails() {
-                  $('#client-details').fadeOut("fast");
-   
-};
