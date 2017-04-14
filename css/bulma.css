@@ -2111,9 +2111,9 @@ input[type="submit"].button {
 
 .control.has-icon .icon {
   color: #dbdbdb;
-  height: 2.25em;
+  /*height: 2.25em;*/
   pointer-events: none;
-  position: absolute;
+  position: relative;
   top: 0;
   width: 2.25em;
   z-index: 4;

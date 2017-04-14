@@ -14,11 +14,17 @@ session_start();
         <script src="js/scripts.js"></script>
         <script src="js/SmoothScroll.js"></script>
         <script src="js/easing.js"></script>
+        <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
         <script>
+            var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             $(document).ready(function () {
                 $('#client-details').hide();
                 jQuery.easing.def = 'easeOutQuad';
+                 var todaysdate = new Date();
+                document.getElementById("today").innerHTML = days[todaysdate.getDay()] + ", " + months[todaysdate.getMonth()] + " " + todaysdate.getDate();
             });
+           
         </script>
     </head>
     <body>
@@ -45,13 +51,13 @@ session_start();
         </nav>
 
         <div class="container" id="whole-thing">
-            <div class="level nav-menu" id="navbar">
-                <div class="level-left">
+            <!--<div class="level nav-menu" id="navbar">
+                <div class="level-right">
                     <button class="level-item button light-blue" onclick="showlog()" id="add-log-button">+ Add Log</button>
                     <button class="level-item button light-blue">* Edit Log</button>
                     <button class="level-item button light-blue" href="index.php">Log out</button>
                 </div>
-            </div>
+            </div>-->
             <div id="log-form" class="log-form">
                 <form class="notification" name="newlog" action="makelog.php" method="POST" class="log">
                     <div class="tile is-ancestor">
@@ -106,9 +112,12 @@ session_start();
                             </div>
                         </fieldset>
 
-                        <fieldset class="tile is-3" style="border: none;">
-                            <button class="button green" type="submit" name='Submit' for="newlog">Submit</button>
-                            <button class="button red" type="button" onclick="showlog()">Cancel</button>
+                        <fieldset class="tile is-child is-3" style="border: none;">
+                            <button class="button green control has-icon" type="submit" name='Submit' for="newlog">
+                               <span class="icon"> <i class="fa fa-check" aria-hidden="true"></i></span>Submit
+                            </button>
+                            <button class="button red control has-icon" type="button" onclick="showlog()">
+                                <span class="icon"><i class="fa fa-times" aria-hidden="true"></i></span> Cancel</button>
                         </fieldset>
 
 
@@ -119,6 +128,20 @@ session_start();
 
             </div>
             <div id="saved-logs">
+                <article class="media day">
+                    <div class="level">
+                    <div class="level-left">
+                    <p class="title is-3 day-date-title" id="today"></p>
+                    <h3 class="subtitle black-font">There's no logs for today :(</h3>
+                     </div>
+                     <div class="level-right">
+                        <button class="level-item button light-blue" onclick="showlog()" id="add-log-button">+ Add Log</button>
+                        <button class="level-item button light-blue">* Edit Log</button>
+                        <button class="level-item button light-blue" href="index.php">Log out</button>
+                    </div>
+
+                    </div>
+                </article>
                 <article class="media day">
                     <p class="subtitle day-date-title" id="wed-mar-22">Wednesday, March 22</p>
 
