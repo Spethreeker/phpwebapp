@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<!--<?php
-  // session_start();
+<?php
+  session_start();
 
-  // $email = "email";
-  // $password = "password";
+  $email = "email";
+  $password = "password";
 
-  // if (isset($_SESSION['loggedin']) && $session['loggedin'] == true) {
-  //   header("Location: home.php");
-  // }
+  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    header("Location: home.php");
+  }
 
-  // if (isset ($_POST['email']) && isset($_POST['password'])){
-  //   if($_POST['email'] == $email && $_POST['password'] == $password){
-  //     $_SESSION['loggedin'] = true;
-  //     header("Location: home.php");
-  //   }
+  if (isset ($_POST['email']) && isset($_POST['password'])){
+    if($_POST['email'] == $email && $_POST['password'] == $password){
+      $_SESSION['loggedin'] = true;
+      header("Location: home.php");
+    }
 
-  // }
+  }
 ?>
--->
 
 <html>
     <head>
@@ -38,7 +37,9 @@
     <input class="input"  type='password' name='password' id='password' maxlength="50" required/>
     <br><br>
     <input class="button light-blue"  type='submit' name='Submit' value='Login'>
-   
+   <?php
+   echo($_SESSION['result']);
+   ?>
   </form>
    <h3 class="title light-gray">Or, if you don't have an account:</h3>
     <a class="button light-blue" href="register.php">Register</a>

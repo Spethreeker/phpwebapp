@@ -66,6 +66,7 @@
         }
         else{
            $_SESSION['result'] = 'Authentication Failed :(';
+           header("Location: index.php");
         }
     unset($hasher);
     
