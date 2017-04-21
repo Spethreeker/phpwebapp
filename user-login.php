@@ -61,8 +61,11 @@
         fail('MySQL fetch', $db->error);
 
         if ($hasher->CheckPassword($pass, $hash)) {
-            header("Location: home.php");
+           $userFirstName = $db->query('SELECT name FROM users WHERE email=$email');
+            setcookie($userFirstName, time() +(86400*30), "/"); //86400 = 1 day
             $_SESSION['loggedin'] = true;
+            header("Location: home.php");
+           
         }
         else{
            $_SESSION['result'] = 'Authentication Failed :(';
