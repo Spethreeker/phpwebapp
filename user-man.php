@@ -1,18 +1,10 @@
 <?php 
     header('Content-Type: text/plain');
     require 'PasswordHash.php';
+    require 'config.php';
     //$fail function
     session_start();
-    $debug = TRUE;
-
-    function fail($pub, $pvt = '')
-    {
-        global $debug;
-        $msg = $pub;
-        if ($debug && $pvt !== '')
-            $msg .= ": $pvt";
-        exit("An error occurred: $msg.\n");
-    }
+    $debug = false;
     function get_post_var($var)
     {
         $val = $_POST[$var];
@@ -23,11 +15,6 @@
  
     
     //Post Variables and normalizing them
-    $db_host = 'localhost';
-    $db_user = 'root';
-    $db_pass = 'root';
-    $db_name = 'worklogs';
-
     $name = get_post_var('name');
     if (!preg_match('/^[a-zA-Z0-9_]{1,60}$/', $name))
         fail('Invalid First Name. Please use alphanumeric characters');
@@ -69,8 +56,11 @@
     $_SESSION['result'] = 'User Created!';
     }
     header("Location: success.php");
-
-
+    $_GET['userFirstName'] = $name;
+    unset($hasher);
+    
+    $stmt->close();
+    $db->close();
 
 
 

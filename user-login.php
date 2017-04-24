@@ -1,18 +1,10 @@
 <?php 
     header('Content-Type: text/plain');
     require 'PasswordHash.php';
+    require 'config.php';
     //$fail function
     session_start();
     $debug = TRUE;
-
-    function fail($pub, $pvt = '')
-    {
-        global $debug;
-        $msg = $pub;
-        if ($debug && $pvt !== '')
-            $msg .= ": $pvt";
-        exit("An error occurred: $msg.\n");
-    }
     function get_post_var($var)
     {
         $val = $_POST[$var];
@@ -20,13 +12,7 @@
             $val = stripslashes($val);
         return $val;
     }
- 
-    
     //Post Variables and normalizing them
-    $db_host = 'localhost';
-    $db_user = 'root';
-    $db_pass = 'root';
-    $db_name = 'worklogs';
 
     
     $email = get_post_var('email');
@@ -57,12 +43,12 @@
         || fail('MySQL execute', $db->error);
     $stmt->bind_result($hash)
         || fail('MySQL bind_result', $db->error);
-    if($stmt->fetch() && $db->errno)
+    if(!$stmt->fetch() && $db->errno)
         fail('MySQL fetch', $db->error);
 
         if ($hasher->CheckPassword($pass, $hash)) {
-           $userFirstName = $db->query('SELECT name FROM users WHERE email=$email');
-            setcookie($userFirstName, time() +(86400*30), "/"); //86400 = 1 day
+           $_SESSION['username'] = $db->query('SELECT name FROM users WHERE email=$email');
+            // setcookie('username', $userFirstName, time() +(86400*30), "/"); //86400 = 1 day
             $_SESSION['loggedin'] = true;
             header("Location: home.php");
            

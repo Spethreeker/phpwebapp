@@ -4,9 +4,13 @@ session_start();
     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
         header("Location: index.php");
     }
+
 ?>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="stylesheet" href="css/bulma.css">
         <link rel="stylesheet" href="css/style.css">
         <script src="js/jquery-3.2.0.min.js"></script>
@@ -16,6 +20,7 @@ session_start();
         <script src="js/easing.js"></script>
         <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
         <script>
+            
             var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
             var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             $(document).ready(function () {
@@ -23,8 +28,13 @@ session_start();
                 jQuery.easing.def = 'easeOutQuad';
                  var todaysdate = new Date();
                 document.getElementById("today").innerHTML = days[todaysdate.getDay()] + ", " + months[todaysdate.getMonth()] + " " + todaysdate.getDate();
+                var form = $('#newlog');
+
+                form.submit(function(event){
+                    var clientname = $('#')
+                })
             });
-           
+     
         </script>
     </head>
     <body>
@@ -42,8 +52,8 @@ session_start();
                 <div class="nav-item">
                     <p class="title white-font">
                         <?php
-                        if(!isset($_COOKIE[$userFirstName])) {
-                            echo($userFirstName);
+                        if(isset($_SESSION['username'])) {
+                            echo $_SESSION['username'];
                         }else{
                             echo("fuck");
                         }
@@ -64,7 +74,7 @@ session_start();
             </div>-->
             
             <div id="saved-logs">
-            <article class=" day">
+            <article class="day">
             <div class="">
             <div>
               <p class="title is-3 day-date-title" id="today"></p>
@@ -77,30 +87,25 @@ session_start();
             </div>
 
             </div>
-            <div id="log-form" class="log-form">
-                <form class="notification" name="newlog" action="makelog.php" method="POST" class="log">
+            <div id="log-form">
+                <form class="notification" id="newlog" name="newlog" method="POST" class="log" >
                     <div class="tile is-ancestor">
                            <fieldset class="tile is-parent is-2" >
                             <div class="tile is-child">
                                 <label class="label" for="clientname">Client Name</label> <br>
-                                <input type="text" class="input" name="clientname" placeholder="Client name" /><br>
+                                <input type="text" class="input" id="clientName" name="clientname" placeholder="Client name" /><br>
                                 <button class="button is-link is-small light-blue" type="button" onclick="toggleClientDetails()">+ Client Details</button>
                             </div>
-                           
                             <div class="tile is-child" id="client-details">
                                  <label class="label" for="clientphone">Phone Number</label><br>
                                 <input type="tel" class="input" name="clientphone" placeholder="" /><br>
-                                <label class="label" for="clientcontact">Contact Name</label>
-                                <br>
-                                <input type="text" class="input" name="clientcontact"/>
-                                <br>
+                                <label class="label" for="clientcontact">Contact Name</label><br>
+                                <input type="text" class="input" name="clientcontact"/><br>
                                 <label class="label" for="clientadress">Address</label><br>
                                 <input type="text" class="input" name="clientaddress" /><br>
-                                <button type="button" class="button is-small green" onclick="saveClientDetails()">Save Details</button>
+                                <button type="button" class="submit-button button is-small green"  onclick="saveClientDetails()">Save Details</button>
                             </div>
-                  
                         </fieldset>
-                        
                         <fieldset class="tile is-parent is-2">
                             <div class="tile is-child">
                                 <label class="label" for="workdescription">Issue</label><br>
@@ -118,7 +123,7 @@ session_start();
                     <div class="tile is-ancestor">
                         
                         <fieldset class="tile is-child is-3" style="border: none;">
-                            <button class="button green control has-icon" type="submit" name='Submit' for="newlog">
+                            <button class="button green control has-icon" type="button" onclick="submitLog()" name='Submit'>
                                <span class="icon"> <i class="fa fa-check" aria-hidden="true"></i></span>Submit
                             </button>
                             <button class="button red control has-icon" type="button" onclick="showlog()">
@@ -129,71 +134,44 @@ session_start();
                 <br>
             </div>
             </article>
-                <!--<article class="media day">
+            <article class="media day">
                     <p class="subtitle day-date-title" id="wed-mar-22">Wednesday, March 22</p>
-
-                    <div class="media log">
-                        <div class="media-content">
-                            <h3 class="title customer-name">Adam's Apple Farm</h3>
-                            <p class="subtitle work-description">Ran cleaning tools</p>
-                            <div class="work-duration">
-                                <p class="work-start-time">9:25 A.M.</p>
-                                <p>&nbsp-&nbsp</p>
-                                <p class="work-end-time">10:00 A.M.</p>
-                            </div>
-                        </div>
+                <div class="media log">
+                 <div class="media-content">
+                     <h3 class="title customer-name">Adam's Apple Farm</h3>
+                    <p class="subtitle work-description">Ran cleaning tools</p>
+                    <div class="work-duration">
+                    <p class="work-start-time">9:25 A.M.</p> <p>&nbsp-&nbsp</p>
+                    <p class="work-end-time">10:00 A.M.</p>
+                </div>
+                </div>
+            </div>
+            <div class="media log">
+                <div class="media-content">
+                    <h3 class="title customer-name">Doug's Dog Pound</h3>
+                    <p class="subtitle work-description">Reinstalled Doggy software</p>
+                    <div class="work-duration">
+                        <p class="work-start-time">9:25 A.M.</p> <p>&nbsp-&nbsp</p>
+                        <p class="work-end-time">10:00 A.M.</p>
                     </div>
-                    <div class="media log">
-                        <div class="media-content">
-                            <h3 class="title customer-name">Doug's Dog Pound</h3>
-                            <p class="subtitle work-description">Reinstalled Doggy software</p>
-                            <div class="work-duration">
-                                <p class="work-start-time">9:25 A.M.</p>
-                                <p>&nbsp-&nbsp</p>
-                                <p class="work-end-time">10:00 A.M.</p>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="media day">
-                    <p class="subtitle day-date-title">Tuesday, March 21</p>
-
-                    <div class="media log">
-                        <div class="media-content">
-                            <h3 class="title customer-name">Sal's Sacks</h3>
-                            <p class="subtitle work-description">Fixed checkout computer</p>
-                        </div>
-                    </div>
-                    <div class="media log">
-                        <div class="media-content">
-                            <h3 class="title customer-name">Doug's Dog Pound</h3>
-                            <p class="subtitle work-description">Reinstalled Doggy software</p>
-                        </div>
-                    </div>
-                </article>
-                <article class="media log">
-                    <figure class="media-left date">
-                        <p class="title month">Monday</p>
-                        <p class="subtitle day">March 20</p>
-                    </figure>
-                    <div class="media-content">
-                        <h3 class="title customer-name">Doug's Dog Pound</h3>
-                        <p class="subtitle work-desctription">Reinstalled Doggy software</p>
-                    </div>
-                </article>-->
-
+                </div>
+            </div>
+       </article>
             </div>
         </div>
     </body>
     <script>
-        function navtoggle() {
-            var d = document.getElementById("navbar");
-            if (d.classList.contains("is-active")) {
-                d.classList.remove("is-active");
-            } else {
-                d.classList.add("is-active");
-            }
-        }
+    
+        // function submitLog() {
+        //     $.post('submitlog.php', $('#newlog').serialize());
+            // function(data){
+            //     if(data=="success"){
+            //         alert("Yay");}
+            //         else{
+            //             alert("Nay :(");
+            //         }
+            // });
+        // }          
     </script>
 
     </html>

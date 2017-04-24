@@ -77,10 +77,7 @@ body, .customer-name, .work-duration{
       font-size: 1rem
   }
 }
-a.button{
-    border-radius: 0px;
-    border: none;
-}
+
 .logo{
     height: 100%;
 }

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 
 <?php
+
   session_start();
-  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    header("Location: home.php");
-  }
+  // if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+  //   header("Location: home.php");
+  // }
 ?>
 <html>
   <head>
@@ -34,16 +35,20 @@
        <label class="label heading light-gray"  for='password' >Password</label>
        <input class="input"  type='password' name='password' id='password' required/>
      </div>
-    
-     <input class="button light-blue"  type='submit' name='Submit' value='Login'>
-   <?php
-   //echo($_SESSION['result']);
+     <?php
+      if(!isset($_SESSION['result'])) {
+                            echo(" ");
+                        }else{
+                            echo $_SESSION['result'];
+                        }
    ?>
+     <input class="button light-blue"  type='submit' name='Submit' value='Login'>
+   
    </form>
   </div>
    <div class="column">
     <h3 class="title light-gray">Or, if you don't have an account:</h3>
-    <button class="button light-blue" href="register.php">Register</button>
+    <a class="button light-blue" href="register.php">Register</a>
    </div>
  </div>
 </div>
