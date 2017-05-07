@@ -2,7 +2,6 @@
     header('Content-Type: text/plain');
     require 'PasswordHash.php';
     require 'config.php';
-    //$fail function
     session_start();
     $debug = false;
     function get_post_var($var)
@@ -36,7 +35,7 @@
     if ($op !== 'new' && $op !=='login')
         fail('Unknown Request');
        
-    if ($op === 'new'){ //Hashing
+    if ($op === 'new'){
       
     $db = new mysqli($db_host, $db_user, $db_pass, $db_name);
     if (mysqli_connect_errno()) //connect to server

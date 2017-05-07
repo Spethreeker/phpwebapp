@@ -12,6 +12,12 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="css/bulma.css">
     <link rel="stylesheet" href="css/style.css">
+     <script src="js/jquery-3.2.0.min.js"></script>
+     <script src="js/parsley.min.js"></script>
+     <script src="js/scripts.js"></script>
+     <script>
+     
+     </script>
   </head>
 </html>
 <body>
@@ -25,7 +31,7 @@
   </div>
   <div class="columns">
     <div  class="column">
-     <form id='login' class="notification" name="loginform" action='user-login.php' method='post' accept-charset='UTF-8'>
+     <form id='login' class="notification" action="user-login.php" name="loginform" method='post' accept-charset='UTF-8' data-parsley-validate>
      <input type="hidden" name="op" value="login">
      <div class="field">
        <label for='email' class="label heading light-gray" >Email Address</label>
@@ -37,9 +43,9 @@
      </div>
      <?php
       if(!isset($_SESSION['result'])) {
-                            echo(" ");
+                            echo("<br>");
                         }else{
-                            echo $_SESSION['result'];
+                            echo $_SESSION['result']."<br>";
                         }
    ?>
      <input class="button light-blue"  type='submit' name='Submit' value='Login'>
