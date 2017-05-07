@@ -1,17 +1,11 @@
 <?php 
-    header('Content-Type: text/plain');
+    // header('Content-Type: text/plain');
     require 'PasswordHash.php';
     require 'config.php';
     //$fail function
     session_start();
-    $debug = TRUE;
-    function get_post_var($var)
-    {
-        $val = $_POST[$var];
-        if (get_magic_quotes_gpc())
-            $val = stripslashes($val);
-        return $val;
-    }
+    $debug = true;;
+   
     //Post Variables and normalizing them
 
     
@@ -29,41 +23,40 @@
     if (strlen($hash) < 20)
         fail('Failed to has new password');
     
+    $hash = '*'; //in case the user is not found
    
      $db = new mysqli($db_host, $db_user, $db_pass, $db_name);
     if (mysqli_connect_errno()) //connect to server
         fail('MySQL connect', mysqli_connect_error());
-
-    $hash = '*'; //in case the user is not found
-    ($stmt = $db->prepare('select password from users where email=?'))
+    $name = '*';
+    $hash='*';
+    $id = '*';
+    ($stmt = $db->prepare('select id, name, password from users where email=?'))
         || fail('MySQL prepare', $db->error);
     $stmt->bind_param('s', $email)
         || fail('MySQL bind_param', $db->error);
     $stmt->execute()
         || fail('MySQL execute', $db->error);
-    $stmt->bind_result($hash)
+    $stmt->bind_result($id, $name, $hash)
         || fail('MySQL bind_result', $db->error);
     if(!$stmt->fetch() && $db->errno)
         fail('MySQL fetch', $db->error);
        
-        if (!$hasher->CheckPassword($pass, $hash)) {
-           $_SESSION['result'] = 'Authentication Failed :(';
-           header("Location: index.php");
+        if ($hasher->CheckPassword($pass, $hash)) {
+        $_SESSION['id'] = $id;
+        $_SESSION['name'] = $name;
+        $_SESSION['loggedin'] = true;
+        //  setcookie('username', $userFirstName, time() +(86400*30), "/"); //86400 = 1 day
+         header("Location: home.php");
        }else{
-           mysqli_free_result($stmt);
-        ($username = $db->query("SELECT name FROM users WHERE email='$email'"));
-            if (!$username)
-                fail($db->error);
-
-            while ($obj = $username->fetch_object()){
-                printf ("%s (%s)\n", $obj->name);
+           $_SESSION['result'] = 'Authentication Failed :(';
+        //    header("Location: index.php");
+          echo "Wrong password";
         }
-         // setcookie('username', $userFirstName, time() +(86400*30), "/"); //86400 = 1 day
-         // $_SESSION['loggedin'] = true;
-         // header("Location: home.php");
            
-        }
+        
     unset($hasher);
+    // $stmt->free_result();
     $stmt->close();
     $db->close();
     ?>

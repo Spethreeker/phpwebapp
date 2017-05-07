@@ -4,7 +4,8 @@ session_start();
     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
         header("Location: index.php");
     }
-
+    $greetings_array = array("Hello, ", "Howdy, ", "What's up, ", "Bonjour, ", "Hola, ");
+    $greeting = $greetings_array[array_rand($greetings_array)];
 ?>
 <html>
     <head>
@@ -14,31 +15,58 @@ session_start();
         <link rel="stylesheet" href="css/bulma.css">
         <link rel="stylesheet" href="css/style.css">
         <script src="js/jquery-3.2.0.min.js"></script>
-        <script src="js/parsley.js"></script>
+        <script src="js/parsley.min.js"></script>
+        <script src="js/handlebars-v4.0.5.js"></script>
         <script src="js/scripts.js"></script>
-        <script src="js/SmoothScroll.js"></script>
+        <!--<script src="js/SmoothScroll.js"></script>-->
         <script src="js/easing.js"></script>
         <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
         <script>
-            
             var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
             var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var todaysdate = new Date();
+            jQuery.easing.def = 'easeOutQuad';
             $(document).ready(function () {
-                $('#client-details').hide();
-                jQuery.easing.def = 'easeOutQuad';
-                 var todaysdate = new Date();
                 document.getElementById("today").innerHTML = days[todaysdate.getDay()] + ", " + months[todaysdate.getMonth()] + " " + todaysdate.getDate();
                 var form = $('#newlog');
-                form.submit(function(event){
-                    var clientname = $('#')
-                })
+                //  $('#client-details').hide();
             });
-     
+        </script>
+        <script ajax>
+    
+            // var go = getElementById("#submitbutton").addEventListener("click", function(){
+                function go(){
+                    var clientName = $.trim($('#clientName').val());
+                    var issue = $.trim($('#issue').val());
+                    var hoursWorked = $.trim($('#hoursWorked').val());
+                    var description= $.trim($('#description').val());
+                    var jsonObject = {};
+                    jsonObject.name = clientName;
+                    jsonObject.issue = issue;
+                    jsonObject.hoursWorked = hoursWorked;
+                    jsonObject.descripton = description;
+                    $.post('submit-log.php',{
+                                           clientname: clientName,
+                                           issue: issue,
+                                           hours_worked: hoursWorked,
+                                           description: description
+                                        }, function(data) {
+                        createHTML(jsonObject);
+                        alert(data);
+                    });
+                event.preventDefault();
+                };
+        </script>
+        <script>
+            function logout(){
+            $.post('logout.php',function(data){window.open(data);});
+            };
         </script>
     </head>
     <body>
         <nav class="nav grey has-shadow">
             <div class="nav-left">
+        
                 <div class="nav-item is-hidden-touch">
                     <img src="hammerpen.png" alt="logo" />
                 </div>
@@ -49,31 +77,23 @@ session_start();
             </div>
             <div class="nav-right">
                 <div class="nav-item">
-                                    <button class=" button light-blue" href="index.php">Log out</button>
 
                     <p class="title white-font">
                         <?php
-                        if(isset($_SESSION['username'])) {
-                            echo $_SESSION['username'];
-                        }else{
-                            echo("fuck");
+                        if(isset($_SESSION['name'])) {
+                            echo $greeting.$_SESSION['name'];
                         }
                         ?>
                     </p>
+                    
+                    </div>
+                     <div class="nav-item"><button class="button light-blue" onclick="logout();">Log out</button>
                 </div>
             </div>
             
         </nav>
 
-        <div class="container" id="whole-thing">
-            <!--<div class="level nav-menu" id="navbar">
-                <div class="level-right">
-                    <button class="level-item button light-blue" onclick="showlog()" id="add-log-button">+ Add Log</button>
-                    <button class="level-item button light-blue">* Edit Log</button>
-                    <button class="level-item button light-blue" href="index.php">Log out</button>
-                </div>
-            </div>-->
-            
+        <div class="container" id="whole-thing">            
             <div id="saved-logs">
             <article class="day">
             <div class="">
@@ -90,11 +110,11 @@ session_start();
             <div id="log-form">
                 <form class="notification" id="newlog" name="newlog" method="POST" class="log" >
                     <div class="tile is-ancestor">
-                           <fieldset class="tile is-parent is-2" >
+                           <div class="tile is-parent is-3" >
                             <div class="tile is-child">
                                 <label class="label" for="clientname">Client Name</label> <br>
                                 <input type="text" class="input" id="clientName" name="clientname" placeholder="Client name" /><br>
-                                <!--<button class="button is-link is-small light-blue" type="button" onclick="toggleClientDetails()">+ Client Details</button>-->
+                                <button class="button is-link is-small light-blue" type="button" onclick="toggleClientDetails()">+ Client Details</button>
                             </div>
                             <div class="tile is-child" id="client-details">
                                  <label class="label" for="clientphone">Phone Number</label><br>
@@ -105,25 +125,25 @@ session_start();
                                 <input type="text" class="input" name="clientaddress" /><br>
                                 <button type="button" class="submit-button button is-small green"  onclick="saveClientDetails()">Save Details</button>
                             </div>
-                        </fieldset>
-                        <fieldset class="tile is-parent is-2">
+                        </div>
+                        <div class="tile is-parent">
                             <div class="tile is-child">
                                 <label class="label" for="workdescription">Issue</label><br>
-                                <input type="text" class="input" name="description" placeholder="What was wrong" />
+                                <input type="text" class="input" name="issue" id="issue" placeholder="What was wrong" />
                             </div>
                             <div class="tile is-child" id="work-description">
                                 <label class="label" for="workdescription">Hours Worked</label><br>
-                                <input type="number" class="" name="timetaken" placeholder="in hours" maxlength="4"  size="4"/><br/>
+                                <input type="number" class="" id="hoursWorked" placeholder="in hours" maxlength="4"  size="4"/><br/>
                                 <label class="label" for="longDescription">Work Description</label>
-                                <textarea type="textarea" class="textarea" name="longDescription" placeholder="Describe"></textarea>
+                                <textarea type="textarea" class="textarea" id="description" placeholder="Describe"></textarea>
                             </div>
-                        </fieldset>
+                        </div>
                      
                     </div>
                     <div class="tile is-ancestor">
                         
                         <fieldset class="tile is-child is-3" style="border: none;">
-                            <button class="button green control has-icon" type="button" onclick="submitLog()" name='Submit'>
+                            <button class="button green control has-icon" type="submit" id="submitbutton" onclick="go()" name='Submit'>
                                <span class="icon"> <i class="fa fa-check" aria-hidden="true"></i></span>Submit
                             </button>
                             <button class="button red control has-icon" type="button" onclick="showlog()">
@@ -131,7 +151,9 @@ session_start();
                         </fieldset>
                     </div>
                 </form>
-                <br>
+            </div><br>
+            <div id="log-container">
+                
             </div>
             </article>
             <article class="media day">
@@ -162,16 +184,19 @@ session_start();
     </body>
     <script>
     
-        // function submitLog() {
-        //     $.post('submitlog.php', $('#newlog').serialize());
-            // function(data){
-            //     if(data=="success"){
-            //         alert("Yay");}
-            //         else{
-            //             alert("Nay :(");
-            //         }
-            // });
-        // }          
+     
+    </script>
+    <script id="log-template" type="text/x-handlebars-template">
+       <div class="media log">
+                <div class="media-content">
+                    <h3 class="title customer-name">{{name}}</h3>
+                    <p class="subtitle work-description">{{issue}}</p>
+                    <div class="work-duration">
+                        <p class="work-start-time">9:25 A.M.</p> <p>&nbsp-&nbsp</p>
+                        <p class="work-end-time">10:00 A.M.</p>
+                    </div>
+                </div>
+            </div>
     </script>
 
     </html>

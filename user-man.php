@@ -4,15 +4,6 @@
     require 'config.php';
     session_start();
     $debug = false;
-    function get_post_var($var)
-    {
-        $val = $_POST[$var];
-        if (get_magic_quotes_gpc())
-            $val = stripslashes($val);
-        return $val;
-    }
- 
-    
     //Post Variables and normalizing them
     $name = get_post_var('name');
     if (!preg_match('/^[a-zA-Z0-9_]{1,60}$/', $name))

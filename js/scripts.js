@@ -15,15 +15,9 @@ function saveClientDetails() {
                   $('#client-details').fadeOut("fast");
    
 };
-function submitLog() {
-      
-        
-         $('#newform').find("input[name='clientname']" ).val();
-        
-          var posting = $.post('submitlog.php', { clientname: clientName });
-          
-        //   posting.done(function( data ) {
-        //       var content = $( data ).find('#content');
-        //       $("#result").empty().append( content );
-        //   });
-      };
+function createHTML(jsonObject) {
+  var rawTemplate = document.getElementById("log-template").innerHTML;
+  var compiledTemplate = Handlebars.compile(rawTemplate);
+  var ourGeneratedHTML = compiledTemplate(jsonObject);
+ $('#log-container').prepend(ourGeneratedHTML);
+}
