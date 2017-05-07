@@ -45,29 +45,25 @@
         || fail('MySQL bind_result', $db->error);
     if(!$stmt->fetch() && $db->errno)
         fail('MySQL fetch', $db->error);
-
-        if ($hasher->CheckPassword($pass, $hash)) {
-           $_SESSION['username'] = $db->query('SELECT name FROM users WHERE email=$email');
-            // setcookie('username', $userFirstName, time() +(86400*30), "/"); //86400 = 1 day
-            $_SESSION['loggedin'] = true;
-            header("Location: home.php");
-           
-        }
-        else{
+       
+        if (!$hasher->CheckPassword($pass, $hash)) {
            $_SESSION['result'] = 'Authentication Failed :(';
            header("Location: index.php");
+       }else{
+           mysqli_free_result($stmt);
+        ($username = $db->query("SELECT name FROM users WHERE email='$email'"));
+            if (!$username)
+                fail($db->error);
+
+            while ($obj = $username->fetch_object()){
+                printf ("%s (%s)\n", $obj->name);
+        }
+         // setcookie('username', $userFirstName, time() +(86400*30), "/"); //86400 = 1 day
+         // $_SESSION['loggedin'] = true;
+         // header("Location: home.php");
+           
         }
     unset($hasher);
-    
     $stmt->close();
     $db->close();
-    
-
-
-
-
-
-
-
-    
     ?>
