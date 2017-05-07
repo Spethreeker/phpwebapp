@@ -4,12 +4,12 @@
     src: url('marineregular.otf');
 }
 body, .customer-name, .work-duration{
-    font-family: 'Marine', sans-serif;
+    /*font-family: 'Marine', sans-serif;*/
 }
 .work-description, .month, .day{
-    font-family: 'Raleway', sans-serif;
+    /*font-family: 'Raleway', sans-serif;*/
 }
-.grey{    background-color: #556270;}
+/*.grey{    background-color: #556270;}
 .white-font{    color: #FCF9FC;}
 .black-font{    color: slategrey;}
 .blue-font{    color: #025D8C !important;}
@@ -22,7 +22,7 @@ body, .customer-name, .work-duration{
 .light-blue{    background-color: #2A8FBD;
     color: #fff;}
 .green{background: #06B083;
-    color: #eee;}
+    color: #eee;}*/
 .box{
     background-color: #025D8C;
 }
@@ -62,7 +62,7 @@ body, .customer-name, .work-duration{
     margin-top: 10px;
 }
 .day-date-title{
-    color: #eee;
+    /*color: #eee;*/
     font-weight: 500;
     font-size: 28px;
 }
