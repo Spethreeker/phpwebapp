@@ -107,7 +107,7 @@ session_start();
             </div>
 
             </div>
-            <div id="log-form">
+            <div id="log-form" class="log-form">
                 <form class="notification" id="newlog" name="newlog" method="POST" class="log" >
                     <div class="tile is-ancestor">
                            <div class="tile is-parent is-3" >
