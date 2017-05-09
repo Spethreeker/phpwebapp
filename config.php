@@ -14,6 +14,13 @@ function fail($pub, $pvt = '')
             $val = stripslashes($val);
         return $val;
     }
+     function get_get_var($var)
+    {
+        $val = $_GET[$var];
+        if (get_magic_quotes_gpc())
+            $val = stripslashes($val);
+        return $val;
+    }
     $db_host = '45.56.100.209';
     $db_port = '3306';
     $db_user = 'spencer';
