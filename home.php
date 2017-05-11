@@ -174,19 +174,24 @@ session_start();
     </body>
     <script>
     var userid = <?php echo $_SESSION['id'];?>;
-    var clientNameBox = document.getElementById('clientName').addEventListener("click", function(){
-        $.post("fetch-clients.php",{id: userid}, function(data){
-            $.parseJSON(data);
-            console.log(data);
+    document.getElementById('clientName').addEventListener("click", function(){
+       listofClients= $.post("fetch-clients.php",{id: userid}, function(data){
+        console.log(data);
+        
+            listofClient = JSON.stringify(data);
+          
+          
+        },"json");
+    });
+        document.getElementById('clientName').addEventListener("onchange", function(){
 
-          $('#clientName').autocomplete({
-              lookup: data,
+            $.this.autocomplete({
+              lookup: listofClients,
               onSelection: function(suggestions){
-                  alert(suggestions);
+                  alert(suggestions.value);
               }
+            });
           });  
-        });
-   });
      
     </script>
     <script id="log-template" type="text/x-handlebars-template">

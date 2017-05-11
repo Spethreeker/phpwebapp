@@ -14,7 +14,7 @@ $stmt->execute();
 $stmt->bind_result($results)
         || fail("bind error".$db->errno);
 while ($stmt->fetch() ){
-    $clientarray[] = $results;
+    $clientarray[] = "name\":\"".$results;
 }
-print json_encode($clientarray, JSON_FORCE_OBJECT);
+echo json_encode($clientarray);
 ?>
