@@ -21,3 +21,24 @@ function createHTML(jsonObject) {
   var ourGeneratedHTML = compiledTemplate(jsonObject);
  $('#log-container').prepend(ourGeneratedHTML);
 }
+function go(){
+    var clientName = $.trim($('#clientName').val());
+    var issue = $.trim($('#issue').val());
+    var hoursWorked = $.trim($('#hoursWorked').val());
+    var description= $.trim($('#description').val());
+    var jsonObject = {};
+    jsonObject.name = clientName;
+    jsonObject.issue = issue;
+    jsonObject.hoursWorked = hoursWorked;
+    jsonObject.descripton = description;
+    $.post('submit-log.php',{
+                            clientname: clientName,
+                            issue: issue,
+                            hours_worked: hoursWorked,
+                            description: description
+                        }, function(data) {
+        createHTML(jsonObject);
+        
+    });
+event.preventDefault();
+};

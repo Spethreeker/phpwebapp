@@ -1,13 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
-@font-face{
-    font-family: 'Marine', sans-serif;
-    src: url('marineregular.otf');
-}
-body, .customer-name, .work-duration{
-    /*font-family: 'Marine', sans-serif;*/
-}
-.work-description, .month, .day{
-    /*font-family: 'Raleway', sans-serif;*/
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
+
+
+.customer-name, .work-duration, .work-description,{
 }
 .grey{    background-color: #556270;}
 .white-font{    color: #FCF9FC;}
@@ -54,6 +49,8 @@ body, .customer-name, .work-duration{
 .log{
     border-radius: 3px;
     background: #eee;
+        font-family: 'Fira Sans', sans-serif;
+
 }
 .log + .log{
     margin-top: 10px;

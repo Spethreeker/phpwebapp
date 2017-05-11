@@ -16,6 +16,8 @@ session_start();
         <link rel="stylesheet" href="css/style.css">
         <script src="js/jquery-3.2.0.min.js"></script>
         <script src="js/parsley.min.js"></script>
+            <script src="js/jquery.autocomplete.js"></script>
+
         <script src="js/handlebars-v4.0.5.js"></script>
         <script src="js/scripts.js"></script>
         <!--<script src="js/SmoothScroll.js"></script>-->
@@ -29,39 +31,26 @@ session_start();
             $(document).ready(function () {
                 document.getElementById("today").innerHTML = days[todaysdate.getDay()] + ", " + months[todaysdate.getMonth()] + " " + todaysdate.getDate();
                 var form = $('#newlog');
-                //  $('#client-details').hide();
             });
         </script>
-        <script ajax>
+        <script>
     
             // var go = getElementById("#submitbutton").addEventListener("click", function(){
-                function go(){
-                    var clientName = $.trim($('#clientName').val());
-                    var issue = $.trim($('#issue').val());
-                    var hoursWorked = $.trim($('#hoursWorked').val());
-                    var description= $.trim($('#description').val());
-                    var jsonObject = {};
-                    jsonObject.name = clientName;
-                    jsonObject.issue = issue;
-                    jsonObject.hoursWorked = hoursWorked;
-                    jsonObject.descripton = description;
-                    $.post('submit-log.php',{
-                                           clientname: clientName,
-                                           issue: issue,
-                                           hours_worked: hoursWorked,
-                                           description: description
-                                        }, function(data) {
-                        createHTML(jsonObject);
-                        alert(data);
-                    });
-                event.preventDefault();
-                };
+                
         </script>
         <script>
             function logout(){
             $.post('logout.php',function(data){window.open(data);});
             };
         </script>
+        <style>
+        .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+        </style>
     </head>
     <body>
         <nav class="nav grey has-shadow">
@@ -114,6 +103,7 @@ session_start();
                             <div class="tile is-child">
                                 <label class="label" for="clientname">Client Name</label> <br>
                                 <input type="text" class="input" id="clientName" name="clientname" placeholder="Client name" /><br>
+                               
                                 <button class="button is-link is-small light-blue" type="button" onclick="toggleClientDetails()">+ Client Details</button>
                             </div>
                             <div class="tile is-child" id="client-details">
@@ -183,7 +173,20 @@ session_start();
         </div>
     </body>
     <script>
-    
+    var userid = <?php echo $_SESSION['id'];?>;
+    var clientNameBox = document.getElementById('clientName').addEventListener("click", function(){
+        $.post("fetch-clients.php",{id: userid}, function(data){
+            $.parseJSON(data);
+            console.log(data);
+
+          $('#clientName').autocomplete({
+              lookup: data,
+              onSelection: function(suggestions){
+                  alert(suggestions);
+              }
+          });  
+        });
+   });
      
     </script>
     <script id="log-template" type="text/x-handlebars-template">
