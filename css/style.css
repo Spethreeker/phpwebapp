@@ -36,6 +36,7 @@
     padding: 12px;
     margin: 5px;
     flex-direction: column;
+    border-radius: 3px;
     box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.5);
 }
 .day .level{
@@ -49,7 +50,7 @@
 .log{
     border-radius: 3px;
     background: #eee;
-        font-family: 'Fira Sans', sans-serif;
+        
 
 }
 .log + .log{
@@ -62,6 +63,7 @@
     color: #eee;
     font-weight: 500;
     font-size: 28px;
+    font-family: 'Fira Sans', sans-serif;
 }
 @media screen and (max-width: 768px) {
   .date {

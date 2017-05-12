@@ -55,18 +55,15 @@ session_start();
     <body>
         <nav class="nav grey has-shadow">
             <div class="nav-left">
-        
                 <div class="nav-item is-hidden-touch">
                     <img src="hammerpen.png" alt="logo" />
                 </div>
                 <div class="nav-item">
                     <p class="white-font title">WorkLogs</p>
                 </div>
-
             </div>
             <div class="nav-right">
                 <div class="nav-item">
-
                     <p class="title white-font">
                         <?php
                         if(isset($_SESSION['name'])) {
@@ -74,14 +71,11 @@ session_start();
                         }
                         ?>
                     </p>
-                    
                     </div>
                      <div class="nav-item"><button class="button light-blue" onclick="logout();">Log out</button>
                 </div>
-            </div>
-            
+            </div>           
         </nav>
-
         <div class="container" id="whole-thing">            
             <div id="saved-logs">
             <article class="day">
@@ -143,7 +137,6 @@ session_start();
                 </form>
             </div><br>
             <div id="log-container">
-                
             </div>
             </article>
             <article class="media day">
@@ -174,18 +167,20 @@ session_start();
     </body>
     <script>
     var userid = <?php echo $_SESSION['id'];?>;
+    var listofClients = {};
     document.getElementById('clientName').addEventListener("click", function(){
-       listofClients= $.post("fetch-clients.php",{id: userid}, function(data){
-        console.log(data);
-        
-            listofClient = JSON.stringify(data);
+     $.post("fetch-clients.php",{id: userid}, function(data){  
+          listofClients = JSON.parse(data);
+          console.log(listofClients);
           
-          
-        },"json");
+        });
     });
-        document.getElementById('clientName').addEventListener("onchange", function(){
+       $('#clientName').change(function{
 
-            $.this.autocomplete({
+       })
+       
+
+            $('#clientName').autocomplete({
               lookup: listofClients,
               onSelection: function(suggestions){
                   alert(suggestions.value);
