@@ -14,10 +14,11 @@ session_start();
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="stylesheet" href="css/bulma.css">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/awesomplete.base.css">
         <script src="js/jquery-3.2.0.min.js"></script>
         <script src="js/parsley.min.js"></script>
-            <script src="js/jquery.autocomplete.js"></script>
-
+        <script src="js/jquery.autocomplete.js"></script>
+        <script src="js/awesomplete.js"></script>
         <script src="js/handlebars-v4.0.5.js"></script>
         <script src="js/scripts.js"></script>
         <!--<script src="js/SmoothScroll.js"></script>-->
@@ -34,22 +35,12 @@ session_start();
             });
         </script>
         <script>
-    
-            // var go = getElementById("#submitbutton").addEventListener("click", function(){
-                
-        </script>
-        <script>
             function logout(){
             $.post('logout.php',function(data){window.open(data);});
             };
         </script>
         <style>
-        .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
-.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
-.autocomplete-selected { background: #F0F0F0; }
-.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
-.autocomplete-group { padding: 2px 5px; }
-.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+        
         </style>
     </head>
     <body>
@@ -166,28 +157,16 @@ session_start();
         </div>
     </body>
     <script>
-    var userid = <?php echo $_SESSION['id'];?>;
-    var listofClients = {};
-    document.getElementById('clientName').addEventListener("click", function(){
-     $.post("fetch-clients.php",{id: userid}, function(data){  
+        var userid = <?php echo $_SESSION['id'];?>;
+  
+        var listofClients = "";
+        var input = document.getElementById("clientName");
+    
+    $.post("fetch-clients.php",{id: userid}, function(data){  
           listofClients = JSON.parse(data);
-          console.log(listofClients);
-          
-        });
+          var awesomplete = new Awesomplete(input);
+          awesomplete.list = listofClients;
     });
-       $('#clientName').change(function{
-
-       })
-       
-
-            $('#clientName').autocomplete({
-              lookup: listofClients,
-              onSelection: function(suggestions){
-                  alert(suggestions.value);
-              }
-            });
-          });  
-     
     </script>
     <script id="log-template" type="text/x-handlebars-template">
        <div class="media log">

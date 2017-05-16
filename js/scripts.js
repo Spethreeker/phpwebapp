@@ -3,9 +3,9 @@ function showlog() {
                  $("#log-form").slideDown("slow");
             }else{
                  $("#log-form").slideUp();
-       
    }
-            
+   
+          
 };
 function toggleClientDetails() {
                   $('#client-details').fadeToggle("fast");
