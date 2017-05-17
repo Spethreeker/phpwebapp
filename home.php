@@ -71,15 +71,14 @@ session_start();
             <div id="saved-logs">
             <article class="day">
             <div class="">
-            <div>
-             <div class="is-pulled-right">
-                <button class=" button light-blue" onclick="showlog()" id="add-log-button">+ Add Log</button>
-                <button class=" button light-blue">* Edit Log</button>
-            </div>
-              <p class="title is-3 day-date-title" id="today"></p>
-              <h3 class="subtitle black-font">There's no logs for today :(</h3>
-            </div>
-
+                <div>
+                <div class="is-pulled-right">
+                    <button class=" button light-blue" onclick="showlog()" id="add-log-button">+ Add Log</button>
+                    <button class=" button light-blue">* Edit Log</button>
+                </div>
+                <p class="title is-3 day-date-title" id="today"></p>
+                <h3 class="subtitle black-font">There's no logs for today :(</h3>
+                </div>
             </div>
             <div id="log-form" class="log-form">
                 <form class="notification" id="newlog" name="newlog" method="POST" class="log" >
@@ -133,14 +132,20 @@ session_start();
             <article class="media day">
                     <p class="subtitle day-date-title" id="wed-mar-22">Wednesday, March 22</p>
                 <div class="media log">
+                
                  <div class="media-content">
                      <h3 class="title customer-name">Adam's Apple Farm</h3>
                     <p class="subtitle work-description">Ran cleaning tools</p>
+                
+                   
+                   
+                
                     <div class="work-duration">
                     <p class="work-start-time">9:25 A.M.</p> <p>&nbsp-&nbsp</p>
                     <p class="work-end-time">10:00 A.M.</p>
                 </div>
                 </div>
+                  <button class="button light-blue is-pulled-right edit-button">* Edit Log</button>
             </div>
             <div class="media log">
                 <div class="media-content">
@@ -158,14 +163,13 @@ session_start();
     </body>
     <script>
         var userid = <?php echo $_SESSION['id'];?>;
-  
         var listofClients = "";
         var input = document.getElementById("clientName");
-    
     $.post("fetch-clients.php",{id: userid}, function(data){  
           listofClients = JSON.parse(data);
           var awesomplete = new Awesomplete(input);
           awesomplete.list = listofClients;
+          document.cookie
     });
     </script>
     <script id="log-template" type="text/x-handlebars-template">

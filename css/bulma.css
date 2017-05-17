@@ -3182,9 +3182,9 @@ input[type="submit"].button {
 }*/
 
 .media {
-  -webkit-box-align: start;
+  /*-webkit-box-align: start;
       -ms-flex-align: start;
-          align-items: flex-start;
+          align-items: flex-start;*/
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3209,18 +3209,18 @@ input[type="submit"].button {
 }
 
 .media .media .media {
-  /*padding-top: 0.5rem;*/
+  padding-top: 0.5rem;
 }
 
 .media .media .media + .media {
   /*margin-top: 0.5rem;*/
 }
 
-.media + .media {
-  /*border-top: 1px solid rgba(219, 219, 219, 0.5);
+/*.media + .media {
+  border-top: 1px solid rgba(219, 219, 219, 0.5);
   margin-top: 1rem;
-  padding-top: 1rem;*/
-}
+  padding-top: 1rem;
+}*/
 
 .media.is-large + .media {
   margin-top: 1.5rem;
