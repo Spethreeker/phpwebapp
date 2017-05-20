@@ -3,16 +3,14 @@ function showlog() {
                  $("#log-form").slideDown("slow");
             }else{
                  $("#log-form").slideUp();
-   }
-   
-          
+   }   
 };
 function toggleClientDetails() {
-                  $('#client-details').fadeToggle("fast");
-   
+                //   $('#client-details').fadeToggle("fast");
+                $('#client-details').toggleClass('is-active');
 };
 function saveClientDetails() {
-                  $('#client-details').fadeOut("fast");
+                  $('#client-details').fadeToggle("fast");
    
 };
 function createHTML(jsonObject) {
@@ -22,10 +20,12 @@ function createHTML(jsonObject) {
  $('#log-container').prepend(ourGeneratedHTML);
 }
 function go(){
+    $('#submitbutton').toggleClass('is-loading');
     var clientName = $.trim($('#clientName').val());
     var issue = $.trim($('#issue').val());
     var hoursWorked = $.trim($('#hoursWorked').val());
     var description= $.trim($('#description').val());
+    
     var jsonObject = {};
     jsonObject.name = clientName;
     jsonObject.issue = issue;
@@ -36,9 +36,9 @@ function go(){
                             issue: issue,
                             hours_worked: hoursWorked,
                             description: description
-                        }, function(data) {
-        createHTML(jsonObject);
-        
+        },function(data) {
+            createHTML(jsonObject);
+            $('#submitbutton').toggleClass('is-loading');
     });
 event.preventDefault();
 };

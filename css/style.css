@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans');
-
+body{
+    overflow-x: hidden;
+}
 
 .customer-name, .work-duration, .work-description,{
 }
@@ -18,40 +20,21 @@
     color: #fff;}
 .green{background: #06B083;
     color: #eee;}
-.box{
-    background-color: #025D8C;
-}
-.menu-label {
-    color: #eee;
-}
-.menu-list a{
-    color: #eee;
-}
-
 .media-content{
     padding-left: 5px;
     padding-right: 5px;
   }
 .day{
     padding: 12px;
-    margin: 5px;
+    margin-top: 5px;
+    margin-bottom: 2px;
     flex-direction: column;
     border-radius: 3px;
     box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.5);
 }
-.day .level{
-    flex-direction: row;
-
-}
-.day .p {
-    font-weight: 700;
-   
-}
 .log{
     border-radius: 3px;
     background: #eee;
-        
-
 }
 .log + .log{
     margin-top: 10px;
@@ -64,6 +47,40 @@
     font-weight: 500;
     font-size: 28px;
     font-family: 'Fira Sans', sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.logo{
+    height: 100%;
+}
+.log-form{
+    display: none;
+}
+.work-duration{
+    margin-top: -15px;
+    display: flex;
+    flex-direction: row;
+     color: slategray;
+     line-height: 0.5rem;
+}
+.work-start-time, .work-end-time{
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.log-action-group{
+   margin-left: auto;
+   margin-top: auto;
+   margin-bottom: auto;
+}
+.button:active{
+  border-color: transparent;
+  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.2);
+  color: #ccc;
+}
+.green:active {
+  background-color: #047658;
 }
 @media screen and (max-width: 768px) {
   .date {
@@ -76,29 +93,14 @@
       font-size: 1rem
   }
 }
-
-.logo{
-    height: 100%;
+@media screen and (max-width: 422px){
+    .log-action-group .button{
+    border-radius: 4px;
+    font-size: 0.90rem;
+    }
 }
-.log-form{
-    display: none;
-}
-
-.work-duration{
-    margin-top: -15px;
-    display: flex;
-    flex-direction: row;
-     color: slategray;
-     line-height: 0.5rem;
-}
-.work-start-time, .work-end-time{
-    font-size: 14px;
-    text-transform: uppercase;
-}
-#client-details{
-    display: none;
-}
-.edit-button{
-   margin-left: auto;
-    
+@media screen and (min-width: 769px){
+    .log-action-group .button{
+        min-width: 105px;
+    }
 }
