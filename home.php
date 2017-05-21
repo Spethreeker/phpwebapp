@@ -17,7 +17,7 @@ session_start();
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/awesomplete.css">
          <link rel="stylesheet" href="css/awesomplete.base.css">
-        <link rel="stylesheet" href="css/animate.css">
+  
         <script src="js/jquery-3.2.0.min.js"></script>
         <script src="js/handlebars-v4.0.5.js"></script>
         <script src="js/scripts.js"></script>
@@ -85,19 +85,19 @@ session_start();
                     <div class="field">
                         <label class="label" for="clientname">Client Name</label>
                         <div class="control">
-                            <input type="text" class="input" id="newClientName" name="addClientname" placeholder="Client name" value="Albert's Grocery"required />
+                            <input type="text" class="input" id="newClientName" name="addClientname" placeholder="Client name" value=""required />
                         </div>
                     </div>
                     <div class="field">
                         <label class="label" for="clientphone">Phone Number</label>
-                        <div class="control"><input type="tel" class="input" name="newClientPhone" id="newClientPhone" placeholder="#" value="5555555555" required /></div>
+                        <div class="control"><input type="tel" class="input" name="newClientPhone" id="newClientPhone" placeholder="#" value="" required /></div>
                     </div>
                     <div class="field">
                         <label class="label" for="clientcontact">Contact Name</label>
-                        <div class="control"><input type="text" class="input" name="newClientContact" id="newClientContact"value="Albert" required /></div>
+                        <div class="control"><input type="text" class="input" name="newClientContact" id="newClientContact" value="" required /></div>
                     </div>
                     <div class="field"><label class="label" for="clientadress">Address</label>
-                        <div class="control"><input type="text" class="input" name="newClientAddress" id="newClientAddress" value="Fake Street" required /></div>
+                        <div class="control"><input type="text" class="input" name="newClientAddress" id="newClientAddress" value="" required /></div>
                     </div>
                 </div>
                 <div class="modal-card-foot has-text-centered" id="modal-foot">
