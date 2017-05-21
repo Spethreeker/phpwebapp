@@ -16,7 +16,8 @@ session_start();
         <link rel="stylesheet" href="css/bulma.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/awesomplete.css">
-        <link rel="stylesheet" href="css/awesomplete.base.css">
+         <link rel="stylesheet" href="css/awesomplete.base.css">
+        <link rel="stylesheet" href="css/animate.css">
         <script src="js/jquery-3.2.0.min.js"></script>
         <script src="js/handlebars-v4.0.5.js"></script>
         <script src="js/scripts.js"></script>
@@ -68,95 +69,103 @@ session_start();
                         ?>
                     </p>
                 </div>
-                <div class="nav-item"><button class="button light-blue" onclick="logout();">Log out</button>
+                <div class="nav-item"><button type="button" class=" button light-blue" id="logoutButton" onclick="logout()">
+                        <span class="icon"> <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        </span><p class=" is-hidden-touch header">Log Out</p>
+                    </button>
                 </div>
             </div>
         </nav>
-        <form class="modal" id="client-details" data-parsley-validate="">
-            <div class="modal-background"></div>
-            <div class="modal-content">
+        <form class="modal" id="client-details" data-parsley-validate>
+            <div class="modal-background" id="modal-background"></div>
+            <div class="modal-content animated" id="modal-content">
                 <div class="modal-card-head">
-                    <h1 class="modal-card-title has-text-centered">Add A Client</h1><button class="delete" type="button" onclick="toggleClientDetails()"></button></div>
+                    <h1 class="modal-card-title has-text-centered">Add A Client</h1><button class="delete" type="button" onclick="toggleZoom()"></button></div>
                 <div class="modal-card-body">
                     <div class="field">
                         <label class="label" for="clientname">Client Name</label>
                         <div class="control">
-                            <input type="text" class="input" id="addClientName" name="addClientname" placeholder="Client name" required="" />
+                            <input type="text" class="input" id="newClientName" name="addClientname" placeholder="Client name" value="Albert's Grocery"required />
                         </div>
                     </div>
                     <div class="field">
-                        <label class="label" for="clientphone">Phone Number</label><br>
-                        <div class="control"><input type="tel" class="input" name="clientphone" placeholder="" /></div>
+                        <label class="label" for="clientphone">Phone Number</label>
+                        <div class="control"><input type="tel" class="input" name="newClientPhone" id="newClientPhone" placeholder="#" value="5555555555" required /></div>
                     </div>
                     <div class="field">
                         <label class="label" for="clientcontact">Contact Name</label>
-                        <div class="control"><input type="text" class="input" name="clientcontact" /></div>
+                        <div class="control"><input type="text" class="input" name="newClientContact" id="newClientContact"value="Albert" required /></div>
                     </div>
                     <div class="field"><label class="label" for="clientadress">Address</label>
-                        <div class="control"><input type="text" class="input" name="clientaddress" /></div>
+                        <div class="control"><input type="text" class="input" name="newClientAddress" id="newClientAddress" value="Fake Street" required /></div>
                     </div>
                 </div>
-                <div class="modal-card-foot has-text-centered">
-                    <button type="button" class="submit-button button green" onclick="toggleClientDetails()">
+                <div class="modal-card-foot has-text-centered" id="modal-foot">
+                    <div class="saved-indicator" id="saved-indicator"><p class="help is-success has-text-centered" >Saved!</p></div>
+                    <div class="log-action-group" id="save-buttons">
+                    <button type="button" class="submit-button button green" id="saveNewClientButton" onclick="saveNewClient()">
                         <span class="icon"> <i class="fa fa-check" aria-hidden="true"></i>
                         </span><p class="header">Save Client</p>
                     </button>
-                    <button class="button red control" type="button" onclick="toggleClientDetails()">
+                    <button class="button red control" id="newCancelButton" type="button" onclick="toggleZoom()">
                         <span class="icon"><i class="fa fa-times" aria-hidden="true">
-                        </i></span><p class="header">Cancel</p>
+                        </i></span><p class="header">Close</p>
                     </button>
+                    </div>
                 </div>
             </div>
         </form>
         <div class="container" id="whole-thing">
             <div id="saved-logs">
                 <article class="media day">
-                    <div class="">
+                  
                        
-                            <div class="field is-pulled-right">
+                            <p class="title day-date-title" id="today"></p>
+                            <div class="field log-action-group">
                                 <button class="control button light-blue has-text-centered" onclick="showlog()" id="add-log-button">
                                     <span class="icon"><i class="fa fa-plus"></i></span>
                                     <span class="is-hidden-mobile">Add Log</span>
                                 </button>
                                 
                             </div>
-                            <p class="title day-date-title" id="today"></p>
                           
                         
-                    </div>
+    
                     <div id="log-form" class="log-form" style="display: block;">
                         <form class="notification" id="newlog" name="newlog" method="POST" class="log">
                             <div class="tile is-ancestor">
                                 <div class="tile is-parent is-vertical">
                                     <div class="tile is-child">
-                                        <label class="label" for="clientname">Client Name</label><br>
+                                        <label class="field-label label is-medium" for="clientname">Client Name</label>
                                         <div class="field">
                                             <div class="control has-icons-left">
                                                 <input type="text" class="input" id="clientName" name="clientname" placeholder="Client name" />
                                                 <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
                                             </div>
+                                            <div class="control">
                                                 <button type="button" class="button green" onclick="toggleClientDetails()">Add New Client</button>
                                             </div>
                                         </div>
-                                        <label class="label" for="issue">Issue</label>
+                                        </div>
+                                        <label class="field-label label is-medium" for="issue">Issue</label>
                                         <div class="field">
                                             <div class="control">
                                                 <input type="text" class="input" name="issue" id="issue" placeholder="What was wrong" />
                                             </div>
                                         </div>
-                                        <label class="label" for="workdescription">Hours Worked</label><br>
+                                        <label class="field-label label is-medium" for="workdescription">Hours Worked</label>
                                         <div class="field">
                                             <div class="control">
-                                                <input type="number" class="" id="hoursWorked" placeholder="in hours" maxlength="4" size="4" /><br/>
+                                                <input type="number" class="" id="hoursWorked" placeholder="in hours" maxlength="4" size="4" />
                                             </div>
                                         </div>
-                                        <label class="label" for="longDescription">Work Description</label>
+                                        <label class="field-label label is-medium" for="longDescription">Work Description</label>
                                         <div class="field">
                                             <div class="control">
                                                 <textarea type="textarea" class="textarea" id="description" placeholder="Describe"></textarea>
                                             </div>
                                         </div>
-                                        <div class="field is-grouped">
+                                        <div class="field is-grouped log-action-group">
                                             <button class="control button green" type="button" id="submitbutton" onclick="go()" name='Submit'>
                                                 <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
                                             </button>
@@ -174,6 +183,13 @@ session_start();
                 </article>
                 <article class="media day">
                     <p class="title day-date-title" id="wed-mar-22">Wednesday, March 22</p>
+                     <div class="field log-action-group">
+                                <button class="control button light-blue has-text-centered" onclick="showlog()" id="add-log-button">
+                                    <span class="icon"><i class="fa fa-plus"></i></span>
+                                    <span class="is-hidden-mobile">Add Log</span>
+                                </button>
+                                
+                            </div>
                     <div class="media log">
                         <div class="media-content">
                             <h3 class="title customer-name">Adam's Apple Farm</h3>
@@ -218,12 +234,9 @@ session_start();
     <script src="js/awesomplete.min.js"></script>
    
     <script>
-        var userid = <?php echo $_SESSION['id'];?>;
         var listofClients = "";
         var input = document.getElementById("clientName");
-        $.post("fetch-clients.php", {
-            id: userid
-        }, function (data) {
+        $.post("fetch-clients.php", {}, function (data) {
             listofClients = JSON.parse(data);
             var awesomplete = new Awesomplete(input, {
                 autoFirst: true
@@ -231,6 +244,8 @@ session_start();
             awesomplete.list = listofClients;
             //   document.cookie
         });
+       
+        
     </script>
     
     <script id="log-template" type="text/x-handlebars-template">

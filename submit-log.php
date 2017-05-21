@@ -14,7 +14,7 @@
 
             
 
-    ($stmt = $db->prepare("insert into clients (userid, name) values (?, ?)"))
+    ($stmt = $db->prepare('INSERT INTO clients (userid, name) VALUES (?, ?)'))
         || fail('MySQL prepare', $db->error);
     $stmt->bind_param('is', $_SESSION['id'], $clientName)
         || fail('MySQL bind_param', $db->error);
