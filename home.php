@@ -16,13 +16,8 @@ session_start();
         <link rel="stylesheet" href="css/bulma.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/awesomplete.css">
-         <link rel="stylesheet" href="css/awesomplete.base.css">
-  
+        <link rel="stylesheet" href="css/awesomplete.base.css">
         <script src="js/jquery-3.2.0.min.js"></script>
-        <script src="js/handlebars-v4.0.5.js"></script>
-        <script src="js/scripts.js"></script>
-        <!--<script src="js/SmoothScroll.js"></script>-->
-        <script src="js/easing.js"></script>
         <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
         <script>
             var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -118,8 +113,6 @@ session_start();
         <div class="container" id="whole-thing">
             <div id="saved-logs">
                 <article class="media day">
-                  
-                       
                             <p class="title day-date-title" id="today"></p>
                             <div class="field log-action-group">
                                 <button class="control button light-blue has-text-centered" onclick="showlog()" id="add-log-button">
@@ -186,7 +179,7 @@ session_start();
                      <div class="field log-action-group">
                                 <button class="control button light-blue has-text-centered" onclick="showlog()" id="add-log-button">
                                     <span class="icon"><i class="fa fa-plus"></i></span>
-                                    <span class="is-hidden-mobile">Add Log</span>
+                                    <span class="is-hidden-mobile">New Log</span>
                                 </button>
                                 
                             </div>
@@ -230,24 +223,33 @@ session_start();
                 </div>
                 </div>
     </body>
+  
+        <script src="js/handlebars-v4.0.5.js"></script>
+        
+        <!--<script src="js/SmoothScroll.js"></script>-->
+        <script src="js/easing.js"></script>
+    <script src="js/scripts.js"></script>
     <script src="js/parsley.min.js"></script>
     <script src="js/awesomplete.min.js"></script>
-   
     <script>
-        var listofClients = "";
-        var input = document.getElementById("clientName");
-        $.post("fetch-clients.php", {}, function (data) {
-            listofClients = JSON.parse(data);
-            var awesomplete = new Awesomplete(input, {
-                autoFirst: true
-            });
-            awesomplete.list = listofClients;
-            //   document.cookie
+    var awesomplete = new Awesomplete(document.getElementById('clientName'), {
+            autoFirst: true
         });
-       
-        
+    $.post("fetch-clients.php", {}, function(data) {
+        console.log(data);
+            var rawclientlist = JSON.parse(data);
+            console.log(rawclientlist);
+            // var clientlist = _.map(rawclientlist);
+            var clientlist = _.pluck(rawclientlist, "name");
+            console.log(clientlist);
+            awesomplete.list = clientlist;
+});
+
+document.addEventListener("awesomplete-selectcomplete", function(){
+    console.log("nothing");
+});
     </script>
-    
+   
     <script id="log-template" type="text/x-handlebars-template">
         <div class="media log">
             <div class="media-content">
