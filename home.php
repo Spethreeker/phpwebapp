@@ -80,7 +80,7 @@ session_start();
                     <div class="field">
                         <label class="label" for="clientname">Client Name</label>
                         <div class="control">
-                            <input type="text" class="input" id="newClientName" name="addClientname" placeholder="Client name" value=""required />
+                            <input type="text" class="input" id="newClientName" name="addClientname" placeholder="Client name" value="" required />
                         </div>
                     </div>
                     <div class="field">
@@ -96,16 +96,18 @@ session_start();
                     </div>
                 </div>
                 <div class="modal-card-foot has-text-centered" id="modal-foot">
-                    <div class="saved-indicator" id="saved-indicator"><p class="help is-success has-text-centered" >Saved!</p></div>
+                    <div class="saved-indicator" id="saved-indicator">
+                        <p class="help is-success has-text-centered" >Saved!</p>
+                    </div>
                     <div class="log-action-group" id="save-buttons">
-                    <button type="button" class="submit-button button green" id="saveNewClientButton" onclick="saveNewClient()">
-                        <span class="icon"> <i class="fa fa-check" aria-hidden="true"></i>
-                        </span><p class="header">Save Client</p>
-                    </button>
-                    <button class="button red control" id="newCancelButton" type="button" onclick="toggleZoom()">
-                        <span class="icon"><i class="fa fa-times" aria-hidden="true">
-                        </i></span><p class="header">Close</p>
-                    </button>
+                        <button type="button" class="submit-button button green" id="saveNewClientButton" onclick="saveNewClient()">
+                            <span class="icon"> <i class="fa fa-check" aria-hidden="true"></i>
+                            </span><p class="header">Save Client</p>
+                        </button>
+                        <button class="button red control" id="newCancelButton" type="button" onclick="toggleZoom()">
+                            <span class="icon"><i class="fa fa-times" aria-hidden="true">
+                            </i></span><p class="header">Close</p>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -125,14 +127,14 @@ session_start();
                         
     
                     <div id="log-form" class="log-form" style="display: block;">
-                        <form class="notification" id="newlog" name="newlog" method="POST" class="log">
+                        <form class="notification" id="newlog" name="newlog" method="POST" class="log" data-parsley-validate>
                             <div class="tile is-ancestor">
                                 <div class="tile is-parent is-vertical">
                                     <div class="tile is-child">
                                         <label class="field-label label is-medium" for="clientname">Client Name</label>
                                         <div class="field">
                                             <div class="control has-icons-left">
-                                                <input type="text" class="input" id="clientName" name="clientname" placeholder="Client name" />
+                                                <input type="text" class="input" id="clientName" name="clientname" placeholder="Client name" required data-parsley-input/>
                                                 <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
                                             </div>
                                             <div class="control">
@@ -143,23 +145,23 @@ session_start();
                                         <label class="field-label label is-medium" for="issue">Issue</label>
                                         <div class="field">
                                             <div class="control">
-                                                <input type="text" class="input" name="issue" id="issue" placeholder="What was wrong" />
+                                                <input type="text" class="input" name="issue" id="issue" placeholder="What was wrong" required/>
                                             </div>
                                         </div>
                                         <label class="field-label label is-medium" for="workdescription">Hours Worked</label>
                                         <div class="field">
                                             <div class="control">
-                                                <input type="number" class="" id="hoursWorked" placeholder="in hours" maxlength="4" size="4" />
+                                                <input type="number" class="" id="hoursWorked" placeholder="in hours" maxlength="4" size="4" required/>
                                             </div>
                                         </div>
                                         <label class="field-label label is-medium" for="longDescription">Work Description</label>
                                         <div class="field">
                                             <div class="control">
-                                                <textarea type="textarea" class="textarea" id="description" placeholder="Describe"></textarea>
+                                                <textarea type="textarea" class="textarea" id="description" placeholder="Describe" required></textarea>
                                             </div>
                                         </div>
-                                        <div class="field is-grouped log-action-group">
-                                            <button class="control button green" type="button" id="submitbutton" onclick="go()" name='Submit'>
+                                        <div class="field is-grouped is-grouped-right log-action-group">
+                                            <button class="control button green" type="button" id="submitbutton" onclick="saveLog()" name='Submit'>
                                                 <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
                                             </button>
                                             <button class="control button red" type="button" onclick="showlog()">
@@ -224,10 +226,8 @@ session_start();
                 </div>
     </body>
   
-        <script src="js/handlebars-v4.0.5.js"></script>
-        
-        <!--<script src="js/SmoothScroll.js"></script>-->
-        <script src="js/easing.js"></script>
+    <script src="js/handlebars-v4.0.5.js"></script>
+    <script src="js/easing.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/parsley.min.js"></script>
     <script src="js/awesomplete.min.js"></script>

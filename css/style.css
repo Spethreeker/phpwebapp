@@ -115,11 +115,6 @@ body{
 .animated.hinge {
   animation-duration: 2s;
 }
-
-.animated.flipOutX,
-.animated.flipOutY,
-.animated.bounceIn,
-.animated.bounceOut,
 .animated.zoomIn,
 .animated.zoomOut {
   animation-duration: .4s;
