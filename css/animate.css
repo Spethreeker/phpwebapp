@@ -553,11 +553,9 @@
     transform: translate3d(0, -2000px, 0);
   }
 }
-
 .bounceOutUp {
   animation-name: bounceOutUp;
 }
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -567,7 +565,6 @@
     opacity: 1;
   }
 }
-
 .fadeIn {
   animation-name: fadeIn;
 }

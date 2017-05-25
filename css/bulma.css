@@ -149,7 +149,7 @@ body {
 }
 
 a {
-  color: #00d1b2;
+color: #eee;
   cursor: pointer;
   text-decoration: none;
   -webkit-transition: none 86ms ease-out;
@@ -157,7 +157,7 @@ a {
 }
 
 a:hover {
-  color: #363636;
+  color: #bbb;
 }
 
 code {
@@ -319,6 +319,7 @@ table th {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
+    justify-content: space-around;
   }
 }
 
@@ -598,7 +599,7 @@ table th {
 
 .box {
   background-color: white;
-  border-radius: 0px 0px 0px 5px;
+  border-radius: 3px; /*This was 0px 0px 0px 5px*/
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   display: block;
   padding: 1.25rem;
@@ -638,10 +639,7 @@ a.box:active {
   padding-left: calc(0.625em - 1px);
   padding-right: calc(0.625em - 1px);
   padding-top: calc(0.375em - 1px);
-  /*padding-bottom: 0.5em;
-  padding-left: 0.625em;
-  padding-right: 0.625em;
-  padding-top: 0.5em;*/
+
   position: relative;
   vertical-align: top;
   -webkit-touch-callout: none;
@@ -2344,52 +2342,6 @@ input[type="submit"].button {
 .notification .content {
   color: inherit;
 }
-
-.notification.is-white {
-  background-color: white;
-  color: #0a0a0a;
-}
-
-.notification.is-black {
-  background-color: #0a0a0a;
-  color: white;
-}
-
-.notification.is-light {
-  background-color: whitesmoke;
-  color: #363636;
-}
-
-.notification.is-dark {
-  background-color: #363636;
-  color: whitesmoke;
-}
-
-.notification.is-primary {
-  background-color: #00d1b2;
-  color: #fff;
-}
-
-.notification.is-info {
-  background-color: #3273dc;
-  color: #fff;
-}
-
-.notification.is-success {
-  background-color: #23d160;
-  color: #fff;
-}
-
-.notification.is-warning {
-  background-color: #ffdd57;
-  color: rgba(0, 0, 0, 0.7);
-}
-
-.notification.is-danger {
-  background-color: #ff3860;
-  color: #fff;
-}
-
 .progress {
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -2948,7 +2900,7 @@ input[type="submit"].button {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
-  box-shadow: 0 1px 2px rgba(10, 10, 10, 0.1);
+  box-shadow: 0 1px 1px rgba(10, 10, 10, 0.1);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2966,7 +2918,8 @@ input[type="submit"].button {
       -ms-flex-positive: 1;
           flex-grow: 1;
   font-weight: 700;
-  padding: 0.75rem;
+  padding-top: 0.75rem;
+  padding-left: 0.75rem;
 }
 
 .card-header-icon {
@@ -3032,6 +2985,7 @@ input[type="submit"].button {
   color: #4a4a4a;
   max-width: 100%;
   position: relative;
+  border-radius: 3px; /*Not in Bulma*/
 }
 
 .card .media:not(:last-child) {
