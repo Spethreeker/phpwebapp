@@ -1,7 +1,8 @@
-/*@import url('https://fonts.googleapis.com/css?family=Raleway');*/
-@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
+@import url('https://fonts.googleapis.com/css?family=Oxygen:300');
+/*@import url('https://fonts.googleapis.com/css?family=Montserrat:300');*/
 body{
     overflow-x: hidden;
+    font-family: 'Oxygen', sans-serif;
 }
 .grey{background-color: #556270;}
 .white-font{color: #FCF9FC;}
@@ -20,8 +21,7 @@ body{
   }
 .day{
     padding: 12px;
-    margin-top: 5px;
-    margin-bottom: 2px;
+    margin: 5px 2px 2px 2px;
     flex-direction: column;
     border-radius: 3px;
     box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.5);
@@ -37,13 +37,20 @@ body{
     margin-top: 10px;
 }
 .fancy-font{
-font-family: 'Fira Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+}
+.day-header{
+    justify-content: space-between;
+    display: flex;
+    align-content: center;
+    padding-right: 10px;
 }
 .day-date-title{
     color: #eee;
     font-weight: 500;
     font-size: 28px;
-    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Oxygen', sans-serif;
+    
 }
 .logo{
     height: 100%;
@@ -59,10 +66,10 @@ font-family: 'Fira Sans', sans-serif;
   position: relative;
   opacity: 0;
 }
-
 .log-form{
     display: none;
 }
+
 .work-duration{
     margin-top: -15px;
     display: flex;
@@ -94,9 +101,9 @@ font-family: 'Fira Sans', sans-serif;
     height: 100%;
     vertical-align: middle;
 }
-@media screen and (min-width: 1192px){
+@media screen and (min-width: 999px){
     .index-form{
-        max-width: 45%;
+        max-width: 50%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -111,18 +118,15 @@ font-family: 'Fira Sans', sans-serif;
       display: none;
   }
   .title{
-      font-size: 1.5rem;
+      font-size: 1.6rem;
   }
   .subtitle{
       font-size: 1rem
   }
-  .index-body{
-      padding-left: 0px;
-      padding-right: 0px;
+  .nav-right{
+      justify-content: space-between;
   }
-  .index-body .card{
-      border-radius: 0px;
-  }
+  
 }
 @media screen and (max-width: 422px){
     .log-action-group .button{
@@ -132,7 +136,7 @@ font-family: 'Fira Sans', sans-serif;
 }
 
 .animated {
-  animation-duration: 1.5s;
+  animation-duration: 71s;
   animation-fill-mode: both;
 }
 .animated-second{
@@ -173,7 +177,6 @@ font-family: 'Fira Sans', sans-serif;
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }

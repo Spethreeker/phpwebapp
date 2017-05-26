@@ -2,7 +2,7 @@
 <?php
   session_start();
 ?>
-<html class="blue">
+<html class="blue oxy-font">
   <head>
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="css/bulma.css">
@@ -11,12 +11,14 @@
      <script src="js/jquery-3.2.0.min.js"></script>
      <script src="js/parsley.min.js"></script>
      <style>
-    #register-link-button:hover{
-      background: #eee;
-    }
+        .button.is-link:hover{
+          background: #eee;
+        }
+        #register-form{
+          right: -100%;
+        }
        </style>
   </head>
-</html>
 <body class="index-body animated" id="index-body">
 <div class="container">
   <div class="hero">
@@ -30,6 +32,7 @@
     </div>
     <div class="hero-foot">&nbsp;</div>
 </div>
+  
    <div class="card animated index-form margin-auto-centered" id="login-form">
        <h1 class="card-header-title">Login</h1>
      <form id='login' action="user-login.php" class="card-content" name="loginform" method='post' accept-charset='UTF-8' data-parsley-validate>
@@ -63,7 +66,6 @@
                         }else{
                             echo $_SESSION['result']."<br>";
       }?>
-
 </div>
   <footer class="footer blue">
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Privacy Policy</a>
@@ -71,12 +73,11 @@
 </body>
      <script src="js/scripts.js"></script>
      <script>
-    
+     
       var index = document.getElementById('index-body');
-      window.addEventListener('load', 
-        function() { 
+         document.addEventListener('DOMContentLoaded', function() { 
          index.classList.add('fadeIn');
         }, false);
-    
+        
     </script>
 </html>

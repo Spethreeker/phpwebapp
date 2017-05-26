@@ -4,7 +4,7 @@ session_start();
 $_SESSION['message'] = '';
 ?>
 
-<html class="blue">
+<html class="blue mont-font">
     <head>
         <link rel="stylesheet" href="css/bulma.css">
         <link rel="stylesheet" href="css/style.css">

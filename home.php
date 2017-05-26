@@ -17,7 +17,8 @@ session_start();
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/awesomplete.css">
         <link rel="stylesheet" href="css/awesomplete.base.css">
-        <script src="js/jquery-3.2.0.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
         <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
         <script>
             var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -44,9 +45,9 @@ session_start();
         </style>
     </head>
 
-    <body>
+    <body class="mont-font">
         <nav class="nav grey has-shadow">
-            <div class="nav-left">
+            <div class="nav-left is-hidden-mobile">
                 <div class="nav-item is-hidden-touch">
                     <img src="hammerpen.png" alt="logo" />
                 </div>
@@ -56,7 +57,7 @@ session_start();
             </div>
             <div class="nav-right">
                 <div class="nav-item">
-                    <p class="title white-font">
+                    <p class="title is-4 white-font">
                         <?php
                         if(isset($_SESSION['name'])) {
                             echo $greeting.$_SESSION['name'];
@@ -64,7 +65,8 @@ session_start();
                         ?>
                     </p>
                 </div>
-                <div class="nav-item"><button type="button" class=" button light-blue" id="logoutButton" onclick="logout()">
+                <div class="nav-item">
+                    <button type="button" class=" button light-blue" id="logoutButton" onclick="logout()">
                         <span class="icon"> <i class="fa fa-sign-out" aria-hidden="true"></i>
                         </span><p class=" is-hidden-touch header">Log Out</p>
                     </button>
@@ -115,30 +117,26 @@ session_start();
         <div class="container" id="whole-thing">
             <div id="saved-logs">
                 <article class="media day">
-                            <p class="title day-date-title" id="today"></p>
-                            <div class="field log-action-group">
-                                <button class="control button light-blue has-text-centered" onclick="showlog()" id="add-log-button">
+                            <div class="day-header">  
+                            <h1 class="title day-date-title level-item" id="today"></h1> 
+                                <button class="button light-blue" onclick="showlog()" id="add-log-button">
                                     <span class="icon"><i class="fa fa-plus"></i></span>
                                     <span class="is-hidden-mobile">Add Log</span>
                                 </button>
-                                
                             </div>
-                          
-                        
-    
                     <div id="log-form" class="log-form" style="display: block;">
                         <form class="notification" id="newlog" name="newlog" method="POST" class="log" data-parsley-validate>
                             <div class="tile is-ancestor">
                                 <div class="tile is-parent is-vertical">
                                     <div class="tile is-child">
                                         <label class="field-label label is-medium" for="clientname">Client Name</label>
-                                        <div class="field">
+                                        <div class="field has-addons">
                                             <div class="control has-icons-left">
-                                                <input type="text" class="input" id="clientName" name="clientname" placeholder="Client name" required data-parsley-input/>
+                                                <input type="search" class="input" id="clientName" name="clientname" placeholder="Client name" required data-parsley-input/>
                                                 <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
                                             </div>
                                             <div class="control">
-                                                <button type="button" class="button green" onclick="toggleClientDetails()">Add New Client</button>
+                                                <button type="button" class="button green" onclick="toggleClientDetails()">Add Client</button>
                                             </div>
                                         </div>
                                         </div>
@@ -177,9 +175,9 @@ session_start();
                     </div>
                 </article>
                 <article class="media day">
+                     <div class="day-header">
                     <p class="title day-date-title" id="wed-mar-22">Wednesday, March 22</p>
-                     <div class="field log-action-group">
-                                <button class="control button light-blue has-text-centered" onclick="showlog()" id="add-log-button">
+                                <button class="button light-blue" onclick="showlog()" id="add-log-button">
                                     <span class="icon"><i class="fa fa-plus"></i></span>
                                     <span class="is-hidden-mobile">New Log</span>
                                 </button>
@@ -197,13 +195,13 @@ session_start();
                         </div>
                         <div class="log-action-group has-addons"> 
                             <div class="control has-addons">
-                                <button class="button is-medium has-addons has-text-centered" id="view-log-button">
+                                <button class="button has-addons has-text-centered" id="view-log-button">
                                     <span class="icon"><i class="fa fa-eye"></i></span>
                                     <span class="is-hidden-mobile">View</span>
                                 </button>
                             </div>
                             <div class="control has-addons">
-                                <button class="button is-medium has-addons has-text-centered" id="edit-log-button">
+                                <button class="button has-addons has-text-centered" id="edit-log-button">
                                     <span class="icon"><i class="fa fa-pencil"></i></span>
                                     <span class="is-hidden-mobile">Edit</span>
                                 </button>
