@@ -136,7 +136,7 @@ body{
 }
 
 .animated {
-  animation-duration: .71s;
+  animation-duration: 71s;
   animation-fill-mode: both;
 }
 .animated-second{
