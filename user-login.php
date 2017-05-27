@@ -2,7 +2,7 @@
     // header('Content-Type: text/plain');
     require 'PasswordHash.php';
     require 'config.php';
-    //$fail function
+    
     session_start();
     $debug = true;;
     //Post Variables and normalizing them

@@ -57,12 +57,7 @@ session_start();
             </div>
             <div class="nav-right">
                 <div class="nav-item">
-                    <p class="title is-4 white-font">
-                        <?php
-                        if(isset($_SESSION['name'])) {
-                            echo $greeting.$_SESSION['name'];
-                        }
-                        ?>
+                    <p class="title is-4 white-font"><?php if(isset($_SESSION['name'])) {echo $greeting.$_SESSION['name'];}?>
                     </p>
                 </div>
                 <div class="nav-item">
@@ -121,7 +116,7 @@ session_start();
                             <h1 class="title day-date-title level-item" id="today"></h1> 
                                 <button class="button light-blue" onclick="showlog()" id="add-log-button">
                                     <span class="icon"><i class="fa fa-plus"></i></span>
-                                    <span class="is-hidden-mobile">Add Log</span>
+                                    <span class="is-hidden-mobile"><p class="header">Add Log<p></span>
                                 </button>
                             </div>
                     <div id="log-form" class="log-form" style="display: block;">
@@ -230,22 +225,38 @@ session_start();
     <script src="js/parsley.min.js"></script>
     <script src="js/awesomplete.min.js"></script>
     <script>
-    var awesomplete = new Awesomplete(document.getElementById('clientName'), {
+        var input = document.getElementById('clientName');
+    var awesomplete = new Awesomplete(input, {
             autoFirst: true
         });
-    $.post("fetch-clients.php", {}, function(data) {
-        console.log(data);
-            var rawclientlist = JSON.parse(data);
-            console.log(rawclientlist);
-            // var clientlist = _.map(rawclientlist);
-            var clientlist = _.pluck(rawclientlist, "name");
-            console.log(clientlist);
-            awesomplete.list = clientlist;
+        var client_list = [];
+        var selected_client_id = null;
+    $.ajax({
+        url:'fetch-clients.php',
+        type: 'GET',
+        dataType: 'json'}).done(function(data) {
+            var client_name_list = [];
+            client_list = data;
+            $.each(data, function(key, value) {
+                client_name_list.push(value.name);
+            })
+ 
+            awesomplete.list = client_name_list;
+            console.log(client_list);
 });
 
 document.addEventListener("awesomplete-selectcomplete", function(){
-    console.log("nothing");
-});
+        var client_id = null;
+
+        for (var object_number = 0; object_number < client_list.length; object_number++){
+            var element = client_list[object_number];
+            if (element.name == input.value ){
+                client_id = element;
+            }
+        }
+        selected_client_id = client_id;
+        console.log(selected_client_id);
+}, false);
     </script>
    
     <script id="log-template" type="text/x-handlebars-template">
