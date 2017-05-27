@@ -110,51 +110,7 @@ session_start();
                 </div>
             </div>
         </form>
-        <form class="notification" id="newlog" name="newlog" method="POST" class="log" data-parsley-validate>
-                            <div class="tile is-ancestor">
-                                <div class="tile is-parent is-vertical">
-                                    <div class="tile is-child">
-                                        <label class="field-label label is-medium" for="clientname">Client Name</label>
-                                        <div class="field has-addons">
-                                            <div class="control has-icons-left">
-                                                <input type="search" class="input" id="clientName" name="clientname" placeholder="Client name" required data-parsley-input/>
-                                                <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                            </div>
-                                            <div class="control">
-                                                <button type="button" class="button green" id="add-client-button" onclick="toggleClientDetails()">Add Client</button>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        <label class="field-label label is-medium" for="issue">Issue</label>
-                                        <div class="field">
-                                            <div class="control">
-                                                <input type="text" class="input" name="issue" id="issue" placeholder="What was wrong" required/>
-                                            </div>
-                                        </div>
-                                        <label class="field-label label is-medium" for="workdescription">Hours Worked</label>
-                                        <div class="field">
-                                            <div class="control">
-                                                <input type="number" class="" id="hoursWorked" placeholder="in hours" maxlength="4" size="4" required/>
-                                            </div>
-                                        </div>
-                                        <label class="field-label label is-medium" for="longDescription">Work Description</label>
-                                        <div class="field">
-                                            <div class="control">
-                                                <textarea type="textarea" class="textarea" id="description" placeholder="Describe" required></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="field is-grouped is-grouped-right log-action-group">
-                                            <button class="control button green" type="button" id="submitbutton" onclick="saveLog()" name='Submit'>
-                                                <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
-                                            </button>
-                                            <button class="control button red" type="button" onclick="showlog()">
-                                                <span class="icon"><i class="fa fa-times" aria-hidden="true"></i></span><span>Close</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+       
         <div class="container" id="whole-thing">
             <div id="saved-logs">
                 <article class="media day">
@@ -165,7 +121,52 @@ session_start();
                                     <span class="is-hidden-mobile"><p class="header">Add Log<p></span>
                                 </button>
                             </div>
-                    <div id="log-form" class="log-form" style="display: block;">
+                    <div id="log-form" class="log-form">
+                     <form class="notification" id="newlog" name="newlog" method="POST" class="log" data-parsley-validate>
+                        <div class="tile is-ancestor">
+                            <div class="tile is-parent is-vertical">
+                                <div class="tile is-child">
+                                    <label class="field-label label is-medium has-text-centered" for="clientname">Client Name</label>
+                                    <div class="field add-client-box-container">
+                                        <div class="control has-icons-left">
+                                            <input type="search" class="input" id="clientName" name="clientname" placeholder="Client name" required data-parsley-input/>
+                                            <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                        </div>
+                                        <div class="control">
+                                            <button type="button" class="button green is-invisible" id="add-client-button" onclick="toggleClientDetails()">New Client</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <label class="field-label label is-medium" for="issue">Issue</label>
+                                    <div class="field">
+                                        <div class="control">
+                                            <input type="text" class="input" name="issue" id="issue" placeholder="What was wrong" required/>
+                                        </div>
+                                    </div>
+                                    <label class="field-label label is-medium" for="workdescription">Hours Worked</label>
+                                    <div class="field">
+                                        <div class="control">
+                                            <input type="number" class="" id="hoursWorked" placeholder="in hours" maxlength="4" size="4" required/>
+                                        </div>
+                                    </div>
+                                    <label class="field-label label is-medium" for="longDescription">Work Description</label>
+                                    <div class="field">
+                                        <div class="control">
+                                            <textarea type="textarea" class="textarea" id="description" placeholder="Describe" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="field is-grouped is-grouped-right log-action-group">
+                                        <button class="control button green" type="button" id="submitbutton" onclick="saveLog()" name='Submit'>
+                                            <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
+                                        </button>
+                                        <button class="control button red" type="button" onclick="showlog()">
+                                            <span class="icon"><i class="fa fa-times" aria-hidden="true"></i></span><span>Close</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                         <div id="log-container">
                         </div>
                     </div>

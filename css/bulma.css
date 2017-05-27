@@ -1530,10 +1530,6 @@ input[type="submit"].button {
   color: rgba(54, 54, 54, 0.3);
 }
 
-.input[type="search"],
-.textarea[type="search"] {
-  border-radius: 290486px;
-}
 
 .input.is-white,
 .textarea.is-white {

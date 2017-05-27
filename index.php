@@ -7,15 +7,13 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="css/bulma.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
      <script src="js/jquery-3.2.0.min.js"></script>
      <script src="js/parsley.min.js"></script>
      <style>
         .button.is-link:hover{
           background: #eee;
-        }
-        #register-form{
-          right: -100%;
         }
        </style>
   </head>
@@ -32,7 +30,6 @@
     </div>
     <div class="hero-foot">&nbsp;</div>
 </div>
-  
    <div class="card animated index-form margin-auto-centered" id="login-form">
        <h1 class="card-header-title">Login</h1>
      <form id='login' action="user-login.php" class="card-content" name="loginform" method='post' accept-charset='UTF-8' data-parsley-validate>
