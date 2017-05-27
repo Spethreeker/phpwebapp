@@ -70,25 +70,25 @@ function createHTML(jsonObject) {
   var compiledTemplate = Handlebars.compile(rawTemplate);
   var ourGeneratedHTML = compiledTemplate(jsonObject);
  $(log_container).prepend(ourGeneratedHTML);
-}
+};
 function saveLog(){
     $('#submitbutton').toggleClass('is-loading');
     var clientName = $.trim($('#clientName').val());
     var issue = $.trim($('#issue').val());
     var hoursWorked = $.trim($('#hoursWorked').val());
     var description= $.trim($('#description').val());
-    
     var jsonObject = {};
     jsonObject.name = clientName;
     jsonObject.issue = issue;
     jsonObject.hoursWorked = hoursWorked;
     jsonObject.descripton = description;
     $.post('save-log.php',{
-                            clientname: clientName,
-                            issue: issue,
-                            hours_worked: hoursWorked,
-                            description: description
+        client_id: selectedClientId,
+        issue: issue,
+        hours_worked: hoursWorked,
+        description: description
         },function(data) {
+            alert(data);
             createHTML(jsonObject);
             $('#submitbutton').toggleClass('is-loading');
     });

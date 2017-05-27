@@ -17,6 +17,7 @@ session_start();
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/awesomplete.css">
         <link rel="stylesheet" href="css/awesomplete.base.css">
+        <link rel="stylesheet" href="css/animations.css">
       <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
         <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
@@ -109,18 +110,7 @@ session_start();
                 </div>
             </div>
         </form>
-        <div class="container" id="whole-thing">
-            <div id="saved-logs">
-                <article class="media day">
-                            <div class="day-header">  
-                            <h1 class="title day-date-title level-item" id="today"></h1> 
-                                <button class="button light-blue" onclick="showlog()" id="add-log-button">
-                                    <span class="icon"><i class="fa fa-plus"></i></span>
-                                    <span class="is-hidden-mobile"><p class="header">Add Log<p></span>
-                                </button>
-                            </div>
-                    <div id="log-form" class="log-form" style="display: block;">
-                        <form class="notification" id="newlog" name="newlog" method="POST" class="log" data-parsley-validate>
+        <form class="notification" id="newlog" name="newlog" method="POST" class="log" data-parsley-validate>
                             <div class="tile is-ancestor">
                                 <div class="tile is-parent is-vertical">
                                     <div class="tile is-child">
@@ -131,7 +121,7 @@ session_start();
                                                 <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
                                             </div>
                                             <div class="control">
-                                                <button type="button" class="button green" onclick="toggleClientDetails()">Add Client</button>
+                                                <button type="button" class="button green" id="add-client-button" onclick="toggleClientDetails()">Add Client</button>
                                             </div>
                                         </div>
                                         </div>
@@ -165,6 +155,17 @@ session_start();
                                 </div>
                             </div>
                         </form>
+        <div class="container" id="whole-thing">
+            <div id="saved-logs">
+                <article class="media day">
+                            <div class="day-header">  
+                            <h1 class="title day-date-title level-item" id="today"></h1> 
+                                <button class="button light-blue" onclick="showlog()" id="add-log-button">
+                                    <span class="icon"><i class="fa fa-plus"></i></span>
+                                    <span class="is-hidden-mobile"><p class="header">Add Log<p></span>
+                                </button>
+                            </div>
+                    <div id="log-form" class="log-form" style="display: block;">
                         <div id="log-container">
                         </div>
                     </div>
@@ -218,57 +219,53 @@ session_start();
                 </div>
                 </div>
     </body>
-  
     <script src="js/handlebars-v4.0.5.js"></script>
     <script src="js/easing.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/parsley.min.js"></script>
     <script src="js/awesomplete.min.js"></script>
     <script>
-        var input = document.getElementById('clientName');
+    var input = document.getElementById('clientName');
     var awesomplete = new Awesomplete(input, {
             autoFirst: true
         });
-        var client_list = [];
-        var selected_client_id = null;
+    var clientList = [];
+    var selectedClientId = null;
     $.ajax({
         url:'fetch-clients.php',
         type: 'GET',
         dataType: 'json'}).done(function(data) {
-            var client_name_list = [];
-            client_list = data;
+            var clientNameList = [];
+            clientList = data;
             $.each(data, function(key, value) {
-                client_name_list.push(value.name);
+                clientNameList.push(value.name);
             })
- 
-            awesomplete.list = client_name_list;
-            console.log(client_list);
-});
+            awesomplete.list = clientNameList;
+            console.log(clientList);
+    });
+document.addEventListener("awesomplete-close", function(){
+        var clientId = null;
 
-document.addEventListener("awesomplete-selectcomplete", function(){
-        var client_id = null;
-
-        for (var object_number = 0; object_number < client_list.length; object_number++){
-            var element = client_list[object_number];
+        for (var objectNumber = 0; objectNumber < clientList.length; objectNumber++){
+            var element = clientList[objectNumber];
             if (element.name == input.value ){
-                client_id = element;
+                clientId = element.id;
             }
         }
-        selected_client_id = client_id;
-        console.log(selected_client_id);
+        selectedClientId = clientId;
+        console.log(selectedClientId);
 }, false);
     </script>
-   
     <script id="log-template" type="text/x-handlebars-template">
         <div class="media log">
             <div class="media-content">
                 <h3 class="title customer-name">{{name}}</h3>
                 <p class="subtitle work-description">{{issue}}</p>
-                <div class="work-duration">
+                <!--<div class="work-duration">
                     <p class="work-start-time">9:25 A.M.</p>
                     <p>&nbsp-&nbsp</p>
                     <p class="work-end-time">10:00 A.M.</p>
-                </div>
+                </div>-->
             </div>
         </div>
     </script>
