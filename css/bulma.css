@@ -3162,16 +3162,16 @@ input[type="submit"].button {
   margin-left: 1rem;
 }
 
-/*.media-content {
+.media-content {
   -ms-flex-preferred-size: auto;
       flex-basis: auto;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
   -ms-flex-negative: 1;
-      flex-shrink: 1;
-  text-align: left;
-}*/
+      
+  
+}
 
 .media {
   /*-webkit-box-align: start;
@@ -3188,7 +3188,7 @@ input[type="submit"].button {
 }
 
 .media .media {
-  border-top: 1px solid rgba(219, 219, 219, 0.5);
+  /*border-top: 1px solid rgba(219, 219, 219, 0.5);*/
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3203,11 +3203,6 @@ input[type="submit"].button {
 .media .media .media {
   padding-top: 0.5rem;
 }
-
-.media .media .media + .media {
-  /*margin-top: 0.5rem;*/
-}
-
 /*.media + .media {
   border-top: 1px solid rgba(219, 219, 219, 0.5);
   margin-top: 1rem;

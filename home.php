@@ -206,6 +206,9 @@ session_start();
                         </div>
                     </div>
                     <div class="media log">
+                        <div class="media-left time-occured-container">
+                            <p class="subtitle">9:25 AM</p>
+                        </div>
                         <div class="media-content">
                             <h3 class="title customer-name">Doug's Dog Pound</h3>
                             <p class="subtitle work-description">Reinstalled Doggy software</p>
