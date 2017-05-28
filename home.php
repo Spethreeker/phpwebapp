@@ -18,21 +18,41 @@ session_start();
         <link rel="stylesheet" href="css/awesomplete.css">
         <link rel="stylesheet" href="css/awesomplete.base.css">
         <link rel="stylesheet" href="css/animations.css">
-      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
         <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
         <script>
+        //      $.ajax({
+        //         url:'fetch-logs.php',
+        //         type: 'GET',
+        //         dataType: 'json'}).done(function(data) {
+        //                 for (var objectNumber = 0; objectNumber < data.length; objectNumber++){
+        //                     var element = data[objectNumber];
+        //                     var f = element.dateOccurred.split(/[-]/);
+        //                     element.dateOccured = new Date(Date.UTC(f[0], f[1]-1, f[2], f[3] || 0, f[4] || 0, f[5] || 0));
+        //                  };
+        //                 var fetchedLogs = data;
+        //                 var rawTemplate = document.getElementById("log-template").innerHTML;
+        //                 var log_container = $('#log-container');
+        //                  for (var objectNumber = 0; objectNumber < fetchedLogs.length; objectNumber++){  
+        //                     var compiledTemplate = Handlebars.compile(rawTemplate);           
+        //                     var thing = fetchedLogs[objectNumber];
+        //                     var ourGeneratedHTML = compiledTemplate(thing);
+        //                     $(log_container).prepend(ourGeneratedHTML);
+        //                 };
+        // });
+        
             var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
                 "October", "November", "December"
             ];
             var todaysdate = new Date();
             jQuery.easing.def = 'easeOutQuad';
-            $(document).ready(function () {
-                document.getElementById("today").innerHTML = days[todaysdate.getDay()] + ", " + months[
-                    todaysdate.getMonth()] + " " + todaysdate.getDate();
-                var form = $('#newlog');
-            });
+          
+               
+             
+         
         </script>
         <script>
             function logout() {
@@ -113,7 +133,7 @@ session_start();
        
         <div class="container" id="whole-thing">
             <div id="saved-logs">
-                <article class="media day">
+                <article class="media day" id="">
                             <div class="day-header">  
                             <h1 class="title day-date-title level-item" id="today"></h1> 
                                 <button class="button light-blue" onclick="showlog()" id="add-log-button">
@@ -121,36 +141,47 @@ session_start();
                                     <span class="is-hidden-mobile"><p class="header">Add Log<p></span>
                                 </button>
                             </div>
-                    <div id="log-form" class="log-form">
+                    <div id="log-form" class="log-form" style="display: block;">
                      <form class="notification" id="newlog" name="newlog" method="POST" class="log" data-parsley-validate>
                         <div class="tile is-ancestor">
                             <div class="tile is-parent is-vertical">
                                 <div class="tile is-child">
-                                    <label class="field-label label is-medium has-text-centered" for="clientname">Client Name</label>
-                                    <div class="field add-client-box-container">
-                                        <div class="control has-icons-left">
-                                            <input type="search" class="input" id="clientName" name="clientname" placeholder="Client name" required data-parsley-input/>
+                                    <div class="field">
+                                    <label class="label" for="clientname">Client Name</label>
+                                        <div class="control has-icons-left" id="add-client">
                                             <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                        </div>
-                                        <div class="control">
-                                            <button type="button" class="button green is-invisible" id="add-client-button" onclick="toggleClientDetails()">New Client</button>
+                                            <input type="text" class="input" id="clientName" name="clientname" placeholder="Client name" required/>
+                                            <button type="button" class="button green" id="add-client-button" onclick="toggleClientDetails()">New </button>
                                         </div>
                                     </div>
+                                    <div class="time-field">
+                                      <div class="field">
+                                        <label class="label" for="timeStarted">Time Started</label>
+                                          <div class="control">
+                                            <input type="time" class="input" id="timeStarted"/>
+                                          </div>
+                                      </div>
+                                      <div class="field">
+                                          <label class="label" for="timeStarted">Time Stopped</label>
+                                          <div class="control">
+                                            <input type="time" class="input" id="timeStopped"/>
+                                          </div>
+                                      </div>
+                                      <div class="field">
+                                        <label class="label" for="hoursWorked">Hours Worked</label>
+                                            <div class="control">
+                                                <input type="number" class="input" id="hoursWorked" placeholder="in hours" maxlength="4" size="4" required/>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="field">
+                                      <label class="label " for="issue">Issue</label>
+                                          <div class="control ">
+                                              <input type="text" class="input" name="issue" id="issue" placeholder="What was wrong" required/>
+                                          </div>
                                     </div>
-                                    <label class="field-label label is-medium" for="issue">Issue</label>
                                     <div class="field">
-                                        <div class="control">
-                                            <input type="text" class="input" name="issue" id="issue" placeholder="What was wrong" required/>
-                                        </div>
-                                    </div>
-                                    <label class="field-label label is-medium" for="workdescription">Hours Worked</label>
-                                    <div class="field">
-                                        <div class="control">
-                                            <input type="number" class="" id="hoursWorked" placeholder="in hours" maxlength="4" size="4" required/>
-                                        </div>
-                                    </div>
-                                    <label class="field-label label is-medium" for="longDescription">Work Description</label>
-                                    <div class="field">
+                                    <label class="label " for="longDescription">Work Description</label>
                                         <div class="control">
                                             <textarea type="textarea" class="textarea" id="description" placeholder="Describe" required></textarea>
                                         </div>
@@ -163,6 +194,8 @@ session_start();
                                             <span class="icon"><i class="fa fa-times" aria-hidden="true"></i></span><span>Close</span>
                                         </button>
                                     </div>
+                                    </div>
+                            </div>
                                 </div>
                             </div>
                         </div>
@@ -218,40 +251,58 @@ session_start();
                                 <p class="work-end-time">10:00 A.M.</p>
                             </div>
                         </div>
+                        <div class="log-action-group has-addons"> 
+                            <div class="control has-addons">
+                                <button class="button has-addons has-text-centered" id="view-log-button">
+                                    <span class="icon"><i class="fa fa-eye"></i></span>
+                                    <span class="is-hidden-mobile">View</span>
+                                </button>
+                            </div>
+                            <div class="control has-addons">
+                                <button class="button has-addons has-text-centered" id="edit-log-button">
+                                    <span class="icon"><i class="fa fa-pencil"></i></span>
+                                    <span class="is-hidden-mobile">Edit</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </article>
                 </div>
                 </div>
     </body>
-    <script src="js/handlebars-v4.0.5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
     <script src="js/easing.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/parsley.min.js"></script>
     <script src="js/awesomplete.min.js"></script>
     <script>
     var input = document.getElementById('clientName');
-    var awesomplete = new Awesomplete(input, {
+   
+    var selectedClientId = null;
+    var clientObjectList = [];
+window.addEventListener("DOMContentLoaded", function(){
+      
+      var awesomplete = new Awesomplete(input, {
             autoFirst: true
         });
-    var clientList = [];
-    var selectedClientId = null;
     $.ajax({
         url:'fetch-clients.php',
         type: 'GET',
         dataType: 'json'}).done(function(data) {
+            clientObjectList = data;
             var clientNameList = [];
-            clientList = data;
             $.each(data, function(key, value) {
                 clientNameList.push(value.name);
             })
-            awesomplete.list = clientNameList;
-            console.log(clientList);
-    });
+    awesomplete.list = clientNameList;
+});
+});
+  </script>
+  <script>
 document.addEventListener("awesomplete-close", function(){
         var clientId = null;
-
-        for (var objectNumber = 0; objectNumber < clientList.length; objectNumber++){
-            var element = clientList[objectNumber];
+        for (var objectNumber = 0; objectNumber < clientObjectList.length; objectNumber++){
+            var element = clientObjectList[objectNumber];
             if (element.name == input.value ){
                 clientId = element.id;
             }
@@ -260,18 +311,35 @@ document.addEventListener("awesomplete-close", function(){
         console.log(selectedClientId);
 }, false);
     </script>
+    <script>
+     document.getElementById("today").innerHTML = days[todaysdate.getDay()] + ", " + months[
+        todaysdate.getMonth()] + " " + todaysdate.getDate();
+    </script>
     <script id="log-template" type="text/x-handlebars-template">
         <div class="media log">
             <div class="media-content">
                 <h3 class="title customer-name">{{name}}</h3>
                 <p class="subtitle work-description">{{issue}}</p>
-                <!--<div class="work-duration">
+                <div class="work-duration">
                     <p class="work-start-time">9:25 A.M.</p>
                     <p>&nbsp-&nbsp</p>
                     <p class="work-end-time">10:00 A.M.</p>
-                </div>-->
+                </div>
+            </div>
+            <div class="log-action-group has-addons"> 
+                <div class="control has-addons">
+                    <button class="button has-addons has-text-centered" id="view-log-button">
+                        <span class="icon"><i class="fa fa-eye"></i></span>
+                        <span class="is-hidden-mobile">View</span>
+                    </button>
+                </div>
+                <div class="control has-addons">
+                    <button class="button has-addons has-text-centered" id="edit-log-button">
+                        <span class="icon"><i class="fa fa-pencil"></i></span>
+                        <span class="is-hidden-mobile">Edit</span>
+                    </button>
+                </div>
             </div>
         </div>
     </script>
-
     </html>

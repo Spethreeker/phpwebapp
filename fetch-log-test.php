@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-header('Content-Type: application/json');
+header('Content-Type: text/plain');
 session_start();
 require "config.php";
 if (!is_int($_SESSION['id']))
@@ -11,10 +11,6 @@ else
 $user_id = $_SESSION['id'];
 
 $log_array = array();
- $db = new mysqli($db_host, $db_user, $db_pass, $db_name);
-        if (mysqli_connect_errno()) //connect to server
-            fail('MySQL connect error', mysqli_connect_error());
-
 $query = "SELECT recd.clientID, recd.issue, recd.hoursWorked, recd.dateOccurred, clients.name
           FROM recordedLogs recd
           JOIN clients ON recd.clientID = clients.id
@@ -26,7 +22,7 @@ for ($row_no = ($stmt->num_rows - 1); $row_no >= 0; $row_no-- ) {
        $stmt->data_seek($row_no);
         $log_array[] = ($stmt->fetch_assoc() );
 }
-echo(json_encode($log_array, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+print_r($log_array);
 $stmt->free_result();
 $db->close();
 ?>

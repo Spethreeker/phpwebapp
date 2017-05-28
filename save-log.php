@@ -14,15 +14,14 @@
   
     $clientId = clean_log_form('client_id');
     $issue = clean_log_form('issue');
-    $dateOcurred = "2017-05-23";
+    $date_occurred = "2017-05-28";
     $hours_worked = clean_log_form('hours_worked');
     $description = clean_log_form('description');
-    echo("Variables Sent!");
-
-
-    ($stmt = $db->prepare('INSERT INTO recordedLogs (clientID, userid, issue, dateOccurred, hoursWorked, description) VALUES (?, ?, ?, ?, ?, ?)'))
+    $time_started = "9:25:00";
+    $time_stopped = "10:30:00";
+    ($stmt = $db->prepare('INSERT INTO recordedLogs (clientID, userid, issue, dateOccurred, timeStarted, timeStopped, hoursWorked, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'))
         || fail('MySQL prepare', $db->error);
-    $stmt->bind_param('iissis', $clientId, $_SESSION['id'], $issue, $dateOcurred, $hours_worked, $description)
+    $stmt->bind_param('iissssis', $clientId, $_SESSION['id'], $issue, $date_occurred, $time_started, $time_stopped, $hours_worked, $description)
         || fail('MySQL bind_param', $db->error);
     $stmt->execute()
         || fail('MySQL execute', $db->error);

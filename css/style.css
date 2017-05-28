@@ -16,17 +16,13 @@ body{
 .green{background: #06B083; color: #eee;}
 .green:active {background-color: #047658;}
 .media-content{
-    padding-left: 5px;
+    padding-left: 12px;
     padding-right: 5px;
     padding-top:12px;
     padding-bottom: 12px;
   }
   .media .media {
       padding: 0px;
-  }
-
-  .is-invisibile{
-      visibility: hidden;
   }
 .day{
     padding: 12px;
@@ -51,11 +47,6 @@ body{
     align-content: center;
     padding-right: 10px;
 }
-.add-client-box-container{
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-}
 .day-date-title{
     color: #eee;
     font-weight: 500;
@@ -64,11 +55,11 @@ body{
     
 }
 .time-occured-container{
-    padding: 5px;
+    padding: 0px 5px 0px 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 3px;
+    border-radius: 3px 0px 0px 3px;
     background: #bbb;
     margin: 0;
 }
@@ -82,7 +73,7 @@ body{
 .index-body {
   background-color: #025D8C;
   border-radius: 3px;
-  padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+  padding: 1.25rem 1.25rem 1.25rem 1.25rem;
   position: relative;
   opacity: 0;
 }
@@ -132,6 +123,13 @@ body{
     .log-action-group .button{
         min-width: 105px;
     }
+    .time-field{
+        display: flex;
+        justify-content: flex-start;
+    }
+    .time-field .field{
+       margin-right: 3px;
+    }
 }
 @media screen and (max-width: 768px) {
   .date {
@@ -146,6 +144,7 @@ body{
   .nav-right{
       justify-content: space-between;
   }
+ 
   
 }
 @media screen and (max-width: 422px){
@@ -153,4 +152,7 @@ body{
     border-radius: 4px;
     font-size: 0.90rem;
     }
+     .log-form .label{ 
+    text-align: center;
+}
 }

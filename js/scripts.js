@@ -4,7 +4,7 @@ var modal_background =  $('#modal-background');
 var client_details =  $('#client-details');
 var save_new_client_button = $('#saveNewClientButton');
 var saved_indicator = $('#saved-indicator');
-var log_container = $('#log-container');
+
 var client_name_search = $('#clientName');
 var new_client_name_input = $('#newClientName');
 var newClientObject ={};
@@ -66,7 +66,6 @@ function saveNewClient() {
     
 };
 function createHTML(jsonObject) {
-  var rawTemplate = document.getElementById("log-template").innerHTML;
   var compiledTemplate = Handlebars.compile(rawTemplate);
   var ourGeneratedHTML = compiledTemplate(jsonObject);
  $(log_container).prepend(ourGeneratedHTML);
