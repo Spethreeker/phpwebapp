@@ -661,9 +661,7 @@ a.box:active {
   
 }
 
-.button:focus, .button.is-focused, .button:active, .button.is-active {
-  outline: none;
-}
+
 
 .button[disabled] {
   cursor: not-allowed;
@@ -692,17 +690,9 @@ a.box:active {
   margin-left: calc(-0.375em - 1px);
   margin-right: calc(-0.375em - 1px);
 }
-.button:focus, .button.is-focused {
-  border-color: #2A8FBD;
-  box-shadow: 0 0 0.5em rgba(0, 209, 178, 0.25);
-  color: #eee;
-}
 
-.button:active, .button.is-active {
-  border-color: #4a4a4a;
-  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.2);
-  color: #363636;
-}
+
+
 
 .button.is-link {
   background-color: transparent;
@@ -715,7 +705,7 @@ a.box:active {
   border-color: transparent;
   box-shadow: none;
 }
-.button.is-link:hover, .button.is-link.is-hovered, .button.is-link:focus, .button.is-link.is-focused, .button.is-link:active, .button.is-link.is-active {
+.button.is-link:hover, .button.is-link.is-hovered, .button.is-link:focus, .button.is-link.is-focused,  .button.is-link.is-active {
   background-color: whitesmoke;
   color: #363636;
 }
@@ -2003,6 +1993,9 @@ input[type="submit"].button {
       -ms-flex-pack: end;
           justify-content: flex-end;
 }
+  .button:focus, .button.is-focused, .button:active, .button.is-active {
+  outline: none;
+}
 
 @media screen and (min-width: 769px), print {
   .field.is-horizontal {
@@ -2010,6 +2003,16 @@ input[type="submit"].button {
     display: -ms-flexbox;
     display: flex;
   }
+.button:active, .button.is-active {
+  border-color: #4a4a4a;
+  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.2);
+  color: #363636;
+}
+/*.button:focus, .button.is-focused {
+  border-color: #2A8FBD;
+  box-shadow: 0 0 0.5em rgba(0, 209, 178, 0.25);
+  color: #eee;
+}*/
 }
 .field-label .label {
   font-size: inherit;

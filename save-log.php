@@ -14,7 +14,7 @@
   
     $clientId = clean_log_form('client_id');
     $issue = clean_log_form('issue');
-    $date_occurred = "2017-05-28";
+    $date_occurred = clean_log_form('date_occurred');
     $hours_worked = clean_log_form('hours_worked');
     $description = clean_log_form('description');
     $time_started = "9:25:00";
