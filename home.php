@@ -1,12 +1,63 @@
 <!DOCTYPE html>
 <?php
-require "config.php";
 session_start();
     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
         header("Location: index.php");
     }
-    $greetings_array = array("Hello, ", "Howdy, ", "What's up, ", "Bonjour, ", "Hola, ");
-    $greeting = $greetings_array[array_rand($greetings_array)];
+require "config.php";
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+$greetings_array = array("Hello, ", "Howdy, ", "What's up, ", "Bonjour, ", "Hola, ");
+$greeting = $greetings_array[array_rand($greetings_array)];
+$user_id = $_SESSION['id'];
+$log_array = array();
+$query = "SELECT recd.clientID, recd.issue, recd.hoursWorked, recd.dateOccurred, recd.timeStarted, recd.timeStopped, clients.name
+          FROM recordedLogs recd
+          JOIN clients ON recd.clientID = clients.id
+          WHERE recd.userid = $user_id AND recd.dateOccurred <= NOW() ORDER BY recd.dateOccurred ASC LIMIT 15";
+($stmt = $db->query($query))
+        || fail("query error".$db->error);
+for ($row_no = ($stmt->num_rows - 1); $row_no >= 0; $row_no-- ) {
+        $stmt->data_seek($row_no);
+        $log_array[] = ($stmt->fetch_assoc());
+}
+$stmt->free_result();
+$db->close();
+function drawLog($clientName, $issue, $timeStarted, $timeStopped, $dateOccurred) {
+    echo  <<<EOT
+        <div class="media log">
+            <div class="media-content">
+                <h3 class="title customer-name">{$clientName}</h3>
+                <p class="subtitle work-description">{$issue}</p>
+                <div class="work-duration">
+                    <p class="work-start-time">{$timeStarted}</p>
+                    <p>&nbsp-&nbsp</p>
+                    <p class="work-end-time">{$timeStopped}</p>
+                </div>
+            </div>
+            <div class="log-action-group has-addons"> 
+                <div class="control has-addons">
+                    <button class="button has-addons has-text-centered" id="view-log-button">
+                        <span class="icon"><i class="fa fa-eye"></i></span>
+                        <span class="is-hidden-mobile">View</span>
+                    </button>
+                </div>
+                <div class="control has-addons">
+                    <button class="button has-addons has-text-centered" id="edit-log-button">
+                        <span class="icon"><i class="fa fa-pencil"></i></span>
+                        <span class="is-hidden-mobile">Edit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+EOT;
+}
+function humanizeTime($time){
+    $robotTime = strtotime($time);
+    $day = date("l", $robotTime)." ".date("j", $robotTime);
+    return($day);
+}
 ?>
     <html>
 
@@ -24,25 +75,6 @@ session_start();
   crossorigin="anonymous"></script>
         <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
         <script>
-        //      $.ajax({
-        //         url:'fetch-logs.php',
-        //         type: 'GET',
-        //         dataType: 'json'}).done(function(data) {
-        //                 for (var objectNumber = 0; objectNumber < data.length; objectNumber++){
-        //                     var element = data[objectNumber];
-        //                     var f = element.dateOccurred.split(/[-]/);
-        //                     element.dateOccured = new Date(Date.UTC(f[0], f[1]-1, f[2], f[3] || 0, f[4] || 0, f[5] || 0));
-        //                  };
-        //                 var fetchedLogs = data;
-        //                 var rawTemplate = document.getElementById("log-template").innerHTML;
-        //                 var log_container = $('#log-container');
-        //                  for (var objectNumber = 0; objectNumber < fetchedLogs.length; objectNumber++){  
-        //                               
-        //                     var thing = fetchedLogs[objectNumber];
-        //                     var ourGeneratedHTML = compiledTemplate(thing);
-        //                     $(log_container).prepend(ourGeneratedHTML);
-        //                 };
-        // });
             var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
                 "October", "November", "December"
@@ -57,11 +89,7 @@ session_start();
                 });
             };
         </script>
-        <style>
-
-        </style>
     </head>
-
     <body class="mont-font">
         <nav class="nav grey has-shadow">
             <div class="nav-left is-hidden-mobile">
@@ -85,6 +113,7 @@ session_start();
                 </div>
             </div>
         </nav>
+       
         <form class="modal" id="client-details" data-parsley-validate>
             <div class="modal-background" id="modal-background"></div>
             <div class="modal-content animated" id="modal-content">
@@ -128,16 +157,15 @@ session_start();
         </form>
        
         <div class="container" id="whole-thing">
-            <div id="saved-logs">
-                <article class="media day" id="">
+          <article class="media day" id="">
                             <div class="day-header">  
-                            <h1 class="title day-date-title level-item" id="today"></h1> 
+                            <h1 class="title day-date-title level-item" id=""></h1> 
                                 <button class="button light-blue" onclick="showlog(); getClientList()" id="add-log-button">
                                     <span class="icon"><i class="fa fa-plus"></i></span>
                                     <span class="is-hidden-mobile"><p class="header">Add Log<p></span>
                                 </button>
                             </div>
-                    <div id="log-form" class="log-form" style="display: block;">
+                    <div id="log-form" class="log-form">
                      <form class="notification" id="newlog" name="newlog" method="POST" class="log" data-parsley-validate>
                         <div class="tile is-ancestor">
                             <div class="tile is-parent is-vertical">
@@ -208,6 +236,37 @@ session_start();
                             </div>
                         </div>
                     </form>
+                    </div>
+        <?php
+        $dateChecker = $log_array[0]['dateOccurred'];
+        foreach ( $log_array as $log ) {
+                if ($dateChecker == strtotime($log['dateOccurred'])) {
+                    drawLog($log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred']);
+                    $dateChecker = strtotime($log['dateOccurred']);
+                }else{
+                    echo '
+                       </article>
+                        <article class="media day" id="">
+                            <div class="day-header">  
+                            <h1 class="title day-date-title" id="">'.humanizeTime($log['dateOccurred']).'</h1> 
+                            </div>
+                         ';
+
+                       drawLog($log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred']);
+                       $dateChecker = strtotime($log['dateOccurred']);
+                }
+            }
+        ?>
+           <!-- <div id="saved-logs">
+                <article class="media day" id="">
+                            <div class="day-header">  
+                            <h1 class="title day-date-title level-item" id="today"></h1> 
+                                <button class="button light-blue" onclick="showlog(); getClientList()" id="add-log-button">
+                                    <span class="icon"><i class="fa fa-plus"></i></span>
+                                    <span class="is-hidden-mobile"><p class="header">Add Log<p></span>
+                                </button>
+                            </div>
+                    
                         <div id="log-container">
                         </div>
                     
@@ -276,8 +335,8 @@ session_start();
                     </div>
                 </article>
                 </div>
-                </div>
-                </div>
+                </div>-->
+        </div>
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
     <script src="js/awesomplete.min.js"></script>
