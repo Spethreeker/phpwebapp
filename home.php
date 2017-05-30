@@ -70,6 +70,7 @@ function humanizeTime($time){
         <link rel="stylesheet" href="css/awesomplete.css">
         <link rel="stylesheet" href="css/awesomplete.base.css">
         <link rel="stylesheet" href="css/animations.css">
+     
         <script type='application/javascript' src='js/fastclick.min.js'></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
@@ -157,6 +158,7 @@ function humanizeTime($time){
         </form>
        
         <div class="container" id="whole-thing">
+            <div id="saved-logs">
           <article class="media day" id="">
                             <div class="day-header">  
                             <h1 class="title day-date-title level-item" id=""></h1> 
@@ -181,7 +183,7 @@ function humanizeTime($time){
                                         <div class="field">
                                         <label class="label" for="timeStarted">Date</label>
                                           <div class="control">
-                                            <input type="date" class="input" id="dateOccurred"/>
+                                            <input type="text" class="input" id="dateOccurred"/>
                                           </div>
                                       </div>
                                     <div class="time-field">
@@ -237,6 +239,7 @@ function humanizeTime($time){
                         </div>
                     </form>
                     </div>
+                    </article>
         <?php
         $dateChecker = $log_array[0]['dateOccurred'];
         foreach ( $log_array as $log ) {
@@ -244,16 +247,16 @@ function humanizeTime($time){
                     drawLog($log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred']);
                     $dateChecker = strtotime($log['dateOccurred']);
                 }else{
+                    $dateChecker = strtotime($log['dateOccurred']);
                     echo '
                        </article>
                         <article class="media day" id="">
                             <div class="day-header">  
-                            <h1 class="title day-date-title" id="">'.humanizeTime($log['dateOccurred']).'</h1> 
+                            <h1 class="title day-date-title" id="">'.humanizeTime($dateChecker).'</h1> 
                             </div>
                          ';
 
                        drawLog($log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred']);
-                       $dateChecker = strtotime($log['dateOccurred']);
                 }
             }
         ?>
@@ -367,12 +370,27 @@ function humanizeTime($time){
             selectedClientId = clientId;
             console.log(selectedClientId);
         }, false);
+        
     };
     </script>
+    <script>
+   $( function() { 
+       $.datepicker.setDefaults(
+           $.extend( $.datepicker.regional[ '' ] )
+            );
+            // showOn: "both",
+            // buttonImageOnly: true,
+            // buttonImage: "calendar.gif",
+            // buttonText: "Calendar"
+        
+        $('#dateOccurred').datepicker();
+   });
+        </script>
     <script>
      document.getElementById("today").innerHTML = days[todaysdate.getDay()] + ", " + months[
         todaysdate.getMonth()] + " " + todaysdate.getDate();
     </script>
+    <
     <script id="log-template" type="text/x-handlebars-template">
         <div class="media log">
             <div class="media-content">

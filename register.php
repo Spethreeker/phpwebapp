@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <?php
 session_start();
-$_SESSION['message'] = '';
 ?>
-
-<html class="blue mont-font">
+<html class="blue oxy-font">
     <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="stylesheet" href="css/bulma.css">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/animations.css">
+         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script src="js/parsley.min.js"></script>
         <style> #login-link-button:hover{ background: #eee; }</style>
     </head>
 </html>
@@ -26,12 +29,12 @@ $_SESSION['message'] = '';
 <div class="container">
   <div class="card animated index-form" id="register-form">
     <h1 class="card-header-title">Register</h1>
-    <form id='register' name="register" class="card-content" action='user-man.php' method='post' accept-charset='UTF-8'>
+    <form id='register' name="register" class="card-content" action='testing.php' method='post' accept-charset='UTF-8' data-parsely-validate>
       <input type="hidden" name="op" value="new">
       <div class="field">
       <label for='FirstName' class="label heading">First Name</label>
         <div class="control">
-          <input type='text' class="input is-block" name='name' id='name' maxlength="50" required/>
+          <input type='text' class="input is-block" name='name' id='name' maxlength="50" value="Spencer" required/>
         </div>
       </div>
       <div class="field">
@@ -44,13 +47,13 @@ $_SESSION['message'] = '';
             <label class="label heading"  for='password' >Password</label>
           <div class="control">
             <input class="input"  type='password' name='password' id='password' maxlength="50"/>
-
           </div>
         </div>
+        <input type="number" data-parsley-type="number"/>
         <div class="field is-fullwidth">
           <label class="subtitle is-6">&nbsp;</label>
           <div class="control">
-            <input class="button blue is-medium is-fullwidth"  type='submit' name='Submit' value='Register'>
+            <input class="button blue is-medium is-fullwidth"  type='button' onclick-"validateThis()"name='Submit' value='Register'>
           </div>
         </div>
   </form>
@@ -65,12 +68,20 @@ $_SESSION['message'] = '';
 </body>
  <script src="js/scripts.js"></script>
      <script>
-    
+
       var index = document.getElementById('index-body');
-      window.addEventListener('load', 
+      if ('addEventListener' in document) {  
+        document.addEventListener('DOMContentLoaded', 
         function() { 
          index.classList.add('fadeIn');
         }, false);
-    
+      };</script>
+      <script>
+      $(function () {
+        var registerForm = $('#register').parsley();
+       alert("hey");
+
+        
+      });
     </script>
 </html>

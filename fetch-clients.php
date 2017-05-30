@@ -14,10 +14,7 @@ else
 $user_id = $_SESSION['id'];
 
 $client_array = array();
- $db = new mysqli($db_host, $db_user, $db_pass, $db_name);
-        if (mysqli_connect_errno()) //connect to server
-            fail('MySQL connect error', mysqli_connect_error());
-
+ 
 $query = "SELECT `id`,`name` FROM `clients` WHERE `userid` = ?";
 ($stmt = $db->prepare($query))
         || fail("query error".$db->errno);

@@ -36,7 +36,7 @@
        <input type="hidden" name="op" value="login">
        <div class="field">
        <label for='email' class="label heading light-gray" >Email Address</label>
-        <span class="control">  <input type='email' class="input" name='email' id='Email'  required/></span>
+        <span class="control">  <input type='email' class="input" name='email' id='Email'  required autofocus/></span>
        </div>
        <div class="field">
        <label class="field-label label heading light-gray"  for='password' >Password</label>
