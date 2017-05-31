@@ -2,7 +2,7 @@
 <?php
   session_start();
 ?>
-<html class="blue oxy-font">
+<html>
   <head>
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="css/bulma.css">
@@ -64,9 +64,9 @@
                             echo $_SESSION['result']."<br>";
       }?>
 </div>
-  <footer class="footer blue">
+
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Privacy Policy</a>
-  </footer>
+ <footer class="index-body">&nbsp</footer>
 </body>
      <script src="js/scripts.js"></script>
      <script>

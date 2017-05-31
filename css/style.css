@@ -87,6 +87,9 @@ body{
   padding: 1.25rem 1.25rem 1.25rem 1.25rem;
   position: relative;
   opacity: 0;
+  background-image: url('../paper.png');
+  background-repeat: repeat;
+  background-size: cover;
 }
 .log-form{
     display: none;

@@ -70,7 +70,8 @@ function humanizeTime($time){
         <link rel="stylesheet" href="css/awesomplete.css">
         <link rel="stylesheet" href="css/awesomplete.base.css">
         <link rel="stylesheet" href="css/animations.css">
-     
+        <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="css/default.date.css">
         <script type='application/javascript' src='js/fastclick.min.js'></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
@@ -346,6 +347,8 @@ function humanizeTime($time){
     <script src="js/easing.js"></script>
     <script src="js/parsley.min.js"></script>
     <script src="js/scripts.js"></script>
+    <script src="js/picker.js"></script>
+    <script src="js/picker.date.js"></script>
     <script>
     var input = document.getElementById('clientName');
     var selectedClientId = null;
@@ -358,6 +361,7 @@ function humanizeTime($time){
     if ('addEventListener' in document) {
         document.addEventListener('DOMContentLoaded', function() {
             FastClick.attach(document.body);
+             $('#dateOccurred').pickadate();
         }, false);
         document.addEventListener("awesomplete-close", function(){
             var clientId = null;
@@ -374,21 +378,21 @@ function humanizeTime($time){
     };
     </script>
     <script>
-   $( function() { 
-       $.datepicker.setDefaults(
-           $.extend( $.datepicker.regional[ '' ] )
-            );
-            // showOn: "both",
-            // buttonImageOnly: true,
-            // buttonImage: "calendar.gif",
-            // buttonText: "Calendar"
+//    $( function() { 
+//        $.datepicker.setDefaults(
+//            $.extend( $.datepicker.regional[ '' ] )
+//             );
+//             // showOn: "both",
+//             // buttonImageOnly: true,
+//             // buttonImage: "calendar.gif",
+//             // buttonText: "Calendar"
         
-        $('#dateOccurred').datepicker();
-   });
+//         $('#dateOccurred').datepicker();
+//    });
+
         </script>
     <script>
-     document.getElementById("today").innerHTML = days[todaysdate.getDay()] + ", " + months[
-        todaysdate.getMonth()] + " " + todaysdate.getDate();
+    
     </script>
     <
     <script id="log-template" type="text/x-handlebars-template">
