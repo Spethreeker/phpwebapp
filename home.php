@@ -54,8 +54,8 @@ function drawLog($clientName, $issue, $timeStarted, $timeStopped, $dateOccurred)
 EOT;
 }
 function humanizeTime($time){
-    $robotTime = strtotime($time);
-    $day = date("l", $robotTime)." ".date("j", $robotTime);
+    
+    $day = date("l", $time)." ".date("j", $time);
     return($day);
 }
 ?>
@@ -115,7 +115,6 @@ function humanizeTime($time){
                 </div>
             </div>
         </nav>
-       
         <form class="modal" id="client-details" data-parsley-validate>
             <div class="modal-background" id="modal-background"></div>
             <div class="modal-content animated" id="modal-content">
