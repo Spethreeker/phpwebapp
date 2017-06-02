@@ -17,12 +17,12 @@
         }
        </style>
   </head>
-<body class="index-body animated" id="index-body">
+<body class="body index-body animated" id="index-body">
 <div class="container">
   <div class="hero">
     <div class="hero-header">&nbsp;</div>
     <div class="hero-body animated" id="hero-body">
-      <img class="image is-128x128 margin-auto-centered" src="hammerpen.png" alt="Worklogs" id="logo"/>
+      <img class="image is-128x128 margin-auto-centered" src="images/hammerpen.png" alt="Worklogs" id="logo"/>
       <div class="has-text-centered">
         <h1 class="title is-2 white-font">Worklogs</h1>
         <p class="subtitle is-4 off-white-font">A work journal on the Internet</p>
@@ -66,7 +66,7 @@
 </div>
 
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Privacy Policy</a>
- <footer class="index-body">&nbsp</footer>
+ 
 </body>
      <script src="js/scripts.js"></script>
      <script>
