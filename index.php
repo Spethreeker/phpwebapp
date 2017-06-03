@@ -7,8 +7,23 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="css/bulma.css">
     <link rel="stylesheet" href="css/style.css">
-  
-    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="images/favicons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/favicons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="images/favicons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="images/favicons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="images/favicons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="images/favicons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="images/favicons/ms-icon-144x144.png">
+  <meta name="theme-color" content="#025D8C">
    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
      <style>
         .button.is-link:hover{
@@ -52,7 +67,7 @@
    </form>
    <div class="card-footer">
    <div class="card-footer-item">
-   <a href="register.php" class="button is-link" id="register-link-button">Or register an account!<i class="em em-ok_hand"></i></a>
+   <a href="register.php" class="button is-link" id="register-link-button">Or register an account</a>
    </div>
    </div>
 </div>
@@ -65,7 +80,7 @@
 </div>
 
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Privacy Policy</a>
- 
+ <footer><a href="https://seal.beyondsecurity.com/vulnerability-scanner-verification/worklogs.io"><img src="https://seal.beyondsecurity.com/verification-images/worklogs.io/vulnerability-scanner-2.gif" alt="Website Security Test" border="0" /></a></footer>
 </body>
      <script src="js/scripts.js"></script>
      <script src="js/parsley.min.js"></script>
