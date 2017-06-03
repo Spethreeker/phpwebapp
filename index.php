@@ -7,10 +7,9 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="css/bulma.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animations.css">
+  
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
-     <script src="js/jquery-3.2.0.min.js"></script>
-     <script src="js/parsley.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
      <style>
         .button.is-link:hover{
           background: #eee;
@@ -69,6 +68,7 @@
  
 </body>
      <script src="js/scripts.js"></script>
+     <script src="js/parsley.min.js"></script>
      <script>
      
       var index = document.getElementById('index-body');

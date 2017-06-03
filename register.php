@@ -7,10 +7,10 @@ session_start();
      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="stylesheet" href="css/bulma.css">
         <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/animations.css">
+      
          <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
-  <script src="js/parsley.min.js"></script>
+  
         <style> #login-link-button:hover{ background: #eee; }</style>
     </head>
 </html>
@@ -67,6 +67,7 @@ session_start();
   
 </body>
  <script src="js/scripts.js"></script>
+ <script src="js/parsley.min.js"></script>
      <script>
 
       var index = document.getElementById('index-body');
