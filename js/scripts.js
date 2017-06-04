@@ -103,19 +103,19 @@ function saveLog(){
     jsonObject.descripton = description;
     jsonObject.timeStopped = timeStopped;
     jsonObject.timeStarted = timeStarted;
-    // $.post('save-log.php',{
-    //     client_id: selectedClientId,
-    //     date_occurred: dateOccurred,
-    //     hours_worked: hoursWorked,
-    //     time_started: timeStarted,
-    //     time_stopped: timeStopped,
-    //     issue: issue,
-    //     description: description
-    //     },function(data) {
-    //         alert(data);
-    // });
-    createHTML(jsonObject);
-    $('#submitbutton').toggleClass('is-loading');
+    $.post('save-log.php',{
+        client_id: selectedClientId,
+        date_occurred: dateOccurred,
+        hours_worked: hoursWorked,
+        time_started: timeStarted,
+        time_stopped: timeStopped,
+        issue: issue,
+        description: description
+        },function(data) {
+            alert(data);
+            createHTML(jsonObject);
+            $('#submitbutton').toggleClass('is-loading');
+    });
     event.preventDefault();
 };
 function dothis() {
