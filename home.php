@@ -245,12 +245,12 @@ function humanizeTime($time){
         </div>
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="js/awesomplete.min.js"></script>
     <script src="js/easing.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/picker.js"></script>
-    <script src="js/picker.date.js"></script>
+    <!--<script src="js/picker.date.js"></script>-->
     <script>
     var input = document.getElementById('clientName');
     var selectedClientId = null;
