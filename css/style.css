@@ -5,7 +5,7 @@ html{
 body{
     overflow-x: hidden;
     font-family: 'Oxygen', sans-serif;
-
+    z-index: 1;
 }
 .grey{background-color: #556270;}
 .white-font{color: #FCF9FC;}
@@ -28,7 +28,12 @@ body{
 }
 .green:active {background-color: #047658;}
 .nav{
-    z-index: 69;
+    z-index: 3;
+}
+.button:active{
+  border-color: transparent;
+  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.2);
+  color: #ccc;
 }
 .media-content{
     padding-left: 12px;
@@ -108,13 +113,14 @@ body{
   border-radius: 3px;
   padding: 1.25rem 1.25rem 1.25rem 1.25rem;
   position: relative;
-  opacity: 0;
+
 }
 .log-form{
-  z-index: 68;
+  z-index: 2;
   overflow: hidden;
-  
   position: absolute;
+  box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.5);
+  margin-top: 10px;
 }
 .work-start-time, .work-end-time{
     font-size: 14px;
@@ -125,11 +131,7 @@ body{
    margin-top: auto;
    margin-bottom: auto;
 }
-.button:active{
-  border-color: transparent;
-  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.2);
-  color: #ccc;
-}
+
 .time-field{
         display: flex;
    -webkit-box-pack: start;
@@ -143,7 +145,7 @@ body{
     margin-left: 15px;
 }
 #add-log-button{
-    z-index: 69;
+    z-index: 3;
 }
 #modal-content{
     margin: 40px auto;
@@ -166,6 +168,9 @@ body{
     .time-field .field{
        margin-right: 3px;
     }
+    .log-form{
+        left: .75em;
+    }
 }
 @media screen and (max-width: 768px) {
   .date {
@@ -181,7 +186,7 @@ body{
       justify-content: space-between;
   }
   .day-date-title{
-  font-size: .95rem;
+    font-size: .95rem;
     padding: 5px;
 }
  
@@ -242,4 +247,37 @@ body{
   to {
     opacity: 1;
   }
+}
+@keyframes slideInLeft {
+  from {
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInLeft {
+  animation-name: slideInLeft;
+    animation-duration: .4s;
+  animation-fill-mode: both;
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    transform: translate3d(-120%, 0, 0);
+  }
+}
+
+.slideOutLeft {
+  animation-name: slideOutLeft;
+    animation-duration: .4s;
+  animation-fill-mode: both;
 }

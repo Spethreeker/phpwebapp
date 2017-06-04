@@ -36,19 +36,12 @@ function drawLog($clientName, $issue, $timeStarted, $timeStopped, $dateOccurred)
                     <p class="work-end-time">{$timeStopped}</p>
                 </div>
             </div>
-            <div class="log-action-group"> 
-                <div class="control">
-                    <button class="button has-text-centered" id="view-log-button">
-                        <span class="icon"><i class="fa fa-eye"></i></span>
-                        <span class="is-hidden-mobile">View</span>
-                    </button>
-                </div>
-            </div>
+            
         </div>
 EOT;
 }
 function humanizeTime($time){
-    $day = date("l", $time)." ".date("j", $time);
+    $day = date("l", $time).", ".date("j", $time);
     return($day);
 }
 ?>
@@ -92,7 +85,7 @@ function humanizeTime($time){
             jQuery.easing.def = 'easeOutQuad';
         </script>
     </head>
-    <body>
+    <body id="whole-thing">
         <nav class="nav grey has-shadow">
             <div class="nav-left is-hidden-mobile">
                 <div class="nav-item is-hidden-touch">
@@ -156,11 +149,12 @@ function humanizeTime($time){
                 </div>
             </div>
         </form>
-        <div class="container" id="whole-thing">
+        <div class="container">
                 <button class="button light-blue is-fullwidth" onclick="showlog(); getClientList()" id="add-log-button">
                     <span class="icon"><i class="fa fa-plus"></i></span>
                     <span class="is-hidden-mobile"><p class="header">Add Log<p></span>
                 </button>
+               <div class="modal-background"></div>
               <form id="log-form" class="log-form animated is-hidden" name="newlog" method="POST" class="log" data-parsley-validate>
                <div class="notification">
                             <div class="field">

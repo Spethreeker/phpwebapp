@@ -10,18 +10,16 @@ var new_client_name_input = $('#newClientName');
 var newClientObject ={};
 var clientList = [];
 function showlog() {
-     that = $(log_form)
-  that.removeClass("is-hidden");
- $("#log-form-container").toggleClass("is-active");
-    if (that.hasClass('slideInDown')){
-            that.removeClass('slideInDown');
-            that.addClass('slideOutUp');
-            
+    that = $(log_form)
+    that.removeClass("is-hidden");
+    $("#log-form-container").toggleClass("is-active");
+    if (that.hasClass('slideInLeft')){
+        that.removeClass('slideInLeft');
+        that.addClass('slideOutLeft');
     }else{
-        that.addClass('slideInDown');
-        that.removeClass('slideOutUp');
+        that.addClass('slideInLeft');
+        that.removeClass('slideOutLeft');
     }
-
 };
 function delayToggleActive() {
     timeoutID = window.setTimeout(toggleZoom, 1000);
