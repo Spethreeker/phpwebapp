@@ -36,12 +36,11 @@ function drawLog($clientName, $issue, $timeStarted, $timeStopped, $dateOccurred)
                     <p class="work-end-time">{$timeStopped}</p>
                 </div>
             </div>
-            
         </div>
 EOT;
 }
 function humanizeTime($time){
-    $day = date("l", $time).", ".date("j", $time);
+    $day = date("l", $time).", ".date("j", $time).date("S", $time);
     return($day);
 }
 ?>
@@ -56,7 +55,7 @@ function humanizeTime($time){
         <link rel="stylesheet" href="css/awesomplete.base.css">
     
         <link rel="stylesheet" href="css/default.css">
-        <!--<link rel="stylesheet" href="css/default.date.css">-->
+        <link rel="stylesheet" href="css/default.date.css">
         <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-icon-72x72.png">
@@ -175,7 +174,7 @@ function humanizeTime($time){
                                 <div class="field">
                                 <label class="label" for="timeStarted">Time Started</label>
                                     <div class="control">
-                                    <input type="time" class="input" id="timeStarted"/>
+                                    <input type="text" class="input" id="timeStarted"/>
                                     </div>
                                 </div>
                                 <div class="field">
@@ -219,7 +218,7 @@ function humanizeTime($time){
                     </div>
               </div>
             </form>
-           <div class="log-container">
+           <div class="log-container" id="log-container">
      
                
         <?php
@@ -232,7 +231,7 @@ function humanizeTime($time){
                     $dateChecker = strtotime($log['dateOccurred']);
                     echo '
                        </article>
-                        <article class="media day" id="">
+                        <article class="media day" id="'.$dateChecker.'" data-date-occurred="'.$dateChecker.'">
                             <div class="day-header">  
                             <h1 class="title day-date-title" id="">'.humanizeTime($dateChecker).'</h1> 
                             </div>
@@ -248,6 +247,7 @@ function humanizeTime($time){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
     <script src="js/awesomplete.min.js"></script>
     <script src="js/easing.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/picker.js"></script>
     <script src="js/picker.date.js"></script>
@@ -260,10 +260,35 @@ function humanizeTime($time){
     });
     </script>
     <script>
+        var dayBlockIdArray = {};
+
+    </script>
+    <script>
     if ('addEventListener' in document) {
         document.addEventListener('DOMContentLoaded', function() {
             FastClick.attach(document.body);
-             $('#dateOccurred').pickadate();
+             $('#dateOccurred').pickadate({
+                 format: 'mmmm d, yyyy',
+                 formatSubmit: 'yyyy-mm-d',
+                 hiddenPrefix: 'date'
+             });
+             $('#timeStarted').pickatime({
+                 formatSubmit: 'HH:i',
+                 hiddenPrefix: 'started'
+             });
+             $('#timeStopped').pickatime({
+                 formatSubmit: 'HH:i',
+                 hiddenPrefix: 'stopped',
+                 onClose: function() {
+                     console.log($("input[name='started_submit']").attr("value"));
+                     console.log($("input[name='stopped_submit']").attr("value"))
+                     var date1 = $("input[name='started_submit']").attr("value");
+                     var date2 = $("input[name='stopped_submit']").attr("value");
+                     var daterino = Date.parse("0000-00-00"+date1);
+                     var daterino2 = Date.parse("0000-00-00"+date2);
+                     console.log(daterino);
+                 }
+             });
         }, false);
         document.addEventListener("awesomplete-close", function(){
             var clientId = null;
@@ -278,7 +303,6 @@ function humanizeTime($time){
         }, false);
     };
     </script>
-  
     <script id="log-template" type="text/x-handlebars-template">
         <div class="media log">
             <div class="media-content">
@@ -290,21 +314,25 @@ function humanizeTime($time){
                     <p class="work-end-time">{{timeStopped}}</p>
                 </div>
             </div>
-            <div class="log-action-group has-addons"> 
-                <div class="control has-addons">
-                    <button class="button has-addons has-text-centered" id="view-log-button">
-                        <span class="icon"><i class="fa fa-eye"></i></span>
-                        <span class="is-hidden-mobile">View</span>
-                    </button>
-                </div>
-                <div class="control has-addons">
-                    <button class="button has-addons has-text-centered" id="edit-log-button">
-                        <span class="icon"><i class="fa fa-pencil"></i></span>
-                        <span class="is-hidden-mobile">Edit</span>
-                    </button>
+        </div>
+    </script>
+    <script id="day-template" type="text/x-handlebars-template">
+        <article class="media day" id="{{dateTimestamp}}" data-date-occurred="">
+            <div class="day-header">  
+            <h1 class="title day-date-title">{{dateOccurred}}</h1> 
+            </div>
+            <div class="media log">
+            <div class="media-content">
+                <h3 class="title customer-name">{{name}}</h3>
+                <p class="subtitle work-description">{{issue}}</p>
+                <div class="work-duration">
+                    <p class="work-start-time">{{timeStarted}}</p>
+                    <p>&nbsp-&nbsp</p>
+                    <p class="work-end-time">{{timeStopped}}</p>
                 </div>
             </div>
         </div>
+        </article>
     </script>
     </html>
      <!--<p class="title day-date-title" id="wed-mar-22">Wednesday, March 22</p>-->

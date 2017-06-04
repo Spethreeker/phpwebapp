@@ -68,42 +68,55 @@ function saveNewClient() {
         });
     }); 
 };
+
 function createHTML(jsonObject) {
-  var logTemplate = document.getElementById('log-template').innerHTML;
-  var compiledTemplate = Handlebars.compile(logTemplate);
-  var ourGeneratedHTML = compiledTemplate(jsonObject);
- $(log_container).prepend(ourGeneratedHTML);
+  dateTimeStamp = jsonObject.dateTimestamp
+  if (!document.getElementById(dateTimeStamp)){
+    var dayTemplate = document.getElementById('day-template').innerHTML;
+    var compiledTemplate = Handlebars.compile(dayTemplate);
+    var ourGeneratedHTML = compiledTemplate(jsonObject);  
+    $(log_container).prepend(ourGeneratedHTML);
+  }else{
+    var logTemplate = document.getElementById('log-template').innerHTML;
+    var compiledTemplate = Handlebars.compile(logTemplate);
+    var ourGeneratedHTML = compiledTemplate(jsonObject);
+    $('#' + dateTimeStamp).append(ourGeneratedHTML);
+}
 };
+
 function saveLog(){
     $('#submitbutton').toggleClass('is-loading');
     var clientName = $.trim($('#clientName').val());
-    var dateOccurred = $.trim($('#dateOccurred').val());
-    var timeStarted = $.trim($('#timeStarted').val());
-    var timeStopped = $.trim($('#timeStopped').val());
+    var dateOccurred = $.trim($('input[name=date_submit]').val());
+    var dateTimestamp = Date.parse(dateOccurred)/1000;
+    var timeStarted = $.trim($('input[name=started_submit]').val());
+    var timeStopped = $.trim($('input[name=stopped_submit]').val());
     var hoursWorked = $.trim($('#hoursWorked').val());
     var issue = $.trim($('#issue').val());
     var description= $.trim($('#description').val());
     var jsonObject = {};
     jsonObject.name = clientName;
     jsonObject.issue = issue;
+    jsonObject.dateOccurred = moment().format("dddd, Do");
+    jsonObject.dateTimestamp = dateTimestamp;
     jsonObject.hoursWorked = hoursWorked;
     jsonObject.descripton = description;
     jsonObject.timeStopped = timeStopped;
     jsonObject.timeStarted = timeStarted;
-    $.post('save-log.php',{
-        client_id: selectedClientId,
-        date_occurred: dateOccurred,
-        hours_worked: hoursWorked,
-        time_started: timeStarted,
-        time_stopped: timeStopped,
-        issue: issue,
-        description: description
-        },function(data) {
-            alert(data);
-            createHTML(jsonObject);
-            $('#submitbutton').toggleClass('is-loading');
-    });
-event.preventDefault();
+    // $.post('save-log.php',{
+    //     client_id: selectedClientId,
+    //     date_occurred: dateOccurred,
+    //     hours_worked: hoursWorked,
+    //     time_started: timeStarted,
+    //     time_stopped: timeStopped,
+    //     issue: issue,
+    //     description: description
+    //     },function(data) {
+    //         alert(data);
+    // });
+    createHTML(jsonObject);
+    $('#submitbutton').toggleClass('is-loading');
+    event.preventDefault();
 };
 function dothis() {
   date = $('#dateOccurred')
@@ -112,11 +125,11 @@ function dothis() {
   issue = $('#issue');
   desc = $('#description');
   hours = $('#hoursWorked');
-  time2.val('20:20');
-  time1.val('16:45');
-  date.val('2017-03-23');
-  desc.val('Testing');
-  issue.val('Testing');
+  time2.val('19:20');
+  time1.val('15:45');
+  date.val('2017-05-13');
+  desc.val('Boopity');
+  issue.val('Bop');
   time2.val() - time1.val();
 //   hours.val(a);
   console.log( time2.val() - time1.val());
