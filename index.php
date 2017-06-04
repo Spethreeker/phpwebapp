@@ -25,6 +25,7 @@
   <meta name="msapplication-TileImage" content="images/favicons/ms-icon-144x144.png">
   <meta name="theme-color" content="#025D8C">
    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+     <script src="js/parsley.min.js"></script>
      <style>
         .button.is-link:hover{
           background: #eee;
@@ -78,18 +79,10 @@
                             echo $_SESSION['result']."<br>";
       }?>
 </div>
-
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Privacy Policy</a>
  <footer><a href="https://seal.beyondsecurity.com/vulnerability-scanner-verification/worklogs.io"><img src="https://seal.beyondsecurity.com/verification-images/worklogs.io/vulnerability-scanner-2.gif" alt="Website Security Test" border="0" /></a></footer>
 </body>
      <script src="js/scripts.js"></script>
-     <script src="js/parsley.min.js"></script>
      <script>
-     
-      var index = document.getElementById('index-body');
-         document.addEventListener('DOMContentLoaded', function() { 
-         index.classList.add('fadeIn');
-        }, false);
-        
     </script>
 </html>

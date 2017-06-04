@@ -42,11 +42,10 @@
          header("Location: home.php");
        }else{
            $_SESSION['result'] = 'Authentication Failed :(';
-        //    header("Location: index.php");
-          echo "Wrong password";
+        header("Location: index.php");
+         
         }
     unset($hasher);
-    // $stmt->free_result();
     $stmt->close();
     $db->close();
     ?>
