@@ -10,11 +10,18 @@ var new_client_name_input = $('#newClientName');
 var newClientObject ={};
 var clientList = [];
 function showlog() {
-        if ($(log_form).is(":hidden")){
-            $(log_form).slideDown("slow");
-        }else{
-            $(log_form).slideUp();
-   }   
+     that = $(log_form)
+  that.removeClass("is-hidden");
+ $("#log-form-container").toggleClass("is-active");
+    if (that.hasClass('slideInDown')){
+            that.removeClass('slideInDown');
+            that.addClass('slideOutUp');
+            
+    }else{
+        that.addClass('slideInDown');
+        that.removeClass('slideOutUp');
+    }
+
 };
 function delayToggleActive() {
     timeoutID = window.setTimeout(toggleZoom, 1000);
@@ -23,10 +30,10 @@ function toggleZoom() {
     $(modal_content).removeClass('slideInDown');
     $(modal_content).addClass('slideOutUp');
     $(modal_background).fadeToggle('fast');
-    newTimeoutID = window.setTimeout(toggleActive, 300);
+    newTimeoutID = window.setTimeout(toggleActive($(client_details)), 300);
 };
-function toggleActive() {
- $(client_details).removeClass('is-active');
+function toggleActive(div) {
+   $(div).toggleClass("is-active");
 };
 function toggleClientDetails() {
     $(new_client_name_input).val($(client_name_search).val());
@@ -59,7 +66,7 @@ function saveNewClient() {
         delayToggleActive();}).toggleClass('is-loading');
     $(saved_indicator).fadeOut('fast', function() {
             $('#saveNewClientButton').fadeIn();
-        alert(data);
+        
         });
     }); 
 };
@@ -117,21 +124,17 @@ function dothis() {
   console.log( time2.val() - time1.val());
 };
 function getClientList() {
-    if(sessionStorage.getItem("clientList")){
-        return;
-    }else{
-        $.ajax({
-        url:'fetch-clients.php',
-        type: 'GET',
-        dataType: 'json'}).done(function(data) {
-            clientObjectList = data;
-            var clientNameList = [];
-            $.each(data, function(key, value) {
-                clientNameList.push(value.name);
-                });
-            sessionStorage.setItem("clientList", clientNameList);
-           
-            awesomplete.list = clientNameList;
+    $.ajax({
+    url:'fetch-clients.php',
+    type: 'GET',
+    dataType: 'json'}).done(function(data) {
+        clientObjectList = data;
+        var clientNameList = [];
+        $.each(data, function(key, value) {
+            clientNameList.push(value.name);
             });
-        }
+        sessionStorage.setItem("clientList", clientNameList);
+        
+        awesomplete.list = clientNameList;
+        });
 }

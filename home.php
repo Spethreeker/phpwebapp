@@ -36,14 +36,13 @@ function drawLog($clientName, $issue, $timeStarted, $timeStopped, $dateOccurred)
                     <p class="work-end-time">{$timeStopped}</p>
                 </div>
             </div>
-            <div class="log-action-group has-addons"> 
-                <div class="control has-addons">
-                    <button class="button has-addons has-text-centered" id="view-log-button">
+            <div class="log-action-group"> 
+                <div class="control">
+                    <button class="button has-text-centered" id="view-log-button">
                         <span class="icon"><i class="fa fa-eye"></i></span>
                         <span class="is-hidden-mobile">View</span>
                     </button>
                 </div>
-                
             </div>
         </div>
 EOT;
@@ -62,9 +61,9 @@ function humanizeTime($time){
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/awesomplete.css">
         <link rel="stylesheet" href="css/awesomplete.base.css">
-        <link rel="stylesheet" href="css/animations.css">
+    
         <link rel="stylesheet" href="css/default.css">
-        <link rel="stylesheet" href="css/default.date.css">
+        <!--<link rel="stylesheet" href="css/default.date.css">-->
         <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-icon-72x72.png">
@@ -82,6 +81,7 @@ function humanizeTime($time){
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="images/favicons/ms-icon-144x144.png">
   <meta name="theme-color" content="#025D8C">
+        <!--<script src="js/parsley.min.js"></script>-->
         <script type='application/javascript' src='js/fastclick.min.js'></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
@@ -92,7 +92,7 @@ function humanizeTime($time){
             jQuery.easing.def = 'easeOutQuad';
         </script>
     </head>
-    <body style="background: #385D8A;">
+    <body>
         <nav class="nav grey has-shadow">
             <div class="nav-left is-hidden-mobile">
                 <div class="nav-item is-hidden-touch">
@@ -157,20 +157,12 @@ function humanizeTime($time){
             </div>
         </form>
         <div class="container" id="whole-thing">
-            <div id="saved-logs">
-          <article class="media day" id="">
-            <div class="day-header">  
-            <h1 class="title day-date-title level-item" id=""></h1> 
-                <button class="button light-blue" onclick="showlog(); getClientList()" id="add-log-button">
+                <button class="button light-blue is-fullwidth" onclick="showlog(); getClientList()" id="add-log-button">
                     <span class="icon"><i class="fa fa-plus"></i></span>
                     <span class="is-hidden-mobile"><p class="header">Add Log<p></span>
                 </button>
-            </div>
-            <div id="log-form" class="log-form">
-                <form class="notification" id="newlog" name="newlog" method="POST" class="log" data-parsley-validate>
-                <div class="tile is-ancestor">
-                    <div class="tile is-parent is-vertical">
-                        <div class="tile is-child">
+              <form id="log-form" class="log-form animated is-hidden" name="newlog" method="POST" class="log" data-parsley-validate>
+               <div class="notification">
                             <div class="field">
                             <label class="label" for="clientname">Client Name</label>
                                 <div class="control has-icons-left" id="add-client">
@@ -217,25 +209,24 @@ function humanizeTime($time){
                                     <textarea type="textarea" class="textarea" id="description" placeholder="Describe" required></textarea>
                                 </div>
                             </div>
-                                <div class="field is-grouped is-grouped-centered">
-                                    <div class="control is-expanded">
-                                        
-                                    <button class="button" type="button" onclick="dothis();">
-                                        <span class="icon"><i class="fa fa-plus"></i></span><span>Add Items</span></button>
-                                    </div>
-                                    <button class="control button green is-expanded" type="button" id="submitbutton" onclick="saveLog()" name='Submit'>
-                                    <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
-                                    </button>
-                                    <button class="control button red is-expanded" type="button" onclick="showlog()">
-                                    <span class="icon"><i class="fa fa-times" aria-hidden="true"></i></span><span>Close</span>
-                                    </button>
+                            <div class="field is-grouped is-grouped-centered">
+                                <div class="control is-expanded">
+                                    
+                                <button class="button" type="button" onclick="dothis();">
+                                    <span class="icon"><i class="fa fa-plus"></i></span><span>Add Items</span></button>
                                 </div>
-                            </div>
-                            </div>
-                        </div>
+                                <button class="control button green is-expanded" type="button" id="submitbutton" onclick="saveLog()" name='Submit'>
+                                <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
+                                </button>
+                                <button class="control button red is-expanded" type="button" onclick="showlog()">
+                                <span class="icon"><i class="fa fa-times" aria-hidden="true"></i></span><span>Close</span>
+                                </button>
+                        
+                    </div>
+              </div>
             </form>
-            </div>
-        </article>
+           <div class="log-container">
+     
                
         <?php
         $dateChecker = $log_array[0]['dateOccurred'];
@@ -257,12 +248,12 @@ function humanizeTime($time){
                 }
             }
         ?>
+          </div>
         </div>
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
     <script src="js/awesomplete.min.js"></script>
     <script src="js/easing.js"></script>
-    <script src="js/parsley.min.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/picker.js"></script>
     <script src="js/picker.date.js"></script>
@@ -291,27 +282,9 @@ function humanizeTime($time){
             selectedClientId = clientId;
             console.log(selectedClientId);
         }, false);
-        
     };
     </script>
-    <script>
-//    $( function() { 
-//        $.datepicker.setDefaults(
-//            $.extend( $.datepicker.regional[ '' ] )
-//             );
-//             // showOn: "both",
-//             // buttonImageOnly: true,
-//             // buttonImage: "calendar.gif",
-//             // buttonText: "Calendar"
-        
-//         $('#dateOccurred').datepicker();
-//    });
-
-        </script>
-    <script>
-    
-    </script>
-    <
+  
     <script id="log-template" type="text/x-handlebars-template">
         <div class="media log">
             <div class="media-content">
