@@ -3,7 +3,7 @@ html{
     background: inherit;
 }
 body{
-    overflow-x: hidden;
+   
     font-family: 'Oxygen', sans-serif;
     z-index: 1;
 }
@@ -153,6 +153,9 @@ body{
 #modal-content:before{
     height: 100%;
     vertical-align: middle;
+}
+#whole-thing{
+    height: 100%;
 }
 @media screen and (min-width: 999px){
     .index-form{

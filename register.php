@@ -24,6 +24,7 @@ session_start();
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="images/favicons/ms-icon-144x144.png">
   <meta name="theme-color" content="#025D8C">
+  <script src="js/parsley.min.js"></script>
          <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
   
@@ -45,7 +46,7 @@ session_start();
 <div class="container">
   <div class="card animated index-form" id="register-form">
     <h1 class="card-header-title">Register</h1>
-    <form id='register' name="register" class="card-content" action='testing.php' method='post' accept-charset='UTF-8' data-parsely-validate>
+    <form id='register' name="register" class="card-content" action='user-man.php' method='post' accept-charset='UTF-8' data-parsely-validate>
       <input type="hidden" name="op" value="new">
       <div class="field">
       <label for='FirstName' class="label heading">First Name</label>
@@ -65,7 +66,6 @@ session_start();
             <input class="input"  type='password' name='password' id='password' maxlength="50"/>
           </div>
         </div>
-        <input type="number" data-parsley-type="number"/>
         <div class="field is-fullwidth">
           <label class="subtitle is-6">&nbsp;</label>
           <div class="control">
@@ -83,7 +83,6 @@ session_start();
   
 </body>
  <script src="js/scripts.js"></script>
- <script src="js/parsley.min.js"></script>
      <script>
 
       var index = document.getElementById('index-body');

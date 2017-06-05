@@ -43,6 +43,8 @@
         else
             fail ('MySQL execute', $db->error);
     }
+    $stmt->close();
+    $db->close();
     $_SESSION['result'] = 'User Created!';
     $to      = $email; // Send email to our user
 $subject = 'Signup | Verification'; // Give the email a subject 
@@ -61,8 +63,6 @@ mail($to, $subject, $message, $headers); // Send our email
     $_GET['userFirstName'] = $name;
     unset($hasher);
     
-    $stmt->close();
-    $db->close();
 
 
 

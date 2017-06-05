@@ -9,7 +9,7 @@ var client_name_search = $('#clientName');
 var new_client_name_input = $('#newClientName');
 var newClientObject ={};
 var clientList = [];
-function showlog() {
+function showLog() {
     that = $(log_form)
     that.removeClass("is-hidden");
     $("#log-form-container").toggleClass("is-active");
@@ -59,14 +59,16 @@ function saveNewClient() {
         newContact: newClientObject.newClientContact,
         newAddress: newClientObject.newClientAddress
                             }, function(data){
-    $('#saveNewClientButton').fadeOut('fast', function() {
+        $('#saveNewClientButton').fadeOut('fast', function() {
         $(saved_indicator).fadeIn();
-        delayToggleActive();}).toggleClass('is-loading');
-    $(saved_indicator).fadeOut('fast', function() {
+        delayToggleActive();
+    }).toggleClass('is-loading');
+        $(saved_indicator).fadeOut('fast', function() {
             $('#saveNewClientButton').fadeIn();
         
         });
     }); 
+    
 };
 
 function createHTML(jsonObject) {

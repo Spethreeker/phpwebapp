@@ -53,7 +53,6 @@ function humanizeTime($time){
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/awesomplete.css">
         <link rel="stylesheet" href="css/awesomplete.base.css">
-    
         <link rel="stylesheet" href="css/default.css">
         <link rel="stylesheet" href="css/default.date.css">
         <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-icon-57x57.png">
@@ -73,10 +72,10 @@ function humanizeTime($time){
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="images/favicons/ms-icon-144x144.png">
   <meta name="theme-color" content="#025D8C">
-        <!--<script src="js/parsley.min.js"></script>-->
         <script type='application/javascript' src='js/fastclick.min.js'></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
+        <script src="js/parsley.min.js"></script>
         <script>
             var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -107,8 +106,8 @@ function humanizeTime($time){
                 </div>
             </div>
         </nav>
-        <form class="modal" id="client-details" data-parsley-validate>
-            <div class="modal-background" id="modal-background"></div>
+        <form class="modal" id="client-details" onsubmit="saveNewClient()" data-parsley-validate>
+          <div class="modal-background"></div>
             <div class="modal-content animated" id="modal-content">
                 <div class="modal-card-head">
                     <h1 class="modal-card-title has-text-centered">Add A Client</h1><button class="delete" type="button" onclick="toggleZoom()"></button></div>
@@ -116,19 +115,19 @@ function humanizeTime($time){
                     <div class="field">
                         <label class="label" for="clientname">Client Name</label>
                         <div class="control">
-                            <input type="text" class="input" id="newClientName" name="addClientname" placeholder="Client name" value="" required />
+                            <input type="text" class="input" id="newClientName" name="addClientname" placeholder="Client name" required/>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label" for="clientphone">Phone Number</label>
-                        <div class="control"><input type="tel" class="input" name="newClientPhone" id="newClientPhone" placeholder="#" value="" required /></div>
+                        <div class="control"><input type="tel" class="input" name="newClientPhone" id="newClientPhone" placeholder="#" required /></div>
                     </div>
                     <div class="field">
                         <label class="label" for="clientcontact">Contact Name</label>
-                        <div class="control"><input type="text" class="input" name="newClientContact" id="newClientContact" value="" required /></div>
+                        <div class="control"><input type="text" class="input" name="newClientContact" id="newClientContact" required /></div>
                     </div>
                     <div class="field"><label class="label" for="clientadress">Address</label>
-                        <div class="control"><input type="text" class="input" name="newClientAddress" id="newClientAddress" value="" required /></div>
+                        <div class="control"><input type="text" class="input" name="newClientAddress" id="newClientAddress" required /></div>
                     </div>
                 </div>
                 <div class="modal-card-foot has-text-centered" id="modal-foot">
@@ -136,7 +135,7 @@ function humanizeTime($time){
                         <p class="help is-success has-text-centered" >Saved!</p>
                     </div>
                     <div class="log-action-group" id="save-buttons">
-                        <button type="button" class="submit-button button green" id="saveNewClientButton" onclick="saveNewClient()">
+                        <button type="submit" class="submit-button button green" id="saveNewClientButton" >
                             <span class="icon"> <i class="fa fa-check" aria-hidden="true"></i>
                             </span><p class="header">Save Client</p>
                         </button>
@@ -149,79 +148,82 @@ function humanizeTime($time){
             </div>
         </form>
         <div class="container">
-                <button class="button light-blue is-fullwidth" onclick="showlog(); getClientList()" id="add-log-button">
+                <button class="button light-blue is-fullwidth" onclick="showLog(); getClientList()" id="add-log-button">
                     <span class="icon"><i class="fa fa-plus"></i></span>
                     <span class="is-hidden-mobile"><p class="header">Add Log<p></span>
                 </button>
                <div class="modal-background"></div>
-              <form id="log-form" class="log-form animated is-hidden" name="newlog" method="POST" class="log" data-parsley-validate>
+              <form id="log-form" class="log-form animated is-hidden" name="newlog" method="POST" class="log" onsubmit="saveLog()" data-parsley-validate>
                <div class="notification">
-                            <div class="field">
-                            <label class="label" for="clientname">Client Name</label>
-                                <div class="control has-icons-left" id="add-client">
-                                    <input type="search" class="input" id="clientName" name="clientname" placeholder="Client name" />
-                                    <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                    <button type="button" class="button green" id="add-client-button" onclick="toggleClientDetails()">New Client</button>
-                                </div>
-                            </div>
-                                <div class="field">
-                                <label class="label" for="timeStarted">Date</label>
-                                    <div class="control">
-                                    <input type="text" class="input" id="dateOccurred"/>
-                                    </div>
-                                </div>
-                            <div class="time-field">
-                                <div class="field">
-                                <label class="label" for="timeStarted">Time Started</label>
-                                    <div class="control">
-                                    <input type="text" class="input" id="timeStarted"/>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <label class="label" for="timeStarted">Time Stopped</label>
-                                    <div class="control">
-                                    <input type="time" class="input" id="timeStopped"/>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                <label class="label" for="hoursWorked">Hours Worked</label>
-                                    <div class="control">
-                                        <input type="number" class="input" id="hoursWorked" placeholder="in hours" maxlength="4" size="4" required/>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="field">
-                                <label class="label " for="issue">Issue</label>
-                                    <div class="control ">
-                                        <input type="text" class="input" name="issue" id="issue" placeholder="What was wrong" required/>
-                                    </div>
-                            </div>
-                            <div class="field">
-                            <label class="label " for="longDescription">Work Description</label>
-                                <div class="control">
-                                    <textarea type="textarea" class="textarea" id="description" placeholder="Describe" required></textarea>
-                                </div>
-                            </div>
-                            <div class="field is-grouped is-grouped-centered">
-                                <div class="control is-expanded">
-                                    
-                                <button class="button" type="button" onclick="dothis();">
-                                    <span class="icon"><i class="fa fa-plus"></i></span><span>Add Items</span></button>
-                                </div>
-                                <button class="control button green is-expanded" type="button" id="submitbutton" onclick="saveLog()" name='Submit'>
-                                <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
-                                </button>
-                                <button class="control button red is-expanded" type="button" onclick="showlog()">
-                                <span class="icon"><i class="fa fa-times" aria-hidden="true"></i></span><span>Close</span>
-                                </button>
+                <div class="field">
+                <label class="label" for="clientname">Client Name</label>
+                    <div class="control has-icons-left" id="add-client">
+                        <input type="search" class="input" id="clientName" name="clientname" placeholder="Search Clients" required/>
+                        <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
+                        <button type="button" class="button green" id="add-client-button" onclick="toggleClientDetails()">New Client</button>
+                    </div>
+                </div>
+                    <div class="field">
+                    <label class="label" for="timeStarted">Date</label>
+                        <div class="control">
+                        <input type="text" class="input" id="dateOccurred"/>
+                        </div>
+                    </div>
+                <div class="time-field">
+                    <div class="field">
+                    <label class="label" for="timeStarted">Time Started</label>
+                        <div class="control">
+                        <input type="text" class="input" id="timeStarted"/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="timeStarted">Time Stopped</label>
+                        <div class="control">
+                        <input type="time" class="input" id="timeStopped"/>
+                        </div>
+                    </div>
+                    <div class="field">
+                    <label class="label" for="hoursWorked">Hours Worked</label>
+                        <div class="control">
+                            <input type="number" class="input" id="hoursWorked" placeholder="in hours" maxlength="4" size="4" required/>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="field">
+                    <label class="label " for="issue">Issue</label>
+                        <div class="control ">
+                            <input type="text" class="input" name="issue" id="issue" placeholder="What was wrong" required/>
+                        </div>
+                </div>
+                <div class="field">
+                <label class="label " for="longDescription">Work Description</label>
+                    <div class="control">
+                        <textarea type="textarea" class="textarea" id="description" placeholder="Describe" required></textarea>
+                    </div>
+                </div>
+                <div class="field is-grouped is-grouped-centered">
+                    <div class="control is-expanded">
                         
+                    <button class="button" type="button" onclick="dothis();">
+                        <span class="icon"><i class="fa fa-plus"></i></span><span>Add Items</span></button>
+                    </div>
+                    <button class="control button green is-expanded" type="submit" id="submitbutton" name='Submit'>
+                    <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
+                    </button>
+                    <button class="control button red is-expanded" type="button" onclick="showLog()">
+                    <span class="icon"><i class="fa fa-times" aria-hidden="true"></i></span><span>Close</span>
+                    </button>
                     </div>
               </div>
             </form>
            <div class="log-container" id="log-container">
-     
-               
         <?php
+        if (!isset($log_array[0])){
+            echo '<div class="index-form">
+                    <h1 class="title">Looks like you don\'t have any logs.</h1>
+                    </div>           
+            ';
+        }else{
         $dateChecker = $log_array[0]['dateOccurred'];
         foreach ( $log_array as $log ) {
                 if ($dateChecker == strtotime($log['dateOccurred'])) {
@@ -238,6 +240,7 @@ function humanizeTime($time){
                          ';
 
                        drawLog($log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred']);
+                    }
                 }
             }
         ?>
@@ -250,7 +253,7 @@ function humanizeTime($time){
     <script src="js/easing.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/picker.js"></script>
-    <!--<script src="js/picker.date.js"></script>-->
+    
     <script>
     var input = document.getElementById('clientName');
     var selectedClientId = null;
