@@ -70,7 +70,6 @@ function saveNewClient() {
     }); 
     
 };
-
 function createHTML(jsonObject) {
   dateTimeStamp = jsonObject.dateTimestamp
   if (!document.getElementById(dateTimeStamp)){

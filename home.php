@@ -107,7 +107,7 @@ function humanizeTime($time){
                 </div>
             </div>
         </nav>
-        <form class="modal" id="client-details" onsubmit="saveNewClient()" data-parsley-validate>
+        <form class="modal" id="client-details" data-parsley-validate>
           <div class="modal-background"></div>
             <div class="modal-content animated" id="modal-content">
                 <div class="modal-card-head">
@@ -265,7 +265,14 @@ function humanizeTime($time){
     </script>
     <script>
         var dayBlockIdArray = {};
-
+        $('#client-details').on('submit', function () {
+            saveClientDetails();
+            return false;
+        });
+        $('#log-form').on('submit', function () {
+        savelog();
+        return false;   
+        });
     </script>
     <script>
     if ('addEventListener' in document) {
@@ -282,15 +289,7 @@ function humanizeTime($time){
              });
              $('#timeStopped').pickatime({
                  formatSubmit: 'HH:i',
-                 hiddenPrefix: 'stopped',
-                 onClose: function() {
-                     console.log($("input[name='started_submit']").attr("value"));
-                     console.log($("input[name='stopped_submit']").attr("value"))
-                     var date1 = $("input[name='started_submit']").attr("value");
-                     var date2 = $("input[name='stopped_submit']").attr("value");
-                     var daterino = Date.parse("0000-00-00"+date1);
-                     var daterino2 = Date.parse("0000-00-00"+date2);
-                     console.log(daterino);
+                 hiddenPrefix: 'stopped'
                  }
              });
         }, false);

@@ -17,8 +17,8 @@
     $date_occurred = clean_log_form('date_occurred');
     $hours_worked = clean_log_form('hours_worked');
     $description = clean_log_form('description');
-    $time_started = "9:25:00";
-    $time_stopped = "10:30:00";
+    $time_started = clean_log_form('time_started');
+    $time_stopped = clean_log_form('time_stopped');
     ($stmt = $db->prepare('INSERT INTO recordedLogs (clientID, userid, issue, dateOccurred, timeStarted, timeStopped, hoursWorked, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'))
         || fail('MySQL prepare', $db->error);
     $stmt->bind_param('iissssis', $clientId, $_SESSION['id'], $issue, $date_occurred, $time_started, $time_stopped, $hours_worked, $description)
