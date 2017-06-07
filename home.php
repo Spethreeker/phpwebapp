@@ -27,6 +27,7 @@ $db->close();
 function drawLog($clientName, $issue, $timeStarted, $timeStopped, $dateOccurred) {
     echo  <<<EOT
         <div class="media log">
+        <div class="log-overlay"><i class="fa fa-arrow-down" aria-hidden="true"></i></div>
             <div class="media-content">
                 <h3 class="title customer-name">{$clientName}</h3>
                 <p class="subtitle work-description">{$issue}</p>
