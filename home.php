@@ -26,8 +26,8 @@ $stmt->free_result();
 $db->close();
 function drawLog($clientName, $issue, $timeStarted, $timeStopped, $dateOccurred) {
     echo  <<<EOT
-        <div class="media log">
-        <div class="log-overlay"><i class="fa fa-arrow-down" aria-hidden="true"></i></div>
+        <div class="media log" onclick="test({$dateOccurred}{$timeStarted})" id={$dateOccurred}{$timeStarted}>
+        <div class="log-overlay">
             <div class="media-content">
                 <h3 class="title customer-name">{$clientName}</h3>
                 <p class="subtitle work-description">{$issue}</p>
@@ -36,6 +36,7 @@ function drawLog($clientName, $issue, $timeStarted, $timeStopped, $dateOccurred)
                     <p>&nbsp-&nbsp</p>
                     <p class="work-end-time">{$timeStopped}</p>
                 </div>
+               </div>
             </div>
         </div>
 EOT;
@@ -239,7 +240,6 @@ function humanizeTime($time){
                             <h1 class="title day-date-title" id="">'.humanizeTime($dateChecker).'</h1> 
                             </div>
                          ';
-
                        drawLog($log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred']);
                     }
                 }
@@ -254,23 +254,23 @@ function humanizeTime($time){
     <script src="js/easing.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/picker.js"></script>
-    
     <script>
     var input = document.getElementById('clientName');
     var selectedClientId = null;
     var clientObjectList = [];
-    var awesomplete = new Awesomplete(input, {
-               autoFirst: true
-    });
+    var awesomplete = new Awesomplete(input, {autoFirst: true});
     </script>
     <script>
+        function test(a){
+            alert(a);
+        }
         var dayBlockIdArray = {};
         $('#client-details').on('submit', function () {
             saveClientDetails();
             return false;
         });
         $('#log-form').on('submit', function () {
-        savelog();
+            savelog();
         return false;   
         });
     </script>
@@ -290,8 +290,9 @@ function humanizeTime($time){
              $('#timeStopped').pickatime({
                  formatSubmit: 'HH:i',
                  hiddenPrefix: 'stopped'
-                 }
+                 
              });
+             
         }, false);
         document.addEventListener("awesomplete-close", function(){
             var clientId = null;

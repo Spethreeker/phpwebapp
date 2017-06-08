@@ -37,17 +37,13 @@ body{
 }
 .media-content{
     padding-left: 12px;
-    padding-right: 5px;
     padding-top:12px;
     padding-bottom: 12px;
-  }
-  .media .media {
+}
+.media .media {
       padding: 0px;
-  }
+}
 .day{
-    /*background-image: url('../paper.png');
-  background-repeat: repeat;
-  background-size: cover;*/
     padding: 12px;
     padding-top: 0px;
     margin: 5px 2px 2px 2px;
@@ -61,11 +57,12 @@ body{
     background-image: url('../images/paper_fibers.png');
     background-repeat: repeat;
     background-position: top;
-    position: relative;
     background-blend-mode: screen;
+    cursor: pointer;
 }
-.log:hover{
-    background: rgba(155, 155, 155, 0.2);
+.log:hover .log-overlay{
+    background: rgba(155, 155, 155, .3);
+     color: rgba(50, 50, 50, .5);
 }
 .log-overlay{
     top: 0;
@@ -73,23 +70,14 @@ body{
     bottom: 0;
     right: 0;
     content: "";
-    position: absolute;
-    z-index: 2;
     background: rgba(255, 255, 255, 0.0);
-    color: rgba(255, 255, 255, 0.0);
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 5px;
-}
-.log-overlay:hover{
-    background: rgba(155, 155, 155, 0.2);
-    color: rgba(50, 50, 50, .7);
+    color: rgba(50, 50, 50, 0.0);
+    width: 100%;
+    transition: all .125s ease;
 }
 .log + .log{
     margin-top: 10px;
 }
-
 .day-header{
     justify-content: space-between;
     display: flex;

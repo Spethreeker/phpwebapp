@@ -3107,46 +3107,26 @@ input[type="submit"].button {
       -ms-flex-positive: 1;
           flex-grow: 1;
   -ms-flex-negative: 1;
-      
-  
 }
 
 .media {
-  /*-webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;*/
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   text-align: left;
 }
-
 .media .content:not(:last-child) {
   margin-bottom: 0.75rem;
 }
-
 .media .media {
-  /*border-top: 1px solid rgba(219, 219, 219, 0.5);*/
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   padding: 0.75rem;
 }
-
-/*.media .media .content:not(:last-child),
-.media .media .control:not(:last-child) {
-  margin-bottom: 0.5rem;
-}*/
-
 .media .media .media {
   padding-top: 0.5rem;
 }
-/*.media + .media {
-  border-top: 1px solid rgba(219, 219, 219, 0.5);
-  margin-top: 1rem;
-  padding-top: 1rem;
-}*/
-
 .media.is-large + .media {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
