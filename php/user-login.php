@@ -2,7 +2,6 @@
     // header('Content-Type: text/plain');
     require 'PasswordHash.php';
     require 'config.php';
-    
     session_start();
     $debug = true;;
     //Post Variables and normalizing them
@@ -39,10 +38,10 @@
         $_SESSION['id'] = $id;
         $_SESSION['name'] = $name;
         $_SESSION['loggedin'] = true;
-         header("Location: home.php");
+         header("Location: ../home.php");
        }else{
            $_SESSION['result'] = 'Authentication Failed :(';
-        header("Location: index.php");
+        header("Location: ../index.php");
          
         }
     unset($hasher);

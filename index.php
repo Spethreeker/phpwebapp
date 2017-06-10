@@ -47,7 +47,7 @@
 </div>
    <div class="card animated index-form margin-auto-centered" id="login-form">
        <h1 class="card-header-title">Login</h1>
-     <form id='login' action="user-login.php" class="card-content" name="loginform" method='post' accept-charset='UTF-8' data-parsley-validate>
+     <form id='login' action="php/user-login.php" class="card-content" name="loginform" method='post' accept-charset='UTF-8' data-parsley-validate>
        <input type="hidden" name="op" value="login">
        <div class="field">
        <label for='email' class="label heading light-gray" >Email Address</label>

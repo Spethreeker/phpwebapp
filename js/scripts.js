@@ -9,18 +9,6 @@ var client_name_search = $('#clientName');
 var new_client_name_input = $('#newClientName');
 var newClientObject ={};
 var clientList = [];
-function showLog() {
-    that = $(log_form)
-    that.removeClass("is-hidden");
-    $("#log-form-container").toggleClass("is-active");
-    if (that.hasClass('slideInLeft')){
-        that.removeClass('slideInLeft');
-        that.addClass('slideOutLeft');
-    }else{
-        that.addClass('slideInLeft');
-        that.removeClass('slideOutLeft');
-    }
-};
 function delayToggleActive() {
     timeoutID = window.setTimeout(toggleZoom, 1000);
 };
@@ -82,43 +70,9 @@ function createHTML(jsonObject) {
     var compiledTemplate = Handlebars.compile(logTemplate);
     var ourGeneratedHTML = compiledTemplate(jsonObject);
     $('#' + dateTimeStamp).append(ourGeneratedHTML);
-}
+    }
 };
 
-function saveLog(){
-    $('#submitbutton').toggleClass('is-loading');
-    var clientName = $.trim($('#clientName').val());
-    var dateOccurred = $.trim($('input[name=date_submit]').val());
-    var dateTimestamp = Date.parse(dateOccurred)/1000;
-    var timeStarted = $.trim($('input[name=started_submit]').val());
-    var timeStopped = $.trim($('input[name=stopped_submit]').val());
-    var hoursWorked = $.trim($('#hoursWorked').val());
-    var issue = $.trim($('#issue').val());
-    var description= $.trim($('#description').val());
-    var jsonObject = {};
-    jsonObject.name = clientName;
-    jsonObject.issue = issue;
-    jsonObject.dateOccurred = moment().format("dddd, Do");
-    jsonObject.dateTimestamp = dateTimestamp;
-    jsonObject.hoursWorked = hoursWorked;
-    jsonObject.descripton = description;
-    jsonObject.timeStopped = timeStopped;
-    jsonObject.timeStarted = timeStarted;
-    $.post('save-log.php',{
-        client_id: selectedClientId,
-        date_occurred: dateOccurred,
-        hours_worked: hoursWorked,
-        time_started: timeStarted,
-        time_stopped: timeStopped,
-        issue: issue,
-        description: description
-        },function(data) {
-            alert(data);
-            createHTML(jsonObject);
-            $('#submitbutton').toggleClass('is-loading');
-    });
-    event.preventDefault();
-};
 function dothis() {
   date = $('#dateOccurred')
   time1 = $('#timeStarted')
@@ -135,9 +89,10 @@ function dothis() {
 //   hours.val(a);
   console.log( time2.val() - time1.val());
 };
+
 function getClientList() {
     $.ajax({
-    url:'fetch-clients.php',
+    url:'php/fetch-clients.php',
     type: 'GET',
     dataType: 'json'}).done(function(data) {
         clientObjectList = data;
@@ -146,7 +101,88 @@ function getClientList() {
             clientNameList.push(value.name);
             });
         sessionStorage.setItem("clientList", clientNameList);
-        
         awesomplete.list = clientNameList;
         });
 }
+
+//Anything to do with getting or saving logs
+
+function saveLog(){
+    $('#submitbutton').toggleClass('is-loading');
+    var clientName = $.trim($('#clientName').val());
+    var dateOccurred = $.trim($('input[name=date_submit]').val());
+    var dateTimestamp = Date.parse(dateOccurred)/1000;
+    var timeStarted = $.trim($('input[name=started_submit]').val());
+    var timeStopped = $.trim($('input[name=stopped_submit]').val());
+    var hoursWorked = $.trim($('#hoursWorked').val());
+    var issue = $.trim($('#issue').val());
+    var description= $.trim($('#description').val());
+
+    var jsonObject = {};
+    jsonObject.name = clientName;
+    jsonObject.issue = issue;
+    jsonObject.dateOccurred = moment().format("dddd, Do");
+    jsonObject.dateTimestamp = dateTimestamp;
+    jsonObject.hoursWorked = hoursWorked;
+    jsonObject.descripton = description;
+    jsonObject.timeStopped = timeStopped;
+    jsonObject.timeStarted = timeStarted;
+
+    $.post('php/save-log.php',{
+        client_id: selectedClientId,
+        date_occurred: dateOccurred,
+        hours_worked: hoursWorked,
+        time_started: timeStarted,
+        time_stopped: timeStopped,
+        issue: issue,
+        description: description
+        },function(data) {
+            alert(data);
+            createHTML(jsonObject);
+            $('#submitbutton').toggleClass('is-loading');
+    });
+event.preventDefault();
+};
+
+function showLog() {
+    that = $(log_form)
+    that.removeClass("is-hidden");
+    $("#log-form-container").toggleClass("is-active");
+    if (that.hasClass('slideInLeft')){
+        that.removeClass('slideInLeft');
+        that.addClass('slideOutLeft');
+    }else{
+        that.addClass('slideInLeft');
+        that.removeClass('slideOutLeft');
+    }
+};
+function showLogDetails(id){
+   clickedLog = $('#' + id);
+   descCont = clickedLog.find('.desc-container');
+   downArrow = clickedLog.find('#down-arrow');
+   if(clickedLog.attr('data-log-clicked') !== 'true'){
+    downArrow.toggleClass('spin-around');
+    clickedLog.attr('data-log-clicked','true')
+    
+        $.ajax({
+            type: 'GET',
+            url: 'php/get-desc.php',
+            data: {
+                log_id: id
+            },
+            datetype: 'text'
+        }).done( function(data) {
+            descCont.append('<h1 class="subtitle">'+data+'</h1>');
+            // descCont.removeClass('slideOutUp');
+            // descCont.removeClass('is-hidden');
+            // descCont.addClass('slideInDown');
+            descCont.toggleClass('is-hidden');
+            downArrow.toggleClass('spin-around rotate')
+        });
+   }else{
+    //    descCont.removeClass('slideInDown');
+    //    descCont.addClass('slideOutUp');
+    descCont.toggleClass('is-hidden');
+    downArrow.toggleClass('rotate');
+   }
+};

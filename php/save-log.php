@@ -8,10 +8,9 @@
     $debug = true;
     function clean_log_form($var)
     {
-         $val = strip_tags(trim($_POST[$var]));
-         return $val;
+        $val = strip_tags(trim($_POST[$var]));
+        return $val;
     }
-  
     $clientId = clean_log_form('client_id');
     $issue = clean_log_form('issue');
     $date_occurred = clean_log_form('date_occurred');

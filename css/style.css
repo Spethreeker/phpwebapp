@@ -74,6 +74,7 @@ body{
     color: rgba(50, 50, 50, 0.0);
     width: 100%;
     transition: all .125s ease;
+    position: relative;
 }
 .log + .log{
     margin-top: 10px;
@@ -100,16 +101,21 @@ body{
     background: #bbb;
     margin: 0;
 }
-.work-description{
+.issue, .desc-container{
     font-size: 1.383em;
+}
+.desc-container{
+    display: flex;
+    justify-content: space-between;
 }
 .work-duration{
     margin-top: -15px;
     display: flex;
     flex-direction: row;
-     color: slategray;
-     line-height: 0.5rem;
-     font-size: 1.383em;
+    color: slategray;
+    line-height: 0.5rem;
+    font-size: 1.383em;
+
 }
 .logo{
     height: 100%;
@@ -141,7 +147,6 @@ body{
    margin-top: auto;
    margin-bottom: auto;
 }
-
 .time-field{
         display: flex;
    -webkit-box-pack: start;
@@ -150,7 +155,7 @@ body{
         -ms-flex-wrap: wrap;
       flex-wrap: wrap;
         margin-bottom: 5px;
-    }
+}
 #saved-indicator{
     margin-left: 15px;
 }
@@ -166,6 +171,18 @@ body{
 }
 #whole-thing{
     height: 100%;
+}
+.down-arrow{
+display: block;
+ position: absolute;
+   bottom: 0;
+    right: 0;
+}
+#down-arrow{
+    -webkit-transition: all 0.125s ease-in-out;
+    -moz-transition: all 0.125s ease-in-out;
+    -o-transition: all 0.125s ease-in-out;
+    transition: all 0.125s ease-in-out;
 }
 @media screen and (min-width: 999px){
     .index-form{
@@ -293,4 +310,14 @@ body{
   animation-name: slideOutLeft;
     animation-duration: .4s;
   animation-fill-mode: both;
+}
+.spin-around{
+    -webkit-animation: spinAround 500ms infinite linear;
+          animation: spinAround 500ms infinite linear;
+}
+.rotate{
+  transform:rotate(180deg); 
+    -webkit-transform:rotate(180deg); 
+    -moz-transform:rotate(180deg); 
+    -o-transform:rotate(180deg); 
 }

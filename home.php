@@ -4,7 +4,7 @@ session_start();
     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
         header("Location: index.php");
     }
-require "config.php";
+require "php/config.php";
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -12,7 +12,7 @@ $greetings_array = array("Hello, ", "Howdy, ", "What's up, ", "Bonjour, ", "Hola
 $greeting = $greetings_array[array_rand($greetings_array)];
 $user_id = $_SESSION['id'];
 $log_array = array();
-$query = "SELECT recd.clientID, recd.issue, recd.hoursWorked, recd.dateOccurred, recd.timeStarted, recd.timeStopped, clients.name
+$query = "SELECT recd.ID, recd.clientID, recd.issue, recd.hoursWorked, recd.dateOccurred, recd.timeStarted, recd.timeStopped, clients.name
           FROM recordedLogs recd
           JOIN clients ON recd.clientID = clients.id
           WHERE recd.userid = $user_id AND recd.dateOccurred <= NOW() ORDER BY recd.dateOccurred ASC LIMIT 15";
@@ -24,19 +24,29 @@ for ($row_no = ($stmt->num_rows - 1); $row_no >= 0; $row_no-- ) {
 }
 $stmt->free_result();
 $db->close();
-function drawLog($clientName, $issue, $timeStarted, $timeStopped, $dateOccurred) {
+function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateOccurred) {
     echo  <<<EOT
-        <div class="media log" onclick="test({$dateOccurred}{$timeStarted})" id={$dateOccurred}{$timeStarted}>
+        <div class="media log" onclick="showLogDetails(this.id)" id="{$logID}" data-log-clicked="false">
         <div class="log-overlay">
+            <div class="down-arrow" >
+                  <div class="icon">
+                    <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
+                  </div>
+                  
+            </div>
             <div class="media-content">
                 <h3 class="title customer-name">{$clientName}</h3>
-                <p class="subtitle work-description">{$issue}</p>
+                <p class="subtitle issue">{$issue}</p>
                 <div class="work-duration">
-                    <p class="work-start-time">{$timeStarted}</p>
+                    <p class="work-start-time"><time>{$timeStarted}</time></p>
                     <p>&nbsp-&nbsp</p>
-                    <p class="work-end-time">{$timeStopped}</p>
+                    <p class="work-end-time"><time>{$timeStopped}</time></p>
                 </div>
-               </div>
+                <div class="desc-container animated is-hidden">
+                  
+                </div>
+            </div>
+               
             </div>
         </div>
 EOT;
@@ -70,7 +80,6 @@ function humanizeTime($time){
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
-  <link rel="manifest" href="/manifest.json">
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="images/favicons/ms-icon-144x144.png">
   <meta name="theme-color" content="#025D8C">
@@ -220,18 +229,18 @@ function humanizeTime($time){
             </form>
            <div class="log-container" id="log-container">
         <?php
-        if (!isset($log_array[0])){
+        if (!isset($log_array[0])){ //New Guy
             echo '<div class="index-form">
                     <h1 class="title">Looks like you don\'t have any logs.</h1>
-                    </div>           
+                  </div>
             ';
         }else{
         $dateChecker = $log_array[0]['dateOccurred'];
         foreach ( $log_array as $log ) {
                 if ($dateChecker == strtotime($log['dateOccurred'])) {
-                    drawLog($log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred']);
+                    drawLog($log['ID'], $log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred']);
                     $dateChecker = strtotime($log['dateOccurred']);
-                }else{
+                }else{ //New day
                     $dateChecker = strtotime($log['dateOccurred']);
                     echo '
                        </article>
@@ -240,7 +249,7 @@ function humanizeTime($time){
                             <h1 class="title day-date-title" id="">'.humanizeTime($dateChecker).'</h1> 
                             </div>
                          ';
-                       drawLog($log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred']);
+                       drawLog($log['ID'], $log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred']);
                     }
                 }
             }
@@ -261,9 +270,6 @@ function humanizeTime($time){
     var awesomplete = new Awesomplete(input, {autoFirst: true});
     </script>
     <script>
-        function test(a){
-            alert(a);
-        }
         var dayBlockIdArray = {};
         $('#client-details').on('submit', function () {
             saveClientDetails();
@@ -290,9 +296,7 @@ function humanizeTime($time){
              $('#timeStopped').pickatime({
                  formatSubmit: 'HH:i',
                  hiddenPrefix: 'stopped'
-                 
              });
-             
         }, false);
         document.addEventListener("awesomplete-close", function(){
             var clientId = null;
