@@ -71,7 +71,6 @@
    <a href="register.php" class="button is-link" id="register-link-button">Or register an account</a>
    </div>
    </div>
-</div>
      <?php
       if(!isset($_SESSION['result'])) {
                             echo("<br>");
@@ -79,10 +78,10 @@
                             echo $_SESSION['result']."<br>";
       }?>
 </div>
+</div>
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Privacy Policy</a>
- <footer><a href="https://seal.beyondsecurity.com/vulnerability-scanner-verification/worklogs.io"><img src="https://seal.beyondsecurity.com/verification-images/worklogs.io/vulnerability-scanner-2.gif" alt="Website Security Test" border="0" /></a></footer>
+ <footer>
+   <a href="https://seal.beyondsecurity.com/vulnerability-scanner-verification/worklogs.io"><img src="https://seal.beyondsecurity.com/verification-images/worklogs.io/vulnerability-scanner-2.gif" alt="Website Security Test" border="0" /></a></footer>
 </body>
      <script src="js/scripts.js"></script>
-     <script>
-    </script>
 </html>

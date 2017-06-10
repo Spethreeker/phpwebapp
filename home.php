@@ -25,24 +25,27 @@ for ($row_no = ($stmt->num_rows - 1); $row_no >= 0; $row_no-- ) {
 $stmt->free_result();
 $db->close();
 function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateOccurred) {
+    $humanTimeStarted = date('G:i A', strtotime($timeStarted));
     echo  <<<EOT
         <div class="media log" onclick="showLogDetails(this.id)" id="{$logID}" data-log-clicked="false">
+        <div class="media-left time-started-container">
+          <h1 class="title white-font">{$humanTimeStarted}</h1>
+        </div>
         <div class="log-overlay">
             <div class="down-arrow" >
                   <div class="icon">
                     <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
                   </div>
-                  
             </div>
             <div class="media-content">
-                <h3 class="title customer-name">{$clientName}</h3>
+                <h3 class="title client-name">{$clientName}</h3>
                 <p class="subtitle issue">{$issue}</p>
-                <div class="work-duration">
+                <!--<div class="work-duration">
                     <p class="work-start-time"><time>{$timeStarted}</time></p>
                     <p>&nbsp-&nbsp</p>
                     <p class="work-end-time"><time>{$timeStopped}</time></p>
-                </div>
-                <div class="desc-container animated is-hidden">
+                </div>-->
+                <div class="box desc-container animated is-hidden">
                   
                 </div>
             </div>
@@ -268,6 +271,7 @@ function humanizeTime($time){
     var selectedClientId = null;
     var clientObjectList = [];
     var awesomplete = new Awesomplete(input, {autoFirst: true});
+    
     </script>
     <script>
         var dayBlockIdArray = {};
@@ -314,7 +318,7 @@ function humanizeTime($time){
     <script id="log-template" type="text/x-handlebars-template">
         <div class="media log">
             <div class="media-content">
-                <h3 class="title customer-name">{{name}}</h3>
+                <h3 class="title client-name">{{name}}</h3>
                 <p class="subtitle work-description">{{issue}}</p>
                 <div class="work-duration">
                     <p class="work-start-time">{{timeStarted}}</p>
@@ -331,7 +335,7 @@ function humanizeTime($time){
             </div>
             <div class="media log">
             <div class="media-content">
-                <h3 class="title customer-name">{{name}}</h3>
+                <h3 class="title client-name">{{name}}</h3>
                 <p class="subtitle work-description">{{issue}}</p>
                 <div class="work-duration">
                     <p class="work-start-time">{{timeStarted}}</p>
