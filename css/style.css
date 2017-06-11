@@ -60,10 +60,7 @@ body{
     background-position: top;
     background-blend-mode: screen;
 }
-.log:hover .log-overlay{
-    background: rgba(155, 155, 155, .3);
-     color: rgba(50, 50, 50, .5);
-}
+
 .log-overlay{
     top: 0;
     left: 0;

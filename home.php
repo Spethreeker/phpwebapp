@@ -122,7 +122,7 @@ function humanizeTime($time){
           <div class="modal-background"></div>
             <div class="modal-content" id="new-client-modal">
                 <div class="modal-card-head">
-                    <h1 class="modal-card-title has-text-centered">Add A Client</h1><button class="delete" type="button" onclick="toggleZoom()"></button></div>
+                    <h1 class="modal-card-title has-text-centered">Add A Client</h1><button class="delete" type="button" onclick="show('client-details', 'fromtop')"></button></div>
                 <div class="modal-card-body">
                     <div class="field">
                         <label class="label" for="clientname">Client Name</label>
@@ -172,23 +172,20 @@ function humanizeTime($time){
               </header>
               <div class="panel-tabs grey">
                   <p class="heading white-font" style="margin-left: 0; margin-right: 0;">Sort by:</p>
-                 <a class="heading is-active">Name</a>
+                 <a class="heading">Name</a>
                  <a class="heading">Something else</a>
                </div>
               <section class="modal-card-body">
-                <div class="panel" id="all-client-container">
-                  
+                <div class="panel" id="all-clients-container">
+                    
                 </div>
               </section>
                <footer class="modal-card-foot">
                 <button type="button" class="button red" onclick="show('all-clients-modal', 'fromtop')">Close</button>
                </footer>
             </div>
-        </form>
+<!--all clients--></form>
         <div class="container">
-       
-         
-
             <div class="columns is-mobile is-gapless is-marginless">
               <div class="column is-three-quarters">
                 <div class="button light-blue is-fullwidth nav-toggle" onclick="show('log-form', 'fromleft'); getClientList()" id="add-log-button">
@@ -203,6 +200,8 @@ function humanizeTime($time){
                 </div>
               </div>
             </div>
+
+            <!--new log form-->
               <form id="log-form" class="log-form animated is-hidden" name="newlog" method="POST" class="log" onsubmit="saveLog()" data-parsley-validate>
                <div class="notification">
                 <div class="field">
@@ -264,8 +263,8 @@ function humanizeTime($time){
                     </button>
                     </div>
               </div>
-            </form>
-
+<!--new log form--></form>
+            
             <div class="option-panel panel animated is-hidden" id="options-panel">
                 <h1 class="panel-heading has-text-centered">Options</h1>
                     <div class="panel-tabs">
@@ -277,7 +276,7 @@ function humanizeTime($time){
                     </span>
                     <p class="subtitle">Edit Client</p>
                   </a>
-                 <a class="panel-block" onclick="show('all-clients-modal', 'fromtop'); getClientList(); generateAllClients()">
+                 <a class="panel-block" onclick="show('all-clients-modal', 'fromtop'); generateClientList()">
                     <span class="icon"><i class="fa fa-address-book" aria-hidden="true"></i>
                     </span>
                     <p class="subtitle">View Clients</p>
@@ -325,7 +324,7 @@ function humanizeTime($time){
     var clientObjectList = [];
     var awesomplete = new Awesomplete(clientnameinput, {autoFirst: true});
     function clearClientCache() {
-        localStorage.removeItem('clientslist');
+        localStorage.removeItem('clientlist');
     }
     window.onload =clearClientCache;
     </script>
@@ -410,6 +409,10 @@ function humanizeTime($time){
         </div>
         </article>
     </script>
-    
+    <script id="client-template" type="text/x-handlebars-template">
+        <a class="panel-block">
+            <h1>{{name}}</h1>
+        </a>
+    </script>
     </html>
      <!--<p class="title day-date-title" id="wed-mar-22">Wednesday, March 22</p>-->

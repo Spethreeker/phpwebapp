@@ -16,41 +16,42 @@ function toggleClientDetails() {
     $(new_client_name_input).val($(client_name_search).val());
 };
 function show(id, type) {
+    var that = document.getElementById(id);
     switch (type) {
         case 'fromright':
-        var that = $("#" + id);
-             that.removeClass("is-hidden");
-        if (that.hasClass('slideInRight')){
-            that.removeClass('slideInRight');
-            that.addClass('slideOutRight');
+             that.classList.remove("is-hidden");
+        if (that.classList.contains('slideInRight')){
+            that.classList.remove('slideInRight');
+            that.classList.add('slideOutRight');
         }else{
-            that.addClass('slideInRight');
-            that.removeClass('slideOutRight');
+            that.classList.add('slideInRight');
+            that.classList.remove('slideOutRight');
         }
         break;
         case 'fromleft':
-        var that = $("#" + id);
-        that.removeClass("is-hidden");
-         if (that.hasClass('slideInLeft')){
-        that.removeClass('slideInLeft');
-        that.addClass('slideOutLeft');
+        that.classList.remove("is-hidden");
+         if (that.classList.contains('slideInLeft')){
+            that.classList.remove('slideInLeft');
+            that.classList.add('slideOutLeft');
         }else{
-        that.addClass('slideInLeft');
-        that.removeClass('slideOutLeft');
+            that.classList.add('slideInLeft');
+            that.classList.remove('slideOutLeft');
         }
         break;
         case 'fromtop':
-        var that = $("#" + id);
-        that.removeClass("is-hidden");
-        that.toggleClass('is-active');
-        if (that.hasClass('slideInDown')){
-            that.removeClass('slideInDown');
-            that.addClass('slideOutUp');
+        that.classList.remove("is-hidden");
+        if (that.classList.contains('is-active')){
+            that.classList.remove('is-active');
+        } else {
+            that.classList.add('is-active');
+        }
+        if (that.classList.contains('slideInDown')){
+            that.classList.remove('slideInDown');
+            that.classList.add('slideOutUp');
         }else{
-        that.addClass('slideInDown');
-        that.removeClass('slideOutUp');
-    }
-
+        that.classList.add('slideInDown');
+        that.classList.remove('slideOutUp');
+        }
     }
 };
 function saveNewClient() {
@@ -81,7 +82,7 @@ function createHTML(jsonObject) {
   if (!document.getElementById(dateTimeStamp)){
     var dayTemplate = document.getElementById('day-template').innerHTML;
     var compiledTemplate = Handlebars.compile(dayTemplate);
-    var ourGeneratedHTML = compiledTemplate(jsonObject);  
+    var ourGeneratedHTML = compiledTemplate(jsonObject);
     $(log_container).prepend(ourGeneratedHTML);
   }else{
     var logTemplate = document.getElementById('log-template').innerHTML;
@@ -134,7 +135,18 @@ function getClientList() {
  }
 };
 function generateClientList() {
-    
+    if (typeof clientlist === 'undefined' || !clientlist){
+        getClientList();
+    } else {
+    var all_clients_container = $('#all-clients-container');
+    var clientTemplate = document.getElementById('client-template').innerHTML;
+    var compiledTemplate = Handlebars.compile(clientTemplate);
+    for (var objectNumber = 0; objectNumber < clientlist.length; objectNumber++){
+        var element = clientlist[objectNumber];
+        var ourGeneratedHTML = compiledTemplate(element);
+        $(all_clients_container).append(ourGeneratedHTML);
+        }
+    }
 };
 
 //Anything to do with getting or saving logs
