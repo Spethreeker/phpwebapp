@@ -675,10 +675,10 @@ a.box:active {
   width: 1.5em;
 }
 
-/*.button .icon:first-child:not(:last-child) {
+.button .icon:first-child:not(:last-child) {
   margin-left: calc(-0.375em - 1px);
   margin-right: 0.1875em;
-}*/
+}
 
 .button .icon:last-child:not(:first-child) {
   margin-left: 0.1875em;
@@ -689,10 +689,6 @@ a.box:active {
   margin-left: calc(-0.375em - 1px);
   margin-right: calc(-0.375em - 1px);
 }
-
-
-
-
 .button.is-link {
   background-color: transparent;
   border-color: transparent;
@@ -3388,7 +3384,7 @@ input[type="submit"].button {
   right: 0;
   top: 0;
   background-color: rgba(10, 10, 10, 0.86);
-  display: none;
+  /*display: none;*/
 
 }
 
@@ -4192,15 +4188,6 @@ display: block
   border-bottom-color: #4a4a4a;
   color: #363636;
 }
-
-.panel-list a {
-  color: #4a4a4a;
-}
-
-.panel-list a:hover {
-  color: #00d1b2;
-}
-
 .panel-block {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -4245,6 +4232,7 @@ label.panel-block {
 a.panel-block:hover,
 label.panel-block:hover {
   background-color: whitesmoke;
+  color: initial;
 }
 
 .panel-icon {
@@ -5451,7 +5439,8 @@ label.panel-block:hover {
 }
 
 .tile.is-child {
-  margin: 0 !important;
+  margin: 1px !important;
+  border: #363636 solid;
 }
 
 .tile.is-parent {

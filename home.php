@@ -27,30 +27,28 @@ $db->close();
 function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateOccurred) {
     $humanTimeStarted = date('G:i A', strtotime($timeStarted));
     echo  <<<EOT
-        <div class="media log" onclick="showLogDetails(this.id)" id="{$logID}" data-log-clicked="false">
-        <div class="media-left time-started-container">
-          <h1 class="title white-font">{$humanTimeStarted}</h1>
-        </div>
+        <div class="media log" id="{$logID}" data-log-clicked="false">
+         
         <div class="log-overlay">
-            <div class="down-arrow" >
-                  <div class="icon">
-                    <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
-                  </div>
-            </div>
             <div class="media-content">
+               <div class="">
                 <h3 class="title client-name">{$clientName}</h3>
                 <p class="subtitle issue">{$issue}</p>
-                <!--<div class="work-duration">
-                    <p class="work-start-time"><time>{$timeStarted}</time></p>
-                    <p>&nbsp-&nbsp</p>
-                    <p class="work-end-time"><time>{$timeStopped}</time></p>
-                </div>-->
+                <div class="down-arrow" onclick="showLogDetails({$logID})">
+                  <div class="icon is-large">
+                    <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
+                  </div>
+                </div>
+               </div>
                 <div class="box desc-container animated is-hidden">
-                  
+                    <div class="media-left grey time-started-container">
+                 <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
+               </div>
                 </div>
             </div>
-               
+            
             </div>
+              
         </div>
 EOT;
 }
@@ -60,7 +58,7 @@ function humanizeTime($time){
 }
 ?>
 <html>
-    <head>
+<head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,6 +68,7 @@ function humanizeTime($time){
         <link rel="stylesheet" href="css/awesomplete.base.css">
         <link rel="stylesheet" href="css/default.css">
         <link rel="stylesheet" href="css/default.date.css">
+
         <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-icon-72x72.png">
@@ -86,43 +85,42 @@ function humanizeTime($time){
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="images/favicons/ms-icon-144x144.png">
   <meta name="theme-color" content="#025D8C">
-        <script type='application/javascript' src='js/fastclick.min.js'></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-        <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
-        <script src="js/parsley.min.js"></script>
-        <script>
-            var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            var todaysdate = new Date();
-            jQuery.easing.def = 'easeOutQuad';
-        </script>
-    </head>
+  <script type='application/javascript' src='js/fastclick.min.js'></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
+  <script src="js/parsley.min.js"></script>
+  <script>
+    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var todaysdate = new Date();
+  </script>
+</head>
     <body id="whole-thing">
-        <nav class="nav grey has-shadow">
-            <div class="nav-left is-hidden-mobile">
-                <div class="nav-item is-hidden-touch">
-                    <img src="images/hammerpen.png" alt="logo" />
-                </div>
-                <div class="nav-item">
-                    <p class="white-font title">WorkLogs</p>
-                </div>
+    <nav class="nav grey has-shadow">
+        <div class="nav-left is-hidden-mobile">
+            <div class="nav-item is-hidden-touch">
+                <img src="images/hammerpen.png" alt="logo" />
             </div>
-            <div class="nav-right">
-                <div class="nav-item">
-                    <p class="title is-4 white-font"><?php if(isset($_SESSION['name'])) {echo $greeting.$_SESSION['name'];}?>
-                    </p>
-                </div>
-                <div class="nav-item">
-                    <button type="button" class=" button light-blue" id="logoutButton" onclick="logout()">
-                        <span class="icon"> <i class="fa fa-sign-out" aria-hidden="true"></i>
-                        </span><p class=" is-hidden-touch header">Log Out</p>
-                    </button>
-                </div>
+            <div class="nav-item">
+                <p class="white-font title">WorkLogs</p>
             </div>
-        </nav>
-        <form class="modal" id="client-details" data-parsley-validate>
+        </div>
+        <div class="nav-right">
+            <div class="nav-item">
+                <p class="title is-4 white-font"><?php if(isset($_SESSION['name'])) {echo $greeting.$_SESSION['name'];}?>
+                </p>
+            </div>
+            <div class="nav-item">
+                <button type="button" class=" button light-blue" id="logoutButton" onclick="logout()">
+                    <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </span><p class=" is-hidden-touch header">Log Out</p>
+                </button>
+            </div>
+        </div>
+    </nav>
+        <form class="modal is-block is-hidden animated" id="client-details" data-parsley-validate><!--new client form-->
           <div class="modal-background"></div>
-            <div class="modal-content animated" id="modal-content">
+            <div class="modal-content" id="new-client-modal">
                 <div class="modal-card-head">
                     <h1 class="modal-card-title has-text-centered">Add A Client</h1><button class="delete" type="button" onclick="toggleZoom()"></button></div>
                 <div class="modal-card-body">
@@ -145,7 +143,7 @@ function humanizeTime($time){
                     </div>
                 </div>
                 <div class="modal-card-foot has-text-centered" id="modal-foot">
-                    <div class="saved-indicator" id="saved-indicator">
+                    <div class="saved-indicator is-hidden" id="saved-indicator">
                         <p class="help is-success has-text-centered" >Saved!</p>
                     </div>
                     <div class="log-action-group" id="save-buttons">
@@ -153,7 +151,7 @@ function humanizeTime($time){
                             <span class="icon"> <i class="fa fa-check" aria-hidden="true"></i>
                             </span><p class="header">Save Client</p>
                         </button>
-                        <button class="button red control" id="newCancelButton" type="button" onclick="toggleZoom()">
+                        <button class="button red control" id="newCancelButton" type="button" onclick="show('client-details', 'fromtop'); toggleClientDetails()">
                             <span class="icon"><i class="fa fa-times" aria-hidden="true">
                             </i></span><p class="header">Close</p>
                         </button>
@@ -161,12 +159,50 @@ function humanizeTime($time){
                 </div>
             </div>
         </form>
+
+ <!--all clients--><form class="modal box is-block  animated" id="all-clients-modal">
+        <div class="modal-background"></div>
+            <div class="modal-content all-clients-modal animated">
+              <header class="modal-card-head">
+                 <div>
+                  <h1 class="title has-text-centered">Clients</h1>
+                  <input type="search" class="input" placeholder="Search..." />
+                 </div>
+                 <button type="button" class="delete" onclick="show('all-clients-modal', 'fromtop')"></button>
+              </header>
+              <div class="panel-tabs grey">
+                  <p class="heading white-font" style="margin-left: 0; margin-right: 0;">Sort by:</p>
+                 <a class="heading is-active">Name</a>
+                 <a class="heading">Something else</a>
+               </div>
+              <section class="modal-card-body">
+                <div class="panel" id="all-client-container">
+                  
+                </div>
+              </section>
+               <footer class="modal-card-foot">
+                <button type="button" class="button red" onclick="show('all-clients-modal', 'fromtop')">Close</button>
+               </footer>
+            </div>
+        </form>
         <div class="container">
-                <button class="button light-blue is-fullwidth" onclick="showLog(); getClientList()" id="add-log-button">
-                    <span class="icon"><i class="fa fa-plus"></i></span>
-                    <span class="is-hidden-mobile"><p class="header">Add Log<p></span>
-                </button>
-               <div class="modal-background"></div>
+       
+         
+
+            <div class="columns is-mobile is-gapless is-marginless">
+              <div class="column is-three-quarters">
+                <div class="button light-blue is-fullwidth nav-toggle" onclick="show('log-form', 'fromleft'); getClientList()" id="add-log-button">
+                  <div class="icon"><i class="fa fa-plus"></i></div>
+                  <p class="subtitle white-font is-marginless">Add Log<p>
+                </div>
+              </div>
+              <div class="column is-one-quarter">
+                <div class="button light-blue is-fullwidth nav-toggle" onclick="show('options-panel', 'fromright')">
+                   <div class="icon"><i class="fa fa-bars"></i></div>
+                  <p class="subtitle white-font is-marginless is-hidden-mobile">Options<p>
+                </div>
+              </div>
+            </div>
               <form id="log-form" class="log-form animated is-hidden" name="newlog" method="POST" class="log" onsubmit="saveLog()" data-parsley-validate>
                <div class="notification">
                 <div class="field">
@@ -174,7 +210,7 @@ function humanizeTime($time){
                     <div class="control has-icons-left" id="add-client">
                         <input type="search" class="input" id="clientName" name="clientname" placeholder="Search Clients" required/>
                         <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
-                        <button type="button" class="button green" id="add-client-button" onclick="toggleClientDetails()">New Client</button>
+                        <button type="button" class="button green" id="add-client-button" onclick="toggleClientDetails(); show('client-details', 'fromtop')">New Client</button>
                     </div>
                 </div>
                     <div class="field">
@@ -217,19 +253,37 @@ function humanizeTime($time){
                 </div>
                 <div class="field is-grouped is-grouped-centered">
                     <div class="control is-expanded">
-                        
                     <button class="button" type="button" onclick="dothis();">
                         <span class="icon"><i class="fa fa-plus"></i></span><span>Add Items</span></button>
                     </div>
                     <button class="control button green is-expanded" type="submit" id="submitbutton" name='Submit'>
                     <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
                     </button>
-                    <button class="control button red is-expanded" type="button" onclick="showLog()">
+                    <button class="control button red is-expanded" type="button" onclick="show('log-form','fromleft')">
                     <span class="icon"><i class="fa fa-times" aria-hidden="true"></i></span><span>Close</span>
                     </button>
                     </div>
               </div>
             </form>
+
+            <div class="option-panel panel animated is-hidden" id="options-panel">
+                <h1 class="panel-heading has-text-centered">Options</h1>
+                    <div class="panel-tabs">
+                        <a class="heading is-active">Clients</a>
+                        <a class="heading">Account</a>
+                    </div>
+                  <a class="panel-block">
+                    <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i>
+                    </span>
+                    <p class="subtitle">Edit Client</p>
+                  </a>
+                 <a class="panel-block" onclick="show('all-clients-modal', 'fromtop'); getClientList(); generateAllClients()">
+                    <span class="icon"><i class="fa fa-address-book" aria-hidden="true"></i>
+                    </span>
+                    <p class="subtitle">View Clients</p>
+                  </a>
+               
+            </div>
            <div class="log-container" id="log-container">
         <?php
         if (!isset($log_array[0])){ //New Guy
@@ -263,15 +317,17 @@ function humanizeTime($time){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="js/awesomplete.min.js"></script>
-    <script src="js/easing.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/picker.js"></script>
     <script>
-    var input = document.getElementById('clientName');
+    var clientnameinput = document.getElementById('clientName');
     var selectedClientId = null;
     var clientObjectList = [];
-    var awesomplete = new Awesomplete(input, {autoFirst: true});
-    
+    var awesomplete = new Awesomplete(clientnameinput, {autoFirst: true});
+    function clearClientCache() {
+        localStorage.removeItem('clientslist');
+    }
+    window.onload =clearClientCache;
     </script>
     <script>
         var dayBlockIdArray = {};
@@ -285,6 +341,7 @@ function humanizeTime($time){
         });
     </script>
     <script>
+    var highlighedclient = null;
     if ('addEventListener' in document) {
         document.addEventListener('DOMContentLoaded', function() {
             FastClick.attach(document.body);
@@ -302,11 +359,18 @@ function humanizeTime($time){
                  hiddenPrefix: 'stopped'
              });
         }, false);
-        document.addEventListener("awesomplete-close", function(){
+        document.addEventListener("awesomplete-highlight", function(callback){
+            highlightedclient = callback.text; //in case user closes awesomplete without selecting
+        }, false);                            //a client
+        document.addEventListener("awesomplete-close", function(reason){
             var clientId = null;
-            for (var objectNumber = 0; objectNumber < clientObjectList.length; objectNumber++){
-                var element = clientObjectList[objectNumber];
-                if (element.name == input.value ){
+            //gets value of clientname input, finds it in the clientlist object, gets the clientid
+            if (reason.reason != "select"){
+                clientnameinput.value = highlightedclient;//makes input value last-highlighted value
+            }
+            for (var objectNumber = 0; objectNumber < clientlist.length; objectNumber++){
+                var element = clientlist[objectNumber];
+                if (element.name == clientnameinput.value){
                     clientId = element.id;
                 }
             }
@@ -346,5 +410,6 @@ function humanizeTime($time){
         </div>
         </article>
     </script>
+    
     </html>
      <!--<p class="title day-date-title" id="wed-mar-22">Wednesday, March 22</p>-->

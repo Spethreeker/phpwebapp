@@ -1,38 +1,56 @@
 var log_form = $('#log-form');
-var modal_content =  $('#modal-content');
-var modal_background =  $('#modal-background');
+var new_client_modal =  $('#new-client-modal');
+var all_clients_modal = $('#all-clients-modal')
+var modal_background =  $('#new-client-modal-background');
 var client_details =  $('#client-details');
 var save_new_client_button = $('#saveNewClientButton');
 var saved_indicator = $('#saved-indicator');
 var log_container = $('#log-container');
 var client_name_search = $('#clientName');
 var new_client_name_input = $('#newClientName');
+var options_panel = $('#options-panel');
 var newClientObject ={};
-var clientList = [];
-function delayToggleActive() {
-    timeoutID = window.setTimeout(toggleZoom, 1000);
-};
-function toggleZoom() {
-    $(modal_content).removeClass('slideInDown');
-    $(modal_content).addClass('slideOutUp');
-    $(modal_background).fadeToggle('fast');
-    newTimeoutID = window.setTimeout(toggleActive($(client_details)), 300);
-};
-function toggleActive(div) {
-   $(div).toggleClass("is-active");
-};
+var clientlist = [];
+
 function toggleClientDetails() {
     $(new_client_name_input).val($(client_name_search).val());
-    $(saved_indicator).hide();
-    $(modal_background).fadeToggle('400');
-    $(client_details).addClass('is-active');
-    if ($(modal_content).hasClass('slideInDown')){
-            $(modal_content).removeClass('slideInDown');
-            $(modal_content).addClass('slideOutUp');
-            toggleZoom();
-    }else{
-        $(modal_content).addClass('slideInDown');
-        $(modal_content).removeClass('slideOutUp');
+};
+function show(id, type) {
+    switch (type) {
+        case 'fromright':
+        var that = $("#" + id);
+             that.removeClass("is-hidden");
+        if (that.hasClass('slideInRight')){
+            that.removeClass('slideInRight');
+            that.addClass('slideOutRight');
+        }else{
+            that.addClass('slideInRight');
+            that.removeClass('slideOutRight');
+        }
+        break;
+        case 'fromleft':
+        var that = $("#" + id);
+        that.removeClass("is-hidden");
+         if (that.hasClass('slideInLeft')){
+        that.removeClass('slideInLeft');
+        that.addClass('slideOutLeft');
+        }else{
+        that.addClass('slideInLeft');
+        that.removeClass('slideOutLeft');
+        }
+        break;
+        case 'fromtop':
+        var that = $("#" + id);
+        that.removeClass("is-hidden");
+        that.toggleClass('is-active');
+        if (that.hasClass('slideInDown')){
+            that.removeClass('slideInDown');
+            that.addClass('slideOutUp');
+        }else{
+        that.addClass('slideInDown');
+        that.removeClass('slideOutUp');
+    }
+
     }
 };
 function saveNewClient() {
@@ -59,7 +77,7 @@ function saveNewClient() {
     
 };
 function createHTML(jsonObject) {
-  dateTimeStamp = jsonObject.dateTimestamp
+  var dateTimeStamp = jsonObject.dateTimestamp //if it breaks i added 'var' here
   if (!document.getElementById(dateTimeStamp)){
     var dayTemplate = document.getElementById('day-template').innerHTML;
     var compiledTemplate = Handlebars.compile(dayTemplate);
@@ -91,19 +109,33 @@ function dothis() {
 };
 
 function getClientList() {
+ if (localStorage.getItem('clientlist') == null){
     $.ajax({
     url:'php/fetch-clients.php',
     type: 'GET',
     dataType: 'json'}).done(function(data) {
-        clientObjectList = data;
         var clientNameList = [];
         $.each(data, function(key, value) {
             clientNameList.push(value.name);
             });
-        sessionStorage.setItem("clientList", clientNameList);
         awesomplete.list = clientNameList;
+        console.log("went and got it");
+        localStorage.setItem('clientlist', JSON.stringify(data));
+        clientlist = data;
+    });
+ } else {
+     var clientNameList = [];
+     clientlist = JSON.parse(localStorage.getItem('clientlist'));
+     $.each(clientlist, function(key, value) {
+        clientNameList.push(value.name);
         });
-}
+        awesomplete.list = clientNameList;
+        console.log("worked");
+ }
+};
+function generateClientList() {
+    
+};
 
 //Anything to do with getting or saving logs
 
@@ -143,27 +175,13 @@ function saveLog(){
     });
 event.preventDefault();
 };
-
-function showLog() {
-    that = $(log_form)
-    that.removeClass("is-hidden");
-    $("#log-form-container").toggleClass("is-active");
-    if (that.hasClass('slideInLeft')){
-        that.removeClass('slideInLeft');
-        that.addClass('slideOutLeft');
-    }else{
-        that.addClass('slideInLeft');
-        that.removeClass('slideOutLeft');
-    }
-};
 function showLogDetails(id){
-   clickedLog = $('#' + id);
-   descCont = clickedLog.find('.desc-container');
-   downArrow = clickedLog.find('#down-arrow');
+   var clickedLog = $('#' + id);
+   var descCont = clickedLog.find('.desc-container');
+   var downArrow = clickedLog.find('#down-arrow');
    if(clickedLog.attr('data-log-clicked') !== 'true'){
     downArrow.toggleClass('spin-around');
     clickedLog.attr('data-log-clicked','true')
-    
         $.ajax({
             type: 'GET',
             url: 'php/get-desc.php',
