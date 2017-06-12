@@ -414,5 +414,17 @@ function humanizeTime($time){
             <h1>{{name}}</h1>
         </a>
     </script>
+    <script type="text/javascript">
+    (function() {
+        var path = '//easy.myfonts.net/v2/js?sid=309038(font-family=Ricardo+Extra+Light)&sid=309042(font-family=Ricardo+Semi+Bold)&sid=309044(font-family=Ricardo+Regular)&sid=309046(font-family=Ricardo+Medium)&key=SfxuPzKm4w',
+            protocol = ('https:' == document.location.protocol ? 'https:' : 'http:'),
+            trial = document.createElement('script');
+        trial.type = 'text/javascript';
+        trial.async = true;
+        trial.src = protocol + path;
+        var head = document.getElementsByTagName("head")[0];
+        head.appendChild(trial);
+    })();
+</script>
     </html>
      <!--<p class="title day-date-title" id="wed-mar-22">Wednesday, March 22</p>-->

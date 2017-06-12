@@ -4,8 +4,13 @@ html{
     height: 100%
 }
 body{
-    font-family: 'Oxygen', sans-serif;
+    /*font-family: 'Oxygen', sans-serif;*/
     z-index: 1;
+    /*font-family: 'Ricardo Extra Light', sans-serif;*/
+    /*font-family: 'Ricardo Semi Bold', sans-serif;*/
+    font-family: 'Ricardo Regular', sans-serif;
+    /*font-family: 'Ricardo Medium',sans-serif;*/
+
 }
 .grey{background-color: #556270;}
 .white-font{color: #FCF9FC;}
