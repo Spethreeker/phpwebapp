@@ -11,15 +11,28 @@ var new_client_name_input = $('#newClientName');
 var options_panel = $('#options-panel');
 var newClientObject ={};
 var clientlist = [];
-
-function toggleClientDetails() {
+function createHTML(jsonObject) {
+  var dateTimeStamp = jsonObject.dateTimestamp //if it breaks i added 'var' here
+  if (!document.getElementById(dateTimeStamp)){
+    var dayTemplate = document.getElementById('day-template').innerHTML;
+    var compiledTemplate = Handlebars.compile(dayTemplate);
+    var ourGeneratedHTML = compiledTemplate(jsonObject);
+    $(log_container).prepend(ourGeneratedHTML);
+  }else{
+    var logTemplate = document.getElementById('log-template').innerHTML;
+    var compiledTemplate = Handlebars.compile(logTemplate);
+    var ourGeneratedHTML = compiledTemplate(jsonObject);
+    $('#' + dateTimeStamp).append(ourGeneratedHTML);
+    }
+};
+function moveClientName() {
     $(new_client_name_input).val($(client_name_search).val());
 };
 function show(id, type) {
     var that = document.getElementById(id);
+    that.classList.remove("is-hidden");
     switch (type) {
         case 'fromright':
-             that.classList.remove("is-hidden");
         if (that.classList.contains('slideInRight')){
             that.classList.remove('slideInRight');
             that.classList.add('slideOutRight');
@@ -29,7 +42,6 @@ function show(id, type) {
         }
         break;
         case 'fromleft':
-        that.classList.remove("is-hidden");
          if (that.classList.contains('slideInLeft')){
             that.classList.remove('slideInLeft');
             that.classList.add('slideOutLeft');
@@ -39,7 +51,6 @@ function show(id, type) {
         }
         break;
         case 'fromtop':
-        that.classList.remove("is-hidden");
         if (that.classList.contains('is-active')){
             that.classList.remove('is-active');
         } else {
@@ -76,37 +87,6 @@ function saveNewClient() {
         });
     }); 
     
-};
-function createHTML(jsonObject) {
-  var dateTimeStamp = jsonObject.dateTimestamp //if it breaks i added 'var' here
-  if (!document.getElementById(dateTimeStamp)){
-    var dayTemplate = document.getElementById('day-template').innerHTML;
-    var compiledTemplate = Handlebars.compile(dayTemplate);
-    var ourGeneratedHTML = compiledTemplate(jsonObject);
-    $(log_container).prepend(ourGeneratedHTML);
-  }else{
-    var logTemplate = document.getElementById('log-template').innerHTML;
-    var compiledTemplate = Handlebars.compile(logTemplate);
-    var ourGeneratedHTML = compiledTemplate(jsonObject);
-    $('#' + dateTimeStamp).append(ourGeneratedHTML);
-    }
-};
-
-function dothis() {
-  date = $('#dateOccurred')
-  time1 = $('#timeStarted')
-  time2 = $('#timeStopped');
-  issue = $('#issue');
-  desc = $('#description');
-  hours = $('#hoursWorked');
-  time2.val('19:20');
-  time1.val('15:45');
-  date.val('2017-05-13');
-  desc.val('Boopity');
-  issue.val('Bop');
-  time2.val() - time1.val();
-//   hours.val(a);
-  console.log( time2.val() - time1.val());
 };
 
 function getClientList() {
@@ -187,6 +167,7 @@ function saveLog(){
     });
 event.preventDefault();
 };
+
 function showLogDetails(id){
    var clickedLog = $('#' + id);
    var descCont = clickedLog.find('.desc-container');
@@ -202,7 +183,7 @@ function showLogDetails(id){
             },
             datetype: 'text'
         }).done( function(data) {
-            descCont.append('<h1 class="subtitle">'+data+'</h1>');
+            descCont.append('<h1 class="subtitle font">'+data+'</h1>');
             // descCont.removeClass('slideOutUp');
             // descCont.removeClass('is-hidden');
             // descCont.addClass('slideInDown');

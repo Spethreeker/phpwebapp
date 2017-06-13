@@ -28,7 +28,6 @@ function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateO
     $humanTimeStarted = date('G:i A', strtotime($timeStarted));
     echo  <<<EOT
         <div class="media log" id="{$logID}" data-log-clicked="false">
-         
         <div class="log-overlay">
             <div class="media-content">
                <div class="">
@@ -41,9 +40,9 @@ function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateO
                 </div>
                </div>
                 <div class="box desc-container animated is-hidden">
-                    <div class="media-left grey time-started-container">
-                 <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
-               </div>
+                  <div class="media-left grey time-started-container">
+                    <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
+                  </div>
                 </div>
             </div>
             
@@ -160,9 +159,9 @@ function humanizeTime($time){
             </div>
         </form>
 
- <!--all clients--><form class="modal box is-block  animated" id="all-clients-modal">
+ <!--all clients--><form class="modal animated" id="all-clients-modal">
         <div class="modal-background"></div>
-            <div class="modal-content all-clients-modal animated">
+            <div class="modal-card animated">
               <header class="modal-card-head">
                  <div>
                   <h1 class="title has-text-centered">Clients</h1>
@@ -170,11 +169,11 @@ function humanizeTime($time){
                  </div>
                  <button type="button" class="delete" onclick="show('all-clients-modal', 'fromtop')"></button>
               </header>
-              <div class="panel-tabs grey">
-                  <p class="heading white-font" style="margin-left: 0; margin-right: 0;">Sort by:</p>
-                 <a class="heading">Name</a>
-                 <a class="heading">Something else</a>
-               </div>
+              <!--<div class="tabs grey">
+                <p class="heading white-font" style="margin-left: 0; margin-right: 0;">Sort by:</p>
+                <ul><li> <a class="heading">Name</a></li>
+                 <li><a class="heading">Something else</a></li>
+               </div>-->
               <section class="modal-card-body">
                 <div class="panel" id="all-clients-container">
                     
@@ -209,7 +208,7 @@ function humanizeTime($time){
                     <div class="control has-icons-left" id="add-client">
                         <input type="search" class="input" id="clientName" name="clientname" placeholder="Search Clients" required/>
                         <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
-                        <button type="button" class="button green" id="add-client-button" onclick="toggleClientDetails(); show('client-details', 'fromtop')">New Client</button>
+                        <button type="button" class="button green" id="add-client-button" onclick="moveClientName(); show('client-details', 'fromtop')">New Client</button>
                     </div>
                 </div>
                     <div class="field">
@@ -323,10 +322,7 @@ function humanizeTime($time){
     var selectedClientId = null;
     var clientObjectList = [];
     var awesomplete = new Awesomplete(clientnameinput, {autoFirst: true});
-    function clearClientCache() {
-        localStorage.removeItem('clientlist');
-    }
-    window.onload =clearClientCache;
+ 
     </script>
     <script>
         var dayBlockIdArray = {};
@@ -340,7 +336,6 @@ function humanizeTime($time){
         });
     </script>
     <script>
-    var highlighedclient = null;
     if ('addEventListener' in document) {
         document.addEventListener('DOMContentLoaded', function() {
             FastClick.attach(document.body);
@@ -358,25 +353,31 @@ function humanizeTime($time){
                  hiddenPrefix: 'stopped'
              });
         }, false);
-        document.addEventListener("awesomplete-highlight", function(callback){
-            highlightedclient = callback.text; //in case user closes awesomplete without selecting
-        }, false);                            //a client
-        document.addEventListener("awesomplete-close", function(reason){
-            var clientId = null;
-            //gets value of clientname input, finds it in the clientlist object, gets the clientid
-            if (reason.reason != "select"){
-                clientnameinput.value = highlightedclient;//makes input value last-highlighted value
+    var highlightedclient = null;
+    document.addEventListener("awesomplete-highlight", function(callback){
+        highlightedclient = callback.text; //in case user closes awesomplete without selecting
+    }, false);                            //a client
+    document.addEventListener("awesomplete-close", function(callback){
+        var clientId = null;
+        if (callback.reason = "nomatches") {
+            console.log(callback.reason);
+            return;
+        }
+        //gets value of clientname input, finds it in the clientlist object, gets the clientid
+        else { //makes input value last-highlighted value
+            clientnameinput.value = highlightedclient;
+        }
+        for (var objectNumber = 0; objectNumber < clientlist.length; objectNumber++){
+            var element = clientlist[objectNumber];
+            if (element.name == clientnameinput.value){
+                clientId = element.id;
             }
-            for (var objectNumber = 0; objectNumber < clientlist.length; objectNumber++){
-                var element = clientlist[objectNumber];
-                if (element.name == clientnameinput.value){
-                    clientId = element.id;
-                }
-            }
-            selectedClientId = clientId;
-            console.log(selectedClientId);
-        }, false);
-    };
+        }
+        selectedClientId = clientId;
+        console.log(selectedClientId, reason.reason);
+    }, false);
+    
+};
     </script>
     <script id="log-template" type="text/x-handlebars-template">
         <div class="media log">
@@ -410,7 +411,7 @@ function humanizeTime($time){
         </article>
     </script>
     <script id="client-template" type="text/x-handlebars-template">
-        <a class="panel-block">
+        <a class="panel-block" onclick="showClient('{{id}}', 'fromtop')">
             <h1>{{name}}</h1>
         </a>
     </script>

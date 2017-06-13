@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Oxygen:300');
+/*@import url('https://fonts.googleapis.com/css?family=Oxygen:300');*/
 html{
     background: inherit;
     height: 100%
@@ -54,12 +54,9 @@ body{
     border-radius: 3px;
     box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.5);
 }
-.day:(first-of-type){
-    margin-top: 5px;
-}
 .log .media-content{
     background-color: rgba(155, 155, 155, 0);
-    border-radius: 0px 4px 4px 0px;
+    border-radius: 4px 4px 4px 4px;
     background-image: url('../images/paper_fibers.png');
     background-repeat: repeat;
     background-position: top;
@@ -88,6 +85,7 @@ body{
 }
 .client-name{
    font-size: 2.178em;
+font-family: 'Ricardo Extra Light', sans-serif;
 }
 .day-date-title{
     color: #eee;
@@ -101,7 +99,7 @@ body{
     background: #556270;
     margin: 0px;
     color: #eee;
-    border-radius: 4px 0px 0px 4px;
+    border-radius: 4px;
      font-size: 1.383em;
      padding: 5px;
 }
@@ -112,7 +110,9 @@ body{
     display: flex;
     justify-content: space-between;
     box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.5);
-
+}
+.font{
+    font-family: 'Ricardo Regular', sans-serif;
 }
 .work-duration-container{
     display: flex;
@@ -133,7 +133,6 @@ body{
   border-radius: 3px;
   padding: 1.25rem 1.25rem 1.25rem 1.25rem;
   position: relative;
-
 }
 .log-form, .option-panel{
   z-index: 2;
@@ -167,13 +166,13 @@ body{
 #add-log-button{
     z-index: 3;
 }
-#modal-content{
+/*#modal-content{
     margin: 40px auto;
 }
 #modal-content:before{
     height: 100%;
     vertical-align: middle;
-}
+}*/
 .down-arrow{
     display: block;
    float: right;
@@ -331,6 +330,7 @@ body{
 }
 .slideInRight {
   animation-name: slideInRight;
+  animation-duration: .3s
 }
 
 @keyframes slideOutRight {
