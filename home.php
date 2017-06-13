@@ -117,7 +117,7 @@ function humanizeTime($time){
             </div>
         </div>
     </nav>
-        <form class="modal is-block is-hidden animated" id="client-details" data-parsley-validate><!--new client form-->
+<!--new-client--><form class="modal is-block is-hidden animated" id="client-details" data-parsley-validate><!--new client form-->
           <div class="modal-background"></div>
             <div class="modal-content" id="new-client-modal">
                 <div class="modal-card-head">
@@ -159,13 +159,13 @@ function humanizeTime($time){
             </div>
         </form>
 
- <!--all clients--><form class="modal animated" id="all-clients-modal">
+ <!--all clients--><form class="modal is-block is-hidden animated" id="all-clients-modal">
         <div class="modal-background"></div>
             <div class="modal-card animated">
               <header class="modal-card-head">
                  <div>
-                  <h1 class="title has-text-centered">Clients</h1>
-                  <input type="search" class="input" placeholder="Search..." />
+                  <h1 class="modal-card-title has-text-centered">Clients</h1>
+                
                  </div>
                  <button type="button" class="delete" onclick="show('all-clients-modal', 'fromtop')"></button>
               </header>
@@ -183,7 +183,7 @@ function humanizeTime($time){
                 <button type="button" class="button red" onclick="show('all-clients-modal', 'fromtop')">Close</button>
                </footer>
             </div>
-<!--all clients--></form>
+</form>
         <div class="container">
             <div class="columns is-mobile is-gapless is-marginless">
               <div class="column is-three-quarters">
@@ -208,7 +208,7 @@ function humanizeTime($time){
                     <div class="control has-icons-left" id="add-client">
                         <input type="search" class="input" id="clientName" name="clientname" placeholder="Search Clients" required/>
                         <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
-                        <button type="button" class="button green" id="add-client-button" onclick="moveClientName(); show('client-details', 'fromtop')">New Client</button>
+                        <button type="button" class="button green" id="add-client-button" onclick="copyClientName(); show('client-details', 'fromtop')">New Client</button>
                     </div>
                 </div>
                     <div class="field">
@@ -322,7 +322,6 @@ function humanizeTime($time){
     var selectedClientId = null;
     var clientObjectList = [];
     var awesomplete = new Awesomplete(clientnameinput, {autoFirst: true});
- 
     </script>
     <script>
         var dayBlockIdArray = {};
@@ -332,7 +331,7 @@ function humanizeTime($time){
         });
         $('#log-form').on('submit', function () {
             savelog();
-        return false;   
+            return false;
         });
     </script>
     <script>
@@ -356,7 +355,7 @@ function humanizeTime($time){
     var highlightedclient = null;
     document.addEventListener("awesomplete-highlight", function(callback){
         highlightedclient = callback.text; //in case user closes awesomplete without selecting
-    }, false);                            //a client
+    }, false);                             //a client
     document.addEventListener("awesomplete-close", function(callback){
         var clientId = null;
         if (callback.reason = "nomatches") {
@@ -376,7 +375,6 @@ function humanizeTime($time){
         selectedClientId = clientId;
         console.log(selectedClientId, reason.reason);
     }, false);
-    
 };
     </script>
     <script id="log-template" type="text/x-handlebars-template">
@@ -411,9 +409,18 @@ function humanizeTime($time){
         </article>
     </script>
     <script id="client-template" type="text/x-handlebars-template">
-        <a class="panel-block" onclick="showClient('{{id}}', 'fromtop')">
-            <h1>{{name}}</h1>
-        </a>
+        <div class="client-details-container"><a class="panel-block" onclick="showClientDetails('{{id}}', 'fromtop')">
+              <h1 class="subtitle">{{name}}</h1>
+            </a> 
+            <div class="client-details-box">
+                <h1 class="subtitle">Asfd inside me.</h1>
+            </div>
+        </div>
+    </script>
+    <script id="details-template" type="text/x-handlebars-template">
+        <div class="animated gray box client-detail-container">
+            <h1 class="subtitle white-font">{}
+        </div>   
     </script>
     <script type="text/javascript">
     (function() {

@@ -25,7 +25,7 @@ function createHTML(jsonObject) {
     $('#' + dateTimeStamp).append(ourGeneratedHTML);
     }
 };
-function moveClientName() {
+function copyClientName() {
     $(new_client_name_input).val($(client_name_search).val());
 };
 function show(id, type) {
@@ -51,11 +51,11 @@ function show(id, type) {
         }
         break;
         case 'fromtop':
-        if (that.classList.contains('is-active')){
-            that.classList.remove('is-active');
-        } else {
-            that.classList.add('is-active');
-        }
+        // if (that.classList.contains('is-active')){
+        //     that.classList.remove('is-active');
+        // } else {
+        //     that.classList.add('is-active');
+        // }
         if (that.classList.contains('slideInDown')){
             that.classList.remove('slideInDown');
             that.classList.add('slideOutUp');
@@ -83,12 +83,9 @@ function saveNewClient() {
     }).toggleClass('is-loading');
         $(saved_indicator).fadeOut('fast', function() {
             $('#saveNewClientButton').fadeIn();
-        
         });
-    }); 
-    
+    });
 };
-
 function getClientList() {
  if (localStorage.getItem('clientlist') == null){
     $.ajax({
@@ -128,7 +125,14 @@ function generateClientList() {
         }
     }
 };
-
+function showClientDetails(id) {
+   //1. get id of the selected client box
+     //a. push down client-detail box so the client knows somethings happening
+     //b. add loading spinner
+   //2. ask server for information about client with same id as aformentioned box
+   //3. append detail box with information about client from server
+    
+}
 //Anything to do with getting or saving logs
 
 function saveLog(){

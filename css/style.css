@@ -146,6 +146,14 @@ font-family: 'Ricardo Extra Light', sans-serif;
     right: 0;
     border-radius: 4px;
 }
+.client-details-container{
+   
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
+.client-details-box{
+    padding: 1.2rem;
+     background: whitesmoke;
+}
 .log-action-group{
    margin-left: auto;
    margin-top: auto;
