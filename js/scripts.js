@@ -87,7 +87,7 @@ function saveNewClient() {
     });
  
 };
-function getClientList(deffered) {
+function getClientList() {
  if (localStorage.getItem('clientlist') == null){
     $.ajax({
     url:'php/fetch-clients.php',
@@ -101,8 +101,7 @@ function getClientList(deffered) {
         console.log("went and got it");
         localStorage.setItem('clientlist', JSON.stringify(data));
         clientlist = data;
-        deffered;
-    });
+    })
  } else {
      var clientNameList = [];
      clientlist = JSON.parse(localStorage.getItem('clientlist'));
@@ -111,12 +110,10 @@ function getClientList(deffered) {
         });
         awesomplete.list = clientNameList;
         console.log("worked");
-        deffered;
- }
-
+        }
 };
 
-function generateClientList(deffered) {
+function generateClientList() {
     var all_clients_container = $('#all-clients-container');
     var clientTemplate = document.getElementById('client-template').innerHTML;
     var compiledTemplate = Handlebars.compile(clientTemplate);
@@ -125,7 +122,6 @@ function generateClientList(deffered) {
         var ourGeneratedHTML = compiledTemplate(element);
         $(all_clients_container).append(ourGeneratedHTML);
     }
-    deffered;
 };
 function showClientDetails(id) {
    //1. get id of the selected client box

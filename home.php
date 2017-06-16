@@ -181,6 +181,7 @@ function humanizeTime($time){
               </section>
                <footer class="modal-card-foot">
                 <button type="button" class="button red" onclick="show('all-clients-modal', 'fromtop')">Close</button>
+                <button type="button" class="button" onclick="generateClientList()">Run</button>
                </footer>
             </div>
 </form>
@@ -200,8 +201,8 @@ function humanizeTime($time){
               </div>
             </div>
 
-            <!--new log form-->
-              <form id="log-form" class="log-form animated is-hidden" name="newlog" method="POST" class="log" onsubmit="saveLog()" data-parsley-validate>
+           
+ <!--new log form--><form id="log-form" class="log-form animated is-hidden" name="newlog" method="POST" class="log" onsubmit="saveLog()" data-parsley-validate>
                <div class="notification">
                 <div class="field">
                 <label class="label" for="clientname">Client Name</label>
@@ -262,9 +263,9 @@ function humanizeTime($time){
                     </button>
                     </div>
               </div>
-<!--new log form--></form>
+</form>
             
-            <div class="option-panel panel animated is-hidden" id="options-panel">
+<!--options panel--><div class="option-panel panel animated is-hidden" id="options-panel">
                 <h1 class="panel-heading has-text-centered">Options</h1>
                     <div class="panel-tabs">
                         <a class="heading is-active">Clients</a>
@@ -412,13 +413,13 @@ function humanizeTime($time){
         <div class="client-details-container"><a class="panel-block" onclick="showClientDetails('{{id}}', 'fromtop')">
               <h1 class="subtitle">{{name}}</h1>
             </a> 
-<<<<<<< HEAD
+
             <div class="client-details-box">
                 <h1 class="subtitle">Asfd.</h1>
             </div>
-=======
+
             
->>>>>>> origin/master
+
         </div>
     </script>
     <script id="client-details-template" type="text/x-handlebars-template">
