@@ -413,7 +413,7 @@ function humanizeTime($time){
               <h1 class="subtitle">{{name}}</h1>
             </a> 
             <div class="client-details-box">
-                <h1 class="subtitle">Asfd inside me.</h1>
+                <h1 class="subtitle">Asfd.</h1>
             </div>
         </div>
     </script>
