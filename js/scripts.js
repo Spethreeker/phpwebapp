@@ -28,7 +28,7 @@ function createHTML(jsonObject) {
 function copyClientName() {
     $(new_client_name_input).val($(client_name_search).val());
 };
-function show(id, type) {
+function show(id, type, deffered) {
     var that = document.getElementById(id);
     that.classList.remove("is-hidden");
     switch (type) {
@@ -85,8 +85,9 @@ function saveNewClient() {
             $('#saveNewClientButton').fadeIn();
         });
     });
+ 
 };
-function getClientList() {
+function getClientList(deffered) {
  if (localStorage.getItem('clientlist') == null){
     $.ajax({
     url:'php/fetch-clients.php',
@@ -100,6 +101,7 @@ function getClientList() {
         console.log("went and got it");
         localStorage.setItem('clientlist', JSON.stringify(data));
         clientlist = data;
+        deffered;
     });
  } else {
      var clientNameList = [];
@@ -109,12 +111,12 @@ function getClientList() {
         });
         awesomplete.list = clientNameList;
         console.log("worked");
+        deffered;
  }
+
 };
-function generateClientList() {
-    if (typeof clientlist === 'undefined' || !clientlist){
-        getClientList();
-    } else {
+
+function generateClientList(deffered) {
     var all_clients_container = $('#all-clients-container');
     var clientTemplate = document.getElementById('client-template').innerHTML;
     var compiledTemplate = Handlebars.compile(clientTemplate);
@@ -122,8 +124,8 @@ function generateClientList() {
         var element = clientlist[objectNumber];
         var ourGeneratedHTML = compiledTemplate(element);
         $(all_clients_container).append(ourGeneratedHTML);
-        }
     }
+    deffered;
 };
 function showClientDetails(id) {
    //1. get id of the selected client box
@@ -132,7 +134,7 @@ function showClientDetails(id) {
    //2. ask server for information about client with same id as aformentioned box
    //3. append detail box with information about client from server
     
-}
+};
 //Anything to do with getting or saving logs
 
 function saveLog(){

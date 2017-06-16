@@ -275,7 +275,7 @@ function humanizeTime($time){
                     </span>
                     <p class="subtitle">Edit Client</p>
                   </a>
-                 <a class="panel-block" onclick="show('all-clients-modal', 'fromtop'); generateClientList()">
+                 <a class="panel-block" onclick="getClientList(generateClientList(show('all-clients-modal', 'fromtop')))">
                     <span class="icon"><i class="fa fa-address-book" aria-hidden="true"></i>
                     </span>
                     <p class="subtitle">View Clients</p>
@@ -412,15 +412,19 @@ function humanizeTime($time){
         <div class="client-details-container"><a class="panel-block" onclick="showClientDetails('{{id}}', 'fromtop')">
               <h1 class="subtitle">{{name}}</h1>
             </a> 
+<<<<<<< HEAD
             <div class="client-details-box">
                 <h1 class="subtitle">Asfd.</h1>
             </div>
+=======
+            
+>>>>>>> origin/master
         </div>
     </script>
-    <script id="details-template" type="text/x-handlebars-template">
-        <div class="animated gray box client-detail-container">
-            <h1 class="subtitle white-font">{}
-        </div>   
+    <script id="client-details-template" type="text/x-handlebars-template">
+       <div class="client-details-box animated is-hidden">
+                <h1 class="subtitle">Asfd me.</h1>
+            </div>
     </script>
     <script type="text/javascript">
     (function() {
