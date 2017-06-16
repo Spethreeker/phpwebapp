@@ -1,7 +1,8 @@
 <?php 
-    // header('Content-Type: text/plain');
+    header('Content-Type: text/plain');
     require 'PasswordHash.php';
     require 'config.php';
+    
     session_start();
     $debug = true;;
     //Post Variables and normalizing them
@@ -18,9 +19,6 @@
     if (strlen($hash) < 20)
         fail('Failed to has new password');
     $hash = '*'; //in case the user is not found
-     $db = new mysqli($db_host, $db_user, $db_pass, $db_name);
-    if (mysqli_connect_errno()) //connect to server
-        fail('MySQL connect', mysqli_connect_error());
     $name = '*';
     $hash='*';
     $id = '*';
