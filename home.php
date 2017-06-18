@@ -67,7 +67,6 @@ function humanizeTime($time){
         <link rel="stylesheet" href="css/awesomplete.base.css">
         <link rel="stylesheet" href="css/default.css">
         <link rel="stylesheet" href="css/default.date.css">
-
         <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-icon-72x72.png">
@@ -159,7 +158,7 @@ function humanizeTime($time){
             </div>
         </form>
 
- <!--all clients--><form class="modal is-block is-hidden animated" id="all-clients-modal">
+ <!--all clients--><form class="modal is-block animated" id="all-clients-modal">
         <div class="modal-background"></div>
             <div class="modal-card animated">
               <header class="modal-card-head">
@@ -188,7 +187,7 @@ function humanizeTime($time){
         <div class="container">
             <div class="columns is-mobile is-gapless is-marginless">
               <div class="column is-three-quarters">
-                <div class="button light-blue is-fullwidth nav-toggle" onclick="show('log-form', 'fromleft'); getClientList()" id="add-log-button">
+                <div class="button light-blue is-fullwidth nav-toggle" onclick="show('log-form', 'fromleft')" id="add-log-button">
                   <div class="icon"><i class="fa fa-plus"></i></div>
                   <p class="subtitle white-font is-marginless">Add Log<p>
                 </div>
@@ -271,12 +270,12 @@ function humanizeTime($time){
                         <a class="heading is-active">Clients</a>
                         <a class="heading">Account</a>
                     </div>
-                  <a class="panel-block">
+                  <a class="panel-block" onclick="clearlocal()">
                     <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i>
                     </span>
                     <p class="subtitle">Edit Client</p>
                   </a>
-                 <a class="panel-block" onclick="getClientList(generateClientList(show('all-clients-modal', 'fromtop')))">
+                 <a class="panel-block" onclick="generateClientList();show('all-clients-modal', 'fromtop')">
                     <span class="icon"><i class="fa fa-address-book" aria-hidden="true"></i>
                     </span>
                     <p class="subtitle">View Clients</p>
@@ -323,6 +322,7 @@ function humanizeTime($time){
     var selectedClientId = null;
     var clientObjectList = [];
     var awesomplete = new Awesomplete(clientnameinput, {autoFirst: true});
+  
     </script>
     <script>
         var dayBlockIdArray = {};
@@ -334,6 +334,9 @@ function humanizeTime($time){
             savelog();
             return false;
         });
+        function clearlocal() {
+            localStorage.clear();
+        };
     </script>
     <script>
     if ('addEventListener' in document) {
@@ -410,19 +413,37 @@ function humanizeTime($time){
         </article>
     </script>
     <script id="client-template" type="text/x-handlebars-template">
-        <div class="client-details-container"><a class="panel-block" onclick="showClientDetails('{{id}}', 'fromtop')">
-              <h1 class="subtitle">{{name}}</h1>
-            </a> 
-
-            <div class="client-details-box">
-                <h1 class="subtitle">Asfd.</h1>
+        <div class="card" id="{{id}}" onclick="showClientDetails('{{id}}')">
+          <header class="card-header clnt-details-lbl">
+            <h1 class="card-header-title">{{name}}</h1>
+            <a class="card-header-icon">
+              <span class="icon">
+                <i class="fa fa-angle-down"></i>
+              </span>
+            </a>
+          </header> 
+            <div class="details-content is-hidden animated">
+          <div class="card-content">
+            <div class="columns">
+                <div class="column">
+                    <h1 class="subtitle"><strong>Phone Number</strong></h1>
+                    <p class="subtitle" data-id-phone="{{id}}"></p>
+                </div>
+                <div class="column">
+                    <h1 class="subtitle">Address</h1>
+                    <p class="subtitle" data-id-address="{{id}}"></p>
+                </div>
             </div>
+          </div>
+          <footer class="card-footer">
+            <a class="card-footer-item">Edit</a>
+            <a class="card-footer-item">Close</a>
 
-            
-
+          </footer>
+          </div>
         </div>
     </script>
-    <script id="client-details-template" type="text/x-handlebars-template">
+    <script id="client-details-template--removefortesting" type="text/x-handlebars-template">
        <div class="client-details-box animated is-hidden">
                 <h1 class="subtitle">Asfd me.</h1>
             </div>

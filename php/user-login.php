@@ -1,10 +1,10 @@
 <?php 
-    header('Content-Type: text/plain');
+    // header('Content-Type: text/plain');
     require 'PasswordHash.php';
     require 'config.php';
     
     session_start();
-    $debug = true;;
+    $debug = true;
     //Post Variables and normalizing them
     $email = get_post_var('email');
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){

@@ -9,27 +9,56 @@ var log_container = $('#log-container');
 var client_name_search = $('#clientName');
 var new_client_name_input = $('#newClientName');
 var options_panel = $('#options-panel');
+var clientDetailsBox = null;
 var newClientObject ={};
 var clientlist = [];
+var allClientsListGenerated = false;
+$(function() {
+ if (localStorage.getItem('clientlist') == null){
+    $.ajax({
+    url:'php/fetch-clients.php',
+    type: 'GET',
+    dataType: 'json'}).done(function(data) {
+        let clientNameList = [];
+        $.each(data, function(key, value) {
+            clientNameList.push(value.name);
+            });
+        awesomplete.list = clientNameList;
+        console.log("went and got it");
+        localStorage.setItem('clientlist', JSON.stringify(data));
+        clientlist = data;
+    })
+ } else {
+     let clientNameList = [];
+     clientlist = JSON.parse(localStorage.getItem('clientlist'));
+     $.each(clientlist, function(key, value) {
+        clientNameList.push(value.name);
+        });
+        awesomplete.list = clientNameList;
+        console.log("worked");
+        }
+});
+
 function createHTML(jsonObject) {
   var dateTimeStamp = jsonObject.dateTimestamp //if it breaks i added 'var' here
   if (!document.getElementById(dateTimeStamp)){
-    var dayTemplate = document.getElementById('day-template').innerHTML;
-    var compiledTemplate = Handlebars.compile(dayTemplate);
-    var ourGeneratedHTML = compiledTemplate(jsonObject);
+    let dayTemplate = document.getElementById('day-template').innerHTML;
+    let compiledTemplate = Handlebars.compile(dayTemplate);
+    let ourGeneratedHTML = compiledTemplate(jsonObject);
     $(log_container).prepend(ourGeneratedHTML);
   }else{
-    var logTemplate = document.getElementById('log-template').innerHTML;
-    var compiledTemplate = Handlebars.compile(logTemplate);
-    var ourGeneratedHTML = compiledTemplate(jsonObject);
+    let logTemplate = document.getElementById('log-template').innerHTML;
+    let compiledTemplate = Handlebars.compile(logTemplate);
+    let ourGeneratedHTML = compiledTemplate(jsonObject);
     $('#' + dateTimeStamp).append(ourGeneratedHTML);
     }
 };
+
 function copyClientName() {
     $(new_client_name_input).val($(client_name_search).val());
 };
 function show(id, type, deffered) {
-    var that = document.getElementById(id);
+    let that = document.getElementById(id);
     that.classList.remove("is-hidden");
     switch (type) {
         case 'fromright':
@@ -85,58 +114,51 @@ function saveNewClient() {
             $('#saveNewClientButton').fadeIn();
         });
     });
- 
-};
-function getClientList() {
- if (localStorage.getItem('clientlist') == null){
-    $.ajax({
-    url:'php/fetch-clients.php',
-    type: 'GET',
-    dataType: 'json'}).done(function(data) {
-        var clientNameList = [];
-        $.each(data, function(key, value) {
-            clientNameList.push(value.name);
-            });
-        awesomplete.list = clientNameList;
-        console.log("went and got it");
-        localStorage.setItem('clientlist', JSON.stringify(data));
-        clientlist = data;
-    })
- } else {
-     var clientNameList = [];
-     clientlist = JSON.parse(localStorage.getItem('clientlist'));
-     $.each(clientlist, function(key, value) {
-        clientNameList.push(value.name);
-        });
-        awesomplete.list = clientNameList;
-        console.log("worked");
-        }
 };
 
 function generateClientList() {
-    var all_clients_container = $('#all-clients-container');
-    var clientTemplate = document.getElementById('client-template').innerHTML;
-    var compiledTemplate = Handlebars.compile(clientTemplate);
-    for (var objectNumber = 0; objectNumber < clientlist.length; objectNumber++){
-        var element = clientlist[objectNumber];
-        var ourGeneratedHTML = compiledTemplate(element);
-        $(all_clients_container).append(ourGeneratedHTML);
+    if (allClientsListGenerated == false){
+        let all_clients_container = $('#all-clients-container');
+        let clientTemplate = document.getElementById('client-template').innerHTML;
+        let compiledTemplate = Handlebars.compile(clientTemplate);
+        for (var objectNumber = 0; objectNumber < clientlist.length; objectNumber++){
+            var element = clientlist[objectNumber];
+            var ourGeneratedHTML = compiledTemplate(element);
+            $(all_clients_container).append(ourGeneratedHTML);
+        }
+        allClientsListGenerated = true;
+    } else {
+        return false;
     }
 };
 function showClientDetails(id) {
    //1. get id of the selected client box
-     //a. push down client-detail box so the client knows somethings happening
+     //a. push down client-detail box so the user knows somethings happening
      //b. add loading spinner
-   //2. ask server for information about client with same id as aformentioned box
-   //3. append detail box with information about client from server
+     var that = $('#' + id);
+     clientDetailsBox = $(that).find('.details-content');
     
+   //2. ask server for information about client with same id as aformentioned box
+    $.ajax({
+    url:'php/fetch-client-details.php',
+    type: 'GET',
+    data: {client_id:id},
+    dataType: 'json'}).done(function(data) {
+        var clientDetails = data;
+        var phone_Num = $('[data-id-phone="' + id + '"');
+        var addr = $('[data-id-address="' + id + '"');
+        phone_Num.text(clientDetails['phone']);
+        addr.text(clientDetails['address']);
+    });
+    clientDetailsBox.removeClass('is-hidden');
+   //3. append detail box with information about client from server
 };
 //Anything to do with getting or saving logs
 
 function saveLog(){
     $('#submitbutton').toggleClass('is-loading');
-    var clientName = $.trim($('#clientName').val());
-    var dateOccurred = $.trim($('input[name=date_submit]').val());
+    let clientName = $.trim($('#clientName').val());
+    let dateOccurred = $.trim($('input[name=date_submit]').val());
     var dateTimestamp = Date.parse(dateOccurred)/1000;
     var timeStarted = $.trim($('input[name=started_submit]').val());
     var timeStopped = $.trim($('input[name=stopped_submit]').val());
@@ -179,7 +201,7 @@ function showLogDetails(id){
     clickedLog.attr('data-log-clicked','true')
         $.ajax({
             type: 'GET',
-            url: 'php/get-desc.php',
+            url: 'php/fetch-desc.php',
             data: {
                 log_id: id
             },

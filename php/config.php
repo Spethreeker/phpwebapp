@@ -21,6 +21,11 @@ function get_get_var($var)
             $val = stripslashes($val);
         return $val;
     }
+function clean_id($var)
+    {
+    $val = strip_tags(trim($_GET[$var]));
+    return $val;
+    }
 $db_host = '45.56.100.209';
 $db_port = '3306';
 $db_user = 'spencer';

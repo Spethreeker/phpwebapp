@@ -62,7 +62,6 @@ body{
     background-position: top;
     background-blend-mode: screen;
 }
-
 .log-overlay{
     top: 0;
     left: 0;
@@ -147,12 +146,14 @@ font-family: 'Ricardo Extra Light', sans-serif;
     border-radius: 4px;
 }
 .client-details-container{
-   
-    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    z-index: 2;
+    /*box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);*/
 }
+
 .client-details-box{
     padding: 1.2rem;
-     background: whitesmoke;
+    background: whitesmoke;
+    z-index: 1;
 }
 .log-action-group{
    margin-left: auto;
