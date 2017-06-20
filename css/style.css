@@ -149,7 +149,12 @@ font-family: 'Ricardo Extra Light', sans-serif;
     z-index: 2;
     /*box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);*/
 }
-
+.client-details-label{
+    margin-bottom: 3px;
+}
+.client-details-label:hover{
+    background: whitesmoke;
+}
 .client-details-box{
     padding: 1.2rem;
     background: whitesmoke;

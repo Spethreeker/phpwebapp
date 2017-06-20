@@ -413,8 +413,8 @@ function humanizeTime($time){
         </article>
     </script>
     <script id="client-template" type="text/x-handlebars-template">
-        <div class="card" id="{{id}}" onclick="showClientDetails('{{id}}')">
-          <header class="card-header clnt-details-lbl">
+        <div class="card" id="{{id}}" onclick="showClientDetails('{{id}}')" data-detailsexpanded="false">
+          <header class="card-header client-details-label">
             <h1 class="card-header-title">{{name}}</h1>
             <a class="card-header-icon">
               <span class="icon">
@@ -438,7 +438,6 @@ function humanizeTime($time){
           <footer class="card-footer">
             <a class="card-footer-item">Edit</a>
             <a class="card-footer-item">Close</a>
-
           </footer>
           </div>
         </div>

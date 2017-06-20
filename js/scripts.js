@@ -132,12 +132,14 @@ function generateClientList() {
     }
 };
 function showClientDetails(id) {
-   //1. get id of the selected client box
-     //a. push down client-detail box so the user knows somethings happening
-     //b. add loading spinner
      var that = $('#' + id);
      clientDetailsBox = $(that).find('.details-content');
-    
+    if ($(that).attr('data-detailsexpanded', true)){
+        clientDetailsBox.addClass('is-hidden');
+        $(that).attr('data-detailsexpanded', false);
+
+    }
+    else b  {
    //2. ask server for information about client with same id as aformentioned box
     $.ajax({
     url:'php/fetch-client-details.php',
@@ -149,8 +151,10 @@ function showClientDetails(id) {
         var addr = $('[data-id-address="' + id + '"');
         phone_Num.text(clientDetails['phone']);
         addr.text(clientDetails['address']);
-    });
     clientDetailsBox.removeClass('is-hidden');
+});
+    $(that).attr('data-detailsexpanded', true);
+    } 
    //3. append detail box with information about client from server
 };
 //Anything to do with getting or saving logs
