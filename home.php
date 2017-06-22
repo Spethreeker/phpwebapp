@@ -31,8 +31,8 @@ function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateO
         <div class="log-overlay">
             <div class="media-content">
                <div class="">
-                <h3 class="title client-name">{$clientName}</h3>
-                <p class="subtitle issue">{$issue}</p>
+                <h3 class="title client-name two_point_four">{$clientName}</h3>
+                <p class="subtitle issue one_point_five">{$issue}</p>
                 <div class="down-arrow" onclick="showLogDetails({$logID})">
                   <div class="icon is-large">
                     <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
@@ -162,11 +162,9 @@ function humanizeTime($time){
         <div class="modal-background"></div>
             <div class="modal-card animated">
               <header class="modal-card-head">
-                 <div>
-                  <h1 class="modal-card-title has-text-centered">Clients</h1>
-                 </div>
-                 <button type="button" class="delete" onclick="show('all-clients-modal', 'fromtop')"></button>
-              </header>
+          <h1 class="modal-card-title has-text-centered">Clients</h1>
+            <button type="button" class="delete" onclick="show('all-clients-modal', 'fromtop')"></button>
+        </header>
               <!--<div class="tabs grey">
                 <p class="heading white-font" style="margin-left: 0; margin-right: 0;">Sort by:</p>
                 <ul><li> <a class="heading">Name</a></li>
@@ -179,7 +177,6 @@ function humanizeTime($time){
               </section>
                <footer class="modal-card-foot">
                 <button type="button" class="button red" onclick="show('all-clients-modal', 'fromtop')">Close</button>
-                <button type="button" class="button" onclick="generateClientList()">Run</button>
                </footer>
             </div>
 </form>
@@ -201,7 +198,11 @@ function humanizeTime($time){
 
            
  <!--new log form--><form id="log-form" class="log-form animated is-hidden" name="newlog" method="POST" class="log" onsubmit="saveLog()" data-parsley-validate>
-               <div class="notification">
+              <header class="modal-card-head">
+                  <h1 class="modal-card-title has-text-centered">New Log</h1>
+                 <button type="button" class="delete" onclick="show('log-form', 'fromleft')"></button>
+              </header>
+               <div class="notification message is-white">
                 <div class="field">
                 <label class="label" for="clientname">Client Name</label>
                     <div class="control has-icons-left" id="add-client">
@@ -263,24 +264,28 @@ function humanizeTime($time){
               </div>
 </form>
             
-<!--options panel--><div class="option-panel panel animated is-hidden" id="options-panel">
-                <h1 class="panel-heading has-text-centered">Options</h1>
-                    <div class="panel-tabs">
-                        <a class="heading is-active">Clients</a>
-                        <a class="heading">Account</a>
-                    </div>
-                  <a class="panel-block" onclick="clearlocal()">
-                    <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i>
-                    </span>
-                    <p class="subtitle">Edit Client</p>
-                  </a>
-                 <a class="panel-block" onclick="generateClientList();show('all-clients-modal', 'fromtop')">
-                    <span class="icon"><i class="fa fa-address-book" aria-hidden="true"></i>
-                    </span>
-                    <p class="subtitle">View Clients</p>
-                  </a>
-               
-            </div>
+<!--options panel-->
+    <div class="option-panel is-block animated is-hidden" id="options-panel">
+        <header class="modal-card-head">
+          <h1 class="modal-card-title has-text-centered">Options</h1>
+            <button type="button" class="delete" onclick="show('options-panel', 'fromright')"></button>
+        </header>
+              
+        <div class="panel-tabs">
+            <a class="label is-marginless is-active">Clients</a>
+            <a class="label is-marginless">Account</a>
+        </div>
+        <a class="panel-block" onclick="clearlocal()">
+            <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i>
+            </span>
+            <p class="subtitle">Edit Client</p>
+        </a>
+        <a class="panel-block" onclick="generateClientList();show('all-clients-modal', 'fromtop')">
+            <span class="icon"><i class="fa fa-address-book" aria-hidden="true"></i>
+            </span>
+            <p class="subtitle">View Clients</p>
+        </a>
+</div>
            <div class="log-container" id="log-container">
         <?php
         if (!isset($log_array[0])){ //New Guy
@@ -300,7 +305,7 @@ function humanizeTime($time){
                        </article>
                         <article class="media day" id="'.$dateChecker.'" data-date-occurred="'.$dateChecker.'">
                             <div class="day-header">  
-                            <h1 class="title day-date-title" id="">'.humanizeTime($dateChecker).'</h1> 
+                            <h1 class="title day-date-title one_point_nine" id="">'.humanizeTime($dateChecker).'</h1> 
                             </div>
                          ';
                        drawLog($log['ID'], $log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred']);
@@ -412,18 +417,19 @@ function humanizeTime($time){
         </article>
     </script>
     <script id="client-template" type="text/x-handlebars-template">
-        <div class="card" id="{{id}}" data-name="{{name}}">
-          <header class="card-header client-details-label" onclick="showClientDetails('{{id}}')" data-detailsexpanded="false">
-            <h3 class="card-header-title">{{name}}</h3>
-            <a class="card-header-icon">
+        <div class="message is-light" id="{{id}}" data-name="{{name}}">
+          <header class="message-header" onclick="showClientDetails('{{id}}')" data-detailsexpanded="false">
+            <h1 class="title is-marginless">{{name}}</h1>
+            <p class="card-header-icon">
               <span class="icon">
                 <i class="fa fa-angle-down"></i>
               </span>
-            </a>
+            </p>
           </header> 
-            <div class="details-content is-hidden animated">
+            <div class="details-content is-hidden slideInDown animated">
           <div class="card-content">
-            <div class="columns">
+              <span class="loader has-text-centered is-large"></span>
+            <div class="columns is-hidden animated">
                 <div class="column">
                     <h2 class="subtitle"><strong>Phone Number</strong></h2>
                     <h3 class="subtitle" data-id-phone="{{id}}"></h3>
@@ -436,7 +442,7 @@ function humanizeTime($time){
           </div>
           <footer class="card-footer">
             <a class="card-footer-item light-blue">Edit</a>
-            <a class="card-footer-item red">Close</a>
+            <a class="card-footer-item red" onclick="showClientDetails('{{id}}')">Close</a>
           </footer>
           </div>
         </div>

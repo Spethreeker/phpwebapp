@@ -147,6 +147,11 @@ function showClientDetails(id) {
             var addr = $('[data-id-address="' + id + '"');
             phone_Num.text(clientDetails['phone']);
             addr.text(clientDetails['address']);
+            let container = $(clientDetailsBox).find('.columns');
+            let loader = $(clientDetailsBox).find('.loader');
+            loader.addClass('is-hidden');
+            container.removeClass('is-hidden');
+            container.addClass('fadeIn');
     });
      console.log("ajaxed");
      $(that).attr("data-ajaxed", true);

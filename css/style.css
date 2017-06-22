@@ -83,13 +83,19 @@ body{
     align-content: center;
 }
 .client-name{
-   font-size: 2.178em;
+    font-size: 2.441em;
+   /*font-size: 2.178em;*/
 font-family: 'Ricardo Extra Light', sans-serif;
+}
+.issue, .desc-container,{
+    /*font-size: 1.383em;*/
+    /*font-size: 1.563em;*/
 }
 .day-date-title{
     color: #eee;
     font-weight: 500;
     padding: 10px;
+    /*font-size: 1.953em;*/
 }
 .time-started-container{
     display: flex;
@@ -102,17 +108,27 @@ font-family: 'Ricardo Extra Light', sans-serif;
      font-size: 1.383em;
      padding: 5px;
 }
-.issue, .desc-container{
-    font-size: 1.383em;
+.two_point_four{
+    font-size: 2.441em;
+}
+.one_point_nine{
+    font-size: 1.953em;
+}
+.one_point_five{
+    font-size: 1.563em;
+}
+.one_point_two_five{
+    font-size: 1.25em;
+}
+.one{
+    font-size: 1em;
 }
 .desc-container{
     display: flex;
     justify-content: space-between;
     box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.5);
 }
-.font{
-    font-family: 'Ricardo Regular', sans-serif;
-}
+
 .work-duration-container{
     display: flex;
     flex-direction: row;
@@ -145,6 +161,10 @@ font-family: 'Ricardo Extra Light', sans-serif;
     right: 0;
     border-radius: 4px;
 }
+.panel-tab, .panel-block{
+    padding-left: 15px;
+    padding-right: 15px;
+}
 .client-details-label{
     margin-bottom: 3px;
     cursor: pointer ;
@@ -161,6 +181,9 @@ font-family: 'Ricardo Extra Light', sans-serif;
    margin-top: auto;
    margin-bottom: auto;
 }
+.panel-heading .delete{
+    margin-right:-50px;
+}
 .time-field{
         display: flex;
    -webkit-box-pack: start;
@@ -169,6 +192,9 @@ font-family: 'Ricardo Extra Light', sans-serif;
         -ms-flex-wrap: wrap;
       flex-wrap: wrap;
         margin-bottom: 5px;
+}
+.modal-content, .modal-card{
+    margin-top: 20px;
 }
 #saved-indicator{
     margin-left: 15px;
@@ -226,7 +252,7 @@ font-family: 'Ricardo Extra Light', sans-serif;
       justify-content: space-between;
   }
   .day-date-title{
-    font-size: .95rem;
+    font-size: 1.25rem;
     padding: 5px;
 }
 }
