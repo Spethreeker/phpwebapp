@@ -127,6 +127,7 @@ function generateClientList() {
             $(all_clients_container).append(ourGeneratedHTML);
         }
         allClientsListGenerated = true;
+        console.log("generated list");
     } else {
         return false;
     }
@@ -134,27 +135,30 @@ function generateClientList() {
 function showClientDetails(id) {
      var that = $('#' + id);
      clientDetailsBox = $(that).find('.details-content');
-    if ($(that).attr('data-detailsexpanded', true)){
+    if ($(that).attr("data-ajaxed") !== "true"){
+        $.ajax({
+        url:'php/fetch-client-details.php',
+        type: 'GET',
+        data: {client_id:id},
+        dataType: 'json'}).done(function(data) {
+            var clientDetails = data;
+            var phone_Num = $('[data-id-phone="' + id + '"');
+            var addr = $('[data-id-address="' + id + '"');
+            phone_Num.text(clientDetails['phone']);
+            addr.text(clientDetails['address']);
+    });
+     console.log("ajaxed");
+     $(that).attr("data-ajaxed", true);
+}
+    if ($(that).attr('data-detailsexpanded') == "true"){
         clientDetailsBox.addClass('is-hidden');
-        $(that).attr('data-detailsexpanded', false);
-
-    }
-    else b  {
-   //2. ask server for information about client with same id as aformentioned box
-    $.ajax({
-    url:'php/fetch-client-details.php',
-    type: 'GET',
-    data: {client_id:id},
-    dataType: 'json'}).done(function(data) {
-        var clientDetails = data;
-        var phone_Num = $('[data-id-phone="' + id + '"');
-        var addr = $('[data-id-address="' + id + '"');
-        phone_Num.text(clientDetails['phone']);
-        addr.text(clientDetails['address']);
+        $(that).attr('data-detailsexpanded', "false");
+    }else{
     clientDetailsBox.removeClass('is-hidden');
-});
-    $(that).attr('data-detailsexpanded', true);
-    } 
+   
+    $(that).attr('data-detailsexpanded', "true");
+    }
+
    //3. append detail box with information about client from server
 };
 //Anything to do with getting or saving logs
