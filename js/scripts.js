@@ -94,6 +94,7 @@ function show(id, type, deffered) {
         }
     }
 };
+
 function saveNewClient() {
     $(save_new_client_button).toggleClass('is-loading');
     newClientObject.newClientName =    $.trim($('#newClientName').val());

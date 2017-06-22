@@ -2830,10 +2830,11 @@ input[type="submit"].button {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
-  box-shadow: 0 1px 1px rgba(10, 10, 10, 0.1);
+  /*box-shadow: 0 1px 1px rgba(10, 10, 10, 0.1);*/
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+
 }
 
 .card-header-title {
@@ -2876,7 +2877,7 @@ input[type="submit"].button {
 }
 
 .card-footer {
-  border-top: 1px solid #dbdbdb;
+  border: 1px solid #dbdbdb;
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
@@ -2911,11 +2912,13 @@ input[type="submit"].button {
 
 .card {
   background-color: white;
-  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  /*box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);*/
   color: #4a4a4a;
   max-width: 100%;
   position: relative;
   border-radius: 3px; /*Not in Bulma*/
+  border: rgba(10, 01, 10, 0.5) solid;
+  margin-bottom: 2px;
 }
 
 .card .media:not(:last-child) {

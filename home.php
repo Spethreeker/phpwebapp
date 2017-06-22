@@ -158,13 +158,12 @@ function humanizeTime($time){
             </div>
         </form>
 
- <!--all clients--><form class="modal is-block animated" id="all-clients-modal">
+ <!--all clients--><form class="modal is-block is-hidden animated" id="all-clients-modal">
         <div class="modal-background"></div>
             <div class="modal-card animated">
               <header class="modal-card-head">
                  <div>
                   <h1 class="modal-card-title has-text-centered">Clients</h1>
-                
                  </div>
                  <button type="button" class="delete" onclick="show('all-clients-modal', 'fromtop')"></button>
               </header>
@@ -413,9 +412,9 @@ function humanizeTime($time){
         </article>
     </script>
     <script id="client-template" type="text/x-handlebars-template">
-        <div class="card" id="{{id}}" onclick="showClientDetails('{{id}}')" data-detailsexpanded="false">
-          <header class="card-header client-details-label">
-            <h1 class="card-header-title">{{name}}</h1>
+        <div class="card" id="{{id}}" data-name="{{name}}">
+          <header class="card-header client-details-label" onclick="showClientDetails('{{id}}')" data-detailsexpanded="false">
+            <h3 class="card-header-title">{{name}}</h3>
             <a class="card-header-icon">
               <span class="icon">
                 <i class="fa fa-angle-down"></i>
@@ -426,8 +425,8 @@ function humanizeTime($time){
           <div class="card-content">
             <div class="columns">
                 <div class="column">
-                    <h1 class="subtitle"><strong>Phone Number</strong></h1>
-                    <p class="subtitle" data-id-phone="{{id}}"></p>
+                    <h2 class="subtitle"><strong>Phone Number</strong></h2>
+                    <h3 class="subtitle" data-id-phone="{{id}}"></h3>
                 </div>
                 <div class="column">
                     <h1 class="subtitle">Address</h1>
@@ -436,8 +435,8 @@ function humanizeTime($time){
             </div>
           </div>
           <footer class="card-footer">
-            <a class="card-footer-item">Edit</a>
-            <a class="card-footer-item">Close</a>
+            <a class="card-footer-item light-blue">Edit</a>
+            <a class="card-footer-item red">Close</a>
           </footer>
           </div>
         </div>

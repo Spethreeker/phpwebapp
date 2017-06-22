@@ -145,12 +145,9 @@ font-family: 'Ricardo Extra Light', sans-serif;
     right: 0;
     border-radius: 4px;
 }
-.client-details-container{
-    z-index: 2;
-    /*box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);*/
-}
 .client-details-label{
     margin-bottom: 3px;
+    cursor: pointer ;
 }
 .client-details-label:hover{
     background: whitesmoke;
@@ -158,7 +155,6 @@ font-family: 'Ricardo Extra Light', sans-serif;
 .client-details-box{
     padding: 1.2rem;
     background: whitesmoke;
-    z-index: 1;
 }
 .log-action-group{
    margin-left: auto;
@@ -180,13 +176,7 @@ font-family: 'Ricardo Extra Light', sans-serif;
 #add-log-button{
     z-index: 3;
 }
-/*#modal-content{
-    margin: 40px auto;
-}
-#modal-content:before{
-    height: 100%;
-    vertical-align: middle;
-}*/
+
 .down-arrow{
     display: block;
    float: right;
