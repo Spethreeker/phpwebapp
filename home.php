@@ -27,7 +27,7 @@ $db->close();
 function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateOccurred) {
     $humanTimeStarted = date('G:i A', strtotime($timeStarted));
     echo  <<<EOT
-        <div class="media log" id="{$logID}" data-log-clicked="false">
+        <div class="media log" data-log-id="{$logID}" data-log-clicked="false">
         <div class="log-overlay">
             <div class="media-content">
                <div class="">
@@ -141,11 +141,11 @@ function humanizeTime($time){
                     </div>
                 </div>
                 <div class="modal-card-foot has-text-centered" id="modal-foot">
-                    <div class="saved-indicator is-hidden" id="saved-indicator">
-                        <p class="help is-success has-text-centered" >Saved!</p>
+                    <div class="saved-indicator is-hidden animated" id="saved-indicator">
+                        <h1 class="has-text-centered" >Saved!</h1>
                     </div>
                     <div class="log-action-group" id="save-buttons">
-                        <button type="submit" class="submit-button button green" id="saveNewClientButton" >
+                        <button type="button" class="submit-button button green" id="saveNewClientButton" onclick="saveNewClient()">
                             <span class="icon"> <i class="fa fa-check" aria-hidden="true"></i>
                             </span><p class="header">Save Client</p>
                         </button>
@@ -176,6 +176,7 @@ function humanizeTime($time){
                 </div>
               </section>
                <footer class="modal-card-foot">
+                <button type="button" class="button green" id="add-client-button" onclick="show('all-clients-modal', 'fromtop');show('client-details', 'fromtop')">New Client</button>
                 <button type="button" class="button red" onclick="show('all-clients-modal', 'fromtop')">Close</button>
                </footer>
             </div>
@@ -183,16 +184,16 @@ function humanizeTime($time){
         <div class="container">
             <div class="columns is-mobile is-gapless is-marginless">
               <div class="column is-three-quarters">
-                <div class="button light-blue is-fullwidth nav-toggle" onclick="show('log-form', 'fromleft')" id="add-log-button">
+                <button class="button light-blue is-fullwidth nav-toggle " onclick="getClientList();show('log-form', 'fromleft')" id="add-log-button">
                   <div class="icon"><i class="fa fa-plus"></i></div>
-                  <p class="subtitle white-font is-marginless">Add Log<p>
-                </div>
+                  <p class="subtitle white-font is-marginless one_point_five">Add Log<p>
+                </button>
               </div>
               <div class="column is-one-quarter">
-                <div class="button light-blue is-fullwidth nav-toggle" onclick="show('options-panel', 'fromright')">
+                <button class="button light-blue is-fullwidth nav-toggle" onclick="getClientList();show('options-panel', 'fromright')">
                    <div class="icon"><i class="fa fa-bars"></i></div>
-                  <p class="subtitle white-font is-marginless is-hidden-mobile">Options<p>
-                </div>
+                  <p class="subtitle white-font is-marginless is-hidden-mobile ">Options<p>
+                </button>
               </div>
             </div>
 
@@ -204,7 +205,7 @@ function humanizeTime($time){
               </header>
                <div class="notification message is-white">
                 <div class="field">
-                <label class="label" for="clientname">Client Name</label>
+                <label class="label" for="clientName">Client Name</label>
                     <div class="control has-icons-left" id="add-client">
                         <input type="search" class="input" id="clientName" name="clientname" placeholder="Search Clients" required/>
                         <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
@@ -212,7 +213,7 @@ function humanizeTime($time){
                     </div>
                 </div>
                     <div class="field">
-                    <label class="label" for="timeStarted">Date</label>
+                    <label class="label" for="dateOccurred">Date</label>
                         <div class="control">
                         <input type="text" class="input" id="dateOccurred"/>
                         </div>
@@ -225,7 +226,7 @@ function humanizeTime($time){
                         </div>
                     </div>
                     <div class="field">
-                        <label class="label" for="timeStarted">Time Stopped</label>
+                        <label class="label" for="timeStopped">Time Stopped</label>
                         <div class="control">
                         <input type="time" class="input" id="timeStopped"/>
                         </div>
@@ -417,41 +418,54 @@ function humanizeTime($time){
         </article>
     </script>
     <script id="client-template" type="text/x-handlebars-template">
-        <div class="message is-light" id="{{id}}" data-name="{{name}}">
-          <header class="message-header" onclick="showClientDetails('{{id}}')" data-detailsexpanded="false">
-            <h1 class="title is-marginless">{{name}}</h1>
-            <p class="card-header-icon">
-              <span class="icon">
+        <div class="message is-light" id="{{id}}" data-name="{{name}}" data-editing="false">
+          <header class="message-header"  data-detailsexpanded="false" >
+            <h1 class="title is-marginless" contenteditable="false">{{name}}</h1>
+           
+            <button class="button card-header-icon client-details-toggle" type="button" onclick="showClientDetails('{{id}}')">
+              <!--<span class="icon">
                 <i class="fa fa-angle-down"></i>
-              </span>
-            </p>
+              </span>-->
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            
           </header> 
-            <div class="details-content is-hidden slideInDown animated">
+            <div class="details-content is-hidden">
           <div class="card-content">
               <span class="loader has-text-centered is-large"></span>
             <div class="columns is-hidden animated">
                 <div class="column">
                     <h2 class="subtitle"><strong>Phone Number</strong></h2>
-                    <h3 class="subtitle" data-id-phone="{{id}}"></h3>
+                    <h3 class="subtitle" data-idphone="{{id}}" contenteditable="false"></h3>
                 </div>
                 <div class="column">
                     <h1 class="subtitle">Address</h1>
-                    <p class="subtitle" data-id-address="{{id}}"></p>
+                    <p class="subtitle" data-idaddress="{{id}}" contenteditable="false"></p>
                 </div>
             </div>
           </div>
-          <footer class="card-footer">
-            <a class="card-footer-item light-blue">Edit</a>
-            <a class="card-footer-item red" onclick="showClientDetails('{{id}}')">Close</a>
+          <footer class="field is-grouped is-grouped-right">
+              <p class="control">
+            <button class="button light-blue edit-button" onclick="editClient('{{id}}')" type="button">Edit</button></p>
+            <p class="control"><button class="button red" onclick="showClientDetails('{{id}}')" type="button">Close</button></p>
+            <div class="modal client-edit-close-box" id="confirm-close-box">
+                
+              <div class="message is-warning has-text-centered">
+                <div class="message-header">
+                  <h1 class="">Close and Discard Changes?</h1>
+                </div>
+                <div class="message-body">
+                    <button class="button" type="button" onclick="confirmEditClose()" value="Yes"></button><button class="button" type="button" onclick="">No</button>
+                </div>
+              </div>
+            </div>
           </footer>
           </div>
         </div>
     </script>
-    <script id="client-details-template--removefortesting" type="text/x-handlebars-template">
-       <div class="client-details-box animated is-hidden">
-                <h1 class="subtitle">Asfd me.</h1>
-            </div>
-    </script>
+    
     <script type="text/javascript">
     (function() {
         var path = '//easy.myfonts.net/v2/js?sid=309038(font-family=Ricardo+Extra+Light)&sid=309042(font-family=Ricardo+Semi+Bold)&sid=309044(font-family=Ricardo+Regular)&sid=309046(font-family=Ricardo+Medium)&key=SfxuPzKm4w',

@@ -13,7 +13,14 @@ var clientDetailsBox = null;
 var newClientObject ={};
 var clientlist = [];
 var allClientsListGenerated = false;
+function clearLocal(){
+    localStorage.clear();
+    getClientList();
+}
 $(function() {
+    clearLocal();
+});
+function getClientList() {
  if (localStorage.getItem('clientlist') == null){
     $.ajax({
     url:'php/fetch-clients.php',
@@ -37,7 +44,7 @@ $(function() {
         awesomplete.list = clientNameList;
         console.log("worked");
         }
-});
+};
 
 function createHTML(jsonObject) {
   var dateTimeStamp = jsonObject.dateTimestamp //if it breaks i added 'var' here
@@ -96,24 +103,25 @@ function show(id, type, deffered) {
 };
 
 function saveNewClient() {
-    $(save_new_client_button).toggleClass('is-loading');
     newClientObject.newClientName =    $.trim($('#newClientName').val());
     newClientObject.newClientPhone   = $.trim($('#newClientPhone').val());
     newClientObject.newClientContact = $.trim($('#newClientContact').val());
     newClientObject.newClientAddress = $.trim($('#newClientAddress').val());
-    $.post('save-client.php', {
+    $(save_new_client_button).toggleClass('is-loading');
+    
+    $.post('php/save-client.php', {
         newName: newClientObject.newClientName,
         newPhone: newClientObject.newClientPhone,
         newContact: newClientObject.newClientContact,
         newAddress: newClientObject.newClientAddress
                             }, function(data){
-        $('#saveNewClientButton').fadeOut('fast', function() {
-        $(saved_indicator).fadeIn();
-        delayToggleActive();
+    }).done( function() {
+$(saved_indicator).addClass('fadeIn');
+    $(saved_indicator).removeClass('is-hidden');
+    $('#saveNewClientButton').fadeOut('fast', function() {
     }).toggleClass('is-loading');
-        $(saved_indicator).fadeOut('fast', function() {
-            $('#saveNewClientButton').fadeIn();
-        });
+        
+       clearLocal();
     });
 };
 
@@ -132,10 +140,18 @@ function generateClientList() {
     } else {
         return false;
     }
+   
 };
-function showClientDetails(id) {
-     var that = $('#' + id);
+function showClientDetails(id, close) {
+    var that  = $('#' + id);
      clientDetailsBox = $(that).find('.details-content');
+    if ($(that).attr('data-editing') === "true" && close === 'close'){
+        var closeBox = document.getElementById("confirm-close-box");
+        closeBox.classList.add('is-active');
+        return;
+    }else if ($(that).attr('data-editing') === "true"){
+        return; 
+    }
     if ($(that).attr("data-ajaxed") !== "true"){
         $.ajax({
         url:'php/fetch-client-details.php',
@@ -143,8 +159,8 @@ function showClientDetails(id) {
         data: {client_id:id},
         dataType: 'json'}).done(function(data) {
             var clientDetails = data;
-            var phone_Num = $('[data-id-phone="' + id + '"');
-            var addr = $('[data-id-address="' + id + '"');
+            var phone_Num = $('[data-idphone="' + id + '"]');
+            var addr = $('[data-idaddress="' + id + '"]');
             phone_Num.text(clientDetails['phone']);
             addr.text(clientDetails['address']);
             let container = $(clientDetailsBox).find('.columns');
@@ -159,16 +175,43 @@ function showClientDetails(id) {
     if ($(that).attr('data-detailsexpanded') == "true"){
         clientDetailsBox.addClass('is-hidden');
         $(that).attr('data-detailsexpanded', "false");
+        console.log("shrunk");
     }else{
     clientDetailsBox.removeClass('is-hidden');
-   
     $(that).attr('data-detailsexpanded', "true");
     }
-
-   //3. append detail box with information about client from server
 };
-//Anything to do with getting or saving logs
 
+function editClient(id) {
+    var that = $('#' + id);
+    var editButton = $(that).find('.edit-button');
+    var toggleButton = $(that).find('.client-details-toggle');
+    if ($(that).attr('data-editing') === "true"){
+      $('#'+id + '' + ' [contenteditable="true"]').each( function(){
+      this.setAttribute('contenteditable', 'false');
+      this.classList.remove('input');
+        })
+     $(that).attr('data-editing', false);
+    editButton.addClass('light-blue');
+    editButton.removeClass('green');
+    editButton.text("Edit");
+    
+    toggleButton.toggleClass('is-active red');
+    }
+
+    else if ($(that).attr('data-editing') === "false") {
+    $('#'+id + '' + ' [contenteditable="false"]').each( function(){
+      this.setAttribute('contenteditable', 'true');
+      this.classList.add('input');
+        })
+    $(that).attr('data-editing', true);
+    editButton.addClass('green');
+    editButton.removeClass('light-blue');
+    editButton.text("Save");
+    toggleButton.toggleClass('is-active red');
+    }
+   
+}
 function saveLog(){
     $('#submitbutton').toggleClass('is-loading');
     let clientName = $.trim($('#clientName').val());
@@ -207,7 +250,7 @@ event.preventDefault();
 };
 
 function showLogDetails(id){
-   var clickedLog = $('#' + id);
+   var clickedLog = $('[data-log-id='+id+']');
    var descCont = clickedLog.find('.desc-container');
    var downArrow = clickedLog.find('#down-arrow');
    if(clickedLog.attr('data-log-clicked') !== 'true'){

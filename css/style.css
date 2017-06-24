@@ -13,6 +13,9 @@ body{
 
 }
 .grey{background-color: #556270;}
+.white{
+    background-color: white;
+}
 .white-font{color: #FCF9FC;}
 .off-white-font{ color: #CCCCCC;}
 .black-font{color: slategrey;}
@@ -83,9 +86,12 @@ body{
     align-content: center;
 }
 .client-name{
+    font-family: 'Ricardo Extra Light', sans-serif;
+}
+
+.client-name{
     font-size: 2.441em;
    /*font-size: 2.178em;*/
-font-family: 'Ricardo Extra Light', sans-serif;
 }
 .issue, .desc-container,{
     /*font-size: 1.383em;*/
@@ -175,6 +181,13 @@ font-family: 'Ricardo Extra Light', sans-serif;
 .client-details-box{
     padding: 1.2rem;
     background: whitesmoke;
+}
+
+.client-details-toggle.red span{
+    background-color: #CCCCCC;
+}
+.client-edit-close-box.is-active{
+    /*display: flex;*/
 }
 .log-action-group{
    margin-left: auto;

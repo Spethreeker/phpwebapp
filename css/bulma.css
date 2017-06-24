@@ -3386,7 +3386,7 @@ input[type="submit"].button {
   position: absolute;
   right: 0;
   top: 0;
-  background-color: rgba(10, 10, 10, 0.9);
+  background-color: rgba(10, 10, 10, 0.8);
   /*display: none;*/
 
 }
@@ -3576,7 +3576,7 @@ input[type="submit"].button {
   display: block;
 }
 
-.nav-toggle {
+.nav-toggle, .client-details-toggle {
   cursor: pointer;
   display: block;
   height: 3.25rem;
@@ -3584,8 +3584,8 @@ input[type="submit"].button {
   width: 3.25rem;
 }
 
-.nav-toggle span {
-  background-color: #eee;
+.nav-toggle span, .client-details-toggle span {
+  background-color: #363636;
   display: block;
   height: 1px;
   left: 50%;
@@ -3601,15 +3601,15 @@ input[type="submit"].button {
   width: 15px;
 }
 
-.nav-toggle span:nth-child(1) {
+.nav-toggle span:nth-child(1), .client-details-toggle span:nth-child(1) {
   margin-top: -6px;
 }
 
-.nav-toggle span:nth-child(2) {
+.nav-toggle span:nth-child(2), .client-details-toggle span:nth-child(2) {
   margin-top: -1px;
 }
 
-.nav-toggle span:nth-child(3) {
+.nav-toggle span:nth-child(3), .client-details-toggle span:nth-child(3) {
   margin-top: 4px;
 }
 
@@ -3621,7 +3621,7 @@ input[type="submit"].button {
   /*background-color: #00d1b2;*/
 }
 
-.nav-toggle.is-active span:nth-child(1) {
+.nav-toggle.is-active span:nth-child(1), .client-details-toggle.is-active span:nth-child(1) {
   margin-left: -5px;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
@@ -3629,11 +3629,11 @@ input[type="submit"].button {
           transform-origin: left top;
 }
 
-.nav-toggle.is-active span:nth-child(2) {
+.nav-toggle.is-active span:nth-child(2), .client-details-toggle.is-active span:nth-child(2) {
   opacity: 0;
 }
 
-.nav-toggle.is-active span:nth-child(3) {
+.nav-toggle.is-active span:nth-child(3), .client-details-toggle.is-active span:nth-child(3) {
   margin-left: -5px;
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
