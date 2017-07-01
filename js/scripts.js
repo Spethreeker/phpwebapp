@@ -10,7 +10,7 @@ var client_name_search = $('#clientName');
 var new_client_name_input = $('#newClientName');
 var options_panel = $('#options-panel');
 var clientDetailsBox = null;
-var newClientObject ={};
+
 var clientlist = [];
 var allClientsListGenerated = false;
 function clearLocal(){
@@ -103,6 +103,7 @@ function show(id, type, deffered) {
 };
 
 function saveNewClient() {
+    var newClientObject ={};
     newClientObject.newClientName =    $.trim($('#newClientName').val());
     newClientObject.newClientPhone   = $.trim($('#newClientPhone').val());
     newClientObject.newClientContact = $.trim($('#newClientContact').val());
@@ -145,6 +146,7 @@ function generateClientList() {
 function showClientDetails(id, close) {
     var that  = $('#' + id);
      clientDetailsBox = $(that).find('.details-content');
+     clientDetailsToggle = $(that).find('.client-details-toggle');
     if ($(that).attr('data-editing') === "true" && close === 'close'){
         var closeBox = document.getElementById("confirm-close-box");
         closeBox.classList.add('is-active');
@@ -159,24 +161,29 @@ function showClientDetails(id, close) {
         data: {client_id:id},
         dataType: 'json'}).done(function(data) {
             var clientDetails = data;
-            var phone_Num = $('[data-idphone="' + id + '"]');
-            var addr = $('[data-idaddress="' + id + '"]');
+            var phone_Num = $(that).find($('[data-idphone="' + id + '"]'));
+            var addr = $(that).find($('[data-idaddress="' + id + '"]'));
+            var contact = $(that).find($('[data-idcontact="' + id + '"]'));
             phone_Num.text(clientDetails['phone']);
             addr.text(clientDetails['address']);
+            contact.text(clientDetails['contact']);
             let container = $(clientDetailsBox).find('.columns');
             let loader = $(clientDetailsBox).find('.loader');
             loader.addClass('is-hidden');
             container.removeClass('is-hidden');
             container.addClass('fadeIn');
+            clientDetailsToggle.addClass('is-active');
     });
      console.log("ajaxed");
      $(that).attr("data-ajaxed", true);
 }
     if ($(that).attr('data-detailsexpanded') == "true"){
         clientDetailsBox.addClass('is-hidden');
+        clientDetailsToggle.removeClass('is-active');
         $(that).attr('data-detailsexpanded', "false");
         console.log("shrunk");
     }else{
+        clientDetailsToggle.addClass('is-active');
     clientDetailsBox.removeClass('is-hidden');
     $(that).attr('data-detailsexpanded', "true");
     }
@@ -185,30 +192,63 @@ function showClientDetails(id, close) {
 function editClient(id) {
     var that = $('#' + id);
     var editButton = $(that).find('.edit-button');
-    var toggleButton = $(that).find('.client-details-toggle');
-    if ($(that).attr('data-editing') === "true"){
-      $('#'+id + '' + ' [contenteditable="true"]').each( function(){
-      this.setAttribute('contenteditable', 'false');
-      this.classList.remove('input');
-        })
-     $(that).attr('data-editing', false);
-    editButton.addClass('light-blue');
-    editButton.removeClass('green');
-    editButton.text("Edit");
-    
-    toggleButton.toggleClass('is-active red');
+    var detailsChanged = null;
+    if ($(that).attr('data-editing') === "true" && $(editButton).attr('data-editing') === "true"){
+        var editedClientObj = {};
+        var phone = $(that).find( $('[data-idphone="' + id + '"]') ).text();
+        var addr = $(that).find( $('[data-idaddress="' + id + '"]') ).text();
+        var name = $(that).find( $('[data-idname="' + id + '"') ).text();
+        var contact = $(that).find( $('[data-idcontact="' + id + '"') ).text();
+        console.log(phone, addr, name, contact);
+        $.post('php/edit-client.php', {
+        clientID: id,
+        newName: name,
+        newPhone: phone,
+        newContact: contact,
+        newAddress: addr
+    }, function(data){
+        data = data;
+        console.log(data);
+    }).done( function() {
+        if (data == " "){ 
+            alert("success");
+        };
+        
+           clearLocal();
+        });
     }
 
-    else if ($(that).attr('data-editing') === "false") {
-    $('#'+id + '' + ' [contenteditable="false"]').each( function(){
-      this.setAttribute('contenteditable', 'true');
-      this.classList.add('input');
+    if ($(that).attr('data-editing') === "true"){
+        $('#'+id + '' + ' [contenteditable="true"]').each( function(){
+            this.setAttribute('contenteditable', 'false');
+            this.classList.remove('input');
         })
-    $(that).attr('data-editing', true);
-    editButton.addClass('green');
-    editButton.removeClass('light-blue');
-    editButton.text("Save");
-    toggleButton.toggleClass('is-active red');
+        $('#'+id + '' + ' .button:not(.edit-button)').each( function(){
+           this.classList.remove('is-disabled');
+        });
+        $(that).attr('data-editing', false);
+        editButton.addClass('light-blue');
+        editButton.removeClass('green');
+        editButton.text("Edit");
+       
+    }
+    else if ($(that).attr('data-editing') === "false") {
+        $('#'+id + '' + ' [contenteditable="false"]').each( function(){
+            this.setAttribute('contenteditable', 'true');
+            this.classList.add('input');
+            this.addEventListener('input', function() {
+                detailsChanged = true;
+            })
+        })
+        $('#'+id + '' + ' .button:not(.edit-button)').each( function(){
+        this.classList.add('is-disabled');
+        });
+        $(that).attr('data-editing', true);
+        $(editButton).attr('data-editing', true);
+        editButton.addClass('green');
+        editButton.removeClass('light-blue');
+        editButton.text("Save");
+        
     }
    
 }

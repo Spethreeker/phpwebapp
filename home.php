@@ -184,19 +184,22 @@ function humanizeTime($time){
         <div class="container">
             <div class="columns is-mobile is-gapless is-marginless">
               <div class="column is-three-quarters">
-                <button class="button light-blue is-fullwidth nav-toggle " onclick="getClientList();show('log-form', 'fromleft')" id="add-log-button">
-                  <div class="icon"><i class="fa fa-plus"></i></div>
-                  <p class="subtitle white-font is-marginless one_point_five">Add Log<p>
-                </button>
+            <div class="field">
+                <a class="button control light-blue is-fullwidth is-medium" type="button" onclick="getClientList();show('log-form', 'fromleft')" id="add-log-button">
+                  <span class="icon"><i class="fa fa-plus"></i></span>
+                  <span>Add Log</span>
+                </a>
+                </div>
               </div>
               <div class="column is-one-quarter">
-                <button class="button light-blue is-fullwidth nav-toggle" onclick="getClientList();show('options-panel', 'fromright')">
-                   <div class="icon"><i class="fa fa-bars"></i></div>
-                  <p class="subtitle white-font is-marginless is-hidden-mobile ">Options<p>
-                </button>
+                <a class="button control grey is-fullwidth is-medium" type="button" onclick="getClientList();show('options-panel', 'fromright')">
+                   <span class="icon"><i class="fa fa-bars"></i></span>
+                  <span>Options</span>
+                </a>
+                
               </div>
             </div>
-
+            
            
  <!--new log form--><form id="log-form" class="log-form animated is-hidden" name="newlog" method="POST" class="log" onsubmit="saveLog()" data-parsley-validate>
               <header class="modal-card-head">
@@ -252,15 +255,15 @@ function humanizeTime($time){
                 </div>
                 <div class="field is-grouped is-grouped-centered">
                     <div class="control is-expanded">
-                    <button class="button" type="button" onclick="dothis();">
-                        <span class="icon"><i class="fa fa-plus"></i></span><span>Add Items</span></button>
+                    <a class="button" type="button" onclick="dothis();">
+                        <span class="icon"><i class="fa fa-plus"></i></span><span>Add Items</span></a>
                     </div>
-                    <button class="control button green is-expanded" type="submit" id="submitbutton" name='Submit'>
+                    <a class="control button green is-expanded" type="submit" id="submitbutton" name='Submit'>
                     <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
-                    </button>
-                    <button class="control button red is-expanded" type="button" onclick="show('log-form','fromleft')">
+                    </a>
+                    <a class="control button red is-expanded" type="button" onclick="show('log-form','fromleft')">
                     <span class="icon"><i class="fa fa-times" aria-hidden="true"></i></span><span>Close</span>
-                    </button>
+                    </a>
                     </div>
               </div>
 </form>
@@ -420,7 +423,7 @@ function humanizeTime($time){
     <script id="client-template" type="text/x-handlebars-template">
         <div class="message is-light" id="{{id}}" data-name="{{name}}" data-editing="false">
           <header class="message-header"  data-detailsexpanded="false" >
-            <h1 class="title is-marginless" contenteditable="false">{{name}}</h1>
+            <h1 class="title is-marginless" contenteditable="false" data-idname="{{id}}">{{name}}</h1>
            
             <button class="button card-header-icon client-details-toggle" type="button" onclick="showClientDetails('{{id}}')">
               <!--<span class="icon">
@@ -444,14 +447,25 @@ function humanizeTime($time){
                     <h1 class="subtitle">Address</h1>
                     <p class="subtitle" data-idaddress="{{id}}" contenteditable="false"></p>
                 </div>
+                <div class="column">
+                    <h1 class="subtitle">Address</h1>
+                    <p class="subtitle" data-idcontact="{{id}}" contenteditable="false"></p>
+                </div>
             </div>
           </div>
-          <footer class="field is-grouped is-grouped-right">
-              <p class="control">
-            <button class="button light-blue edit-button" onclick="editClient('{{id}}')" type="button">Edit</button></p>
-            <p class="control"><button class="button red" onclick="showClientDetails('{{id}}')" type="button">Close</button></p>
+          <footer class="modal-card-foot">
+             <div class="field">
+                <span class="control">
+                    <a class="button light-blue">View Logs</a>
+                </span>
+                <span class="control">
+                    <a class="button light-blue">Add Log</a>
+                </span>
+                <span class="control">
+                    <a class="button light-blue edit-button" onclick="editClient({{id}})" data-editing="true">Edit</a>
+                </span>
+             </div>
             <div class="modal client-edit-close-box" id="confirm-close-box">
-                
               <div class="message is-warning has-text-centered">
                 <div class="message-header">
                   <h1 class="">Close and Discard Changes?</h1>
@@ -461,6 +475,7 @@ function humanizeTime($time){
                 </div>
               </div>
             </div>
+              
           </footer>
           </div>
         </div>
