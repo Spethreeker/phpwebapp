@@ -1,3 +1,4 @@
+function copyClientName(){$(new_client_name_input).val($(client_name_search).val());};
 var log_form = $('#log-form');
 var new_client_modal =  $('#new-client-modal');
 var all_clients_modal = $('#all-clients-modal')
@@ -10,7 +11,6 @@ var client_name_search = $('#clientName');
 var new_client_name_input = $('#newClientName');
 var options_panel = $('#options-panel');
 var clientDetailsBox = null;
-
 var clientlist = [];
 var allClientsListGenerated = false;
 function clearLocal(){
@@ -61,9 +61,6 @@ function createHTML(jsonObject) {
     }
 };
 
-function copyClientName() {
-    $(new_client_name_input).val($(client_name_search).val());
-};
 function show(id, type, deffered) {
     let that = document.getElementById(id);
     that.classList.remove("is-hidden");
@@ -213,7 +210,6 @@ function editClient(id) {
         if (data == " "){ 
             alert("success");
         };
-        
            clearLocal();
         });
     }
@@ -272,7 +268,7 @@ function saveLog(){
     jsonObject.descripton = description;
     jsonObject.timeStopped = timeStopped;
     jsonObject.timeStarted = timeStarted;
-
+    
     $.post('php/save-log.php',{
         client_id: selectedClientId,
         date_occurred: dateOccurred,
