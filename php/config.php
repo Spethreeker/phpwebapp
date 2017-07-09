@@ -9,14 +9,14 @@ function fail($pub, $pvt = '')
     }
 function get_post_var($var)
     {
-        $val = $_POST[$var];
+        $val = strip_tags(trim($_POST[$var]));
         if (get_magic_quotes_gpc())
             $val = stripslashes($val);
         return $val;
     }
 function get_get_var($var)
     {
-        $val = $_GET[$var];
+        $val = strip_tags(trim($_GET[$var]));
         if (get_magic_quotes_gpc())
             $val = stripslashes($val);
         return $val;

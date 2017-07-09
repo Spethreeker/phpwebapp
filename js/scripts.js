@@ -61,7 +61,7 @@ function createHTML(jsonObject) {
     }
 };
 
-function show(id, type, deffered) {
+function show(id, type, callback) {
     let that = document.getElementById(id);
     that.classList.remove("is-hidden");
     switch (type) {
@@ -84,11 +84,7 @@ function show(id, type, deffered) {
         }
         break;
         case 'fromtop':
-        // if (that.classList.contains('is-active')){
-        //     that.classList.remove('is-active');
-        // } else {
-        //     that.classList.add('is-active');
-        // }
+        
         if (that.classList.contains('slideInDown')){
             that.classList.remove('slideInDown');
             that.classList.add('slideOutUp');
@@ -97,6 +93,7 @@ function show(id, type, deffered) {
         that.classList.remove('slideOutUp');
         }
     }
+    
 };
 
 function saveNewClient() {
@@ -244,20 +241,18 @@ function editClient(id) {
         editButton.addClass('green');
         editButton.removeClass('light-blue');
         editButton.text("Save");
-        
     }
-   
 }
 function saveLog(){
     $('#submitbutton').toggleClass('is-loading');
     let clientName = $.trim($('#clientName').val());
     let dateOccurred = $.trim($('input[name=date_submit]').val());
-    var dateTimestamp = Date.parse(dateOccurred)/1000;
-    var timeStarted = $.trim($('input[name=started_submit]').val());
-    var timeStopped = $.trim($('input[name=stopped_submit]').val());
-    var hoursWorked = $.trim($('#hoursWorked').val());
-    var issue = $.trim($('#issue').val());
-    var description= $.trim($('#description').val());
+    var dateTimestamp = Date.parse(dateOccurred)/1000,
+    timeStarted = $.trim($('input[name=started_submit]').val()),
+    timeStopped = $.trim($('input[name=stopped_submit]').val()),
+    hoursWorked = $.trim($('#hoursWorked').val()),
+    issue = $.trim($('#issue').val()),
+    description= $.trim($('#description').val());
 
     var jsonObject = {};
     jsonObject.name = clientName;
@@ -268,7 +263,6 @@ function saveLog(){
     jsonObject.descripton = description;
     jsonObject.timeStopped = timeStopped;
     jsonObject.timeStarted = timeStarted;
-    
     $.post('php/save-log.php',{
         client_id: selectedClientId,
         date_occurred: dateOccurred,
@@ -277,14 +271,45 @@ function saveLog(){
         time_stopped: timeStopped,
         issue: issue,
         description: description
-        },function(data) {
-            alert(data);
-            createHTML(jsonObject);
-            $('#submitbutton').toggleClass('is-loading');
+    },function(data) {
+        if (data.match(/[0-9]/i)){
+            if (data.match(/[a-z]/i)){
+                alert(data);
+            }
+            else{
+                jsonObject.logId = data;
+                console.log(jsonObject.logId);
+                show('log-form', 'fromleft');
+                createHTML(jsonObject);
+                $('#submitbutton').toggleClass('is-loading');
+            }
+        }
+        else {
+            alert("An error occurred" + data);
+        }
     });
-event.preventDefault();
+    event.preventDefault();
 };
-
+function randomWithRange(){
+   a=0, b=4;
+   var range = (a - b) + 1;     
+   return Math.round((Math.random() * range) + b);
+}
+function fillInLog(){
+    let dateOccurred = $.trim($('input[name=date_submit]').val());
+    var descriptions = ["Needed a new power supply", "Didn't pay electric bill", "House was too old","Talked too much"];
+    var issues = ["Computer wouldn't cut on", "Lights wouldn't work", "House smelt bad","Family Left"];
+    var dates = ["2017-07-12", "2017-06-05", "2017-05-05", "2017-07-04"];
+    var times = ["3:30", "4:40", "5:30", "6:30"];
+    var value = randomWithRange();
+   
+    var dateTimestamp = (Date.parse(dates[randomWithRange()])/1000);
+    $('input[name=started_submit]').val(times[randomWithRange()]);
+    $('input[name=stopped_submit]').val(times[randomWithRange()]);
+    $('#hoursWorked').val((times[randomWithRange()]));
+    $('#issue').val((issues[randomWithRange()]));
+    $('#description').val((descriptions[randomWithRange()]));
+}
 function showLogDetails(id){
    var clickedLog = $('[data-log-id='+id+']');
    var descCont = clickedLog.find('.desc-container');

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php
 session_start();
+$_SESSION['loggedin'] = true;
+$user_id = 4;
     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == false) {
         header("Location: index.php");
     }
@@ -10,12 +12,12 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 $greetings_array = array("Hello, ", "Howdy, ", "What's up, ", "Bonjour, ", "Hola, ", "Hey, ");
 $greeting = $greetings_array[array_rand($greetings_array)];
-$user_id = $_SESSION['id'];
+// $user_id = $_SESSION['id'];
 $log_array = array();
 $query = "SELECT recd.ID, recd.clientID, recd.issue, recd.hoursWorked, recd.dateOccurred, recd.timeStarted, recd.timeStopped, clients.name
           FROM recordedLogs recd
           JOIN clients ON recd.clientID = clients.id
-          WHERE recd.userid = $user_id AND recd.dateOccurred <= NOW() ORDER BY recd.dateOccurred ASC LIMIT 16";
+          WHERE recd.userid = $user_id AND recd.dateOccurred <= NOW() ORDER BY recd.dateEntered ASC LIMIT 50";
 ($stmt = $db->query($query))
         || fail("query error".$db->error);
 for ($row_no = ($stmt->num_rows - 1); $row_no >= 0; $row_no-- ) {
@@ -27,30 +29,26 @@ $db->close();
 function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateOccurred) {
     $humanTimeStarted = date('G:i A', strtotime($timeStarted));
     echo  <<<EOT
-        <div class="media log" data-log-id="{$logID}" data-log-clicked="false">
-        <div class="log-overlay">
-            <div class="media-content">
-               <div class="">
-                <h3 class="title client-name two_point_four">{$clientName}</h3>
-                <p class="subtitle issue one_point_five">{$issue}</p>
-                <div class="down-arrow" onclick="showLogDetails({$logID})">
-                  <div class="icon is-large">
-                    <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
-                  </div>
-                </div>
-               </div>
-                <div class="box desc-container animated is-hidden">
-                  <div class="media-left grey time-started-container">
-                    <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
-                  </div>
-                </div>
+        <div class="log" data-log-id="{$logID}" data-log-clicked="false">
+          <div class="log-content">
+            <h3 class="title client-name two_point_four">{$clientName}</h3>
+            <p class="subtitle issue one_point_five">{$issue}</p>
+            <div class="icon" onclick="showLogDetails({$logID})">
+              <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
             </div>
+        </div>
+        <div class="box desc-container animated is-hidden">
+            <div class="log-left grey time-started-container">
+            <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
             </div>
+        </div>
+           
+            
         </div>
 EOT;
 }
 function humanizeTime($time){
-    $day = date("l", $time).", ".date("j", $time).date("S", $time);
+    $day = date("l", $time).", ".date("F", $time)." ".date("j", $time).date("S", $time);
     return($day);
 }
 ?>
@@ -61,7 +59,7 @@ function humanizeTime($time){
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="stylesheet" href="css/bulma.css">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/style.css?fake=1234">
         <link rel="stylesheet" href="css/awesomplete.css">
         <link rel="stylesheet" href="css/awesomplete.base.css">
         <link rel="stylesheet" href="css/default.css">
@@ -84,7 +82,7 @@ function humanizeTime($time){
         <meta name="theme-color" content="#025D8C">
         <script type='application/javascript' src='js/fastclick.min.js'></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
         <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
         <script src="js/parsley.min.js"></script>
         <script>
@@ -271,9 +269,12 @@ function humanizeTime($time){
                     </div>
                     <div class="field is-grouped is-grouped-centered">
                         <div class="control is-expanded">
-                            <a class="button" type="button" onclick="dothis();">
+                            <a class="button" type="button" onclick="fillInLog();">
                         <span class="icon"><i class="fa fa-plus"></i></span><span>Add Items</span></a>
+                      
+                        
                         </div>
+                          
                         <a class="control button green is-expanded" type="submit" id="submitbutton" name='Submit' onclick="saveLog()">
                     <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
                     </a>
@@ -323,7 +324,7 @@ function humanizeTime($time){
                     $dateChecker = strtotime($log['dateOccurred']);
                     echo '
                        </article>
-                        <article class="media day" id="'.$dateChecker.'" data-date-occurred="'.$dateChecker.'">
+                        <article class="day" id="'.$dateChecker.'" data-date-occurred="'.$dateChecker.'">
                             <div class="day-header">  
                             <h1 class="title day-date-title one_point_nine" id="">'.humanizeTime($dateChecker).'</h1> 
                             </div>
@@ -411,8 +412,8 @@ function humanizeTime($time){
     </script>
     <script id="log-template" type="text/x-handlebars-template">
         <div class="log-overlay">
-            <div class="media-content">
-               <div class="">
+            <div class="log-content">
+               
                 <h3 class="title client-name two_point_four">{{name}}</h3>
                 <p class="subtitle issue one_point_five">{{issue}}</p>
                 <div class="down-arrow" onclick="showLogDetails({$logID})">
@@ -422,36 +423,35 @@ function humanizeTime($time){
                 </div>
                </div>
                 <div class="box desc-container animated is-hidden">
-                  <div class="media-left grey time-started-container">
+                  <div class="log-left grey time-started-container">
                     <h1 class="subtitle white-font"></h1>
                   </div>
                 </div>
             </div>
             
-            </div>
+           
     </script>
     <script id="day-template" type="text/x-handlebars-template">
-        <article class="media day" id="{{dateTimestamp}}" data-date-occurred="">
+        <article class="day" id="{{dateTimestamp}}" data-date-occurred="">
             <div class="day-header">
                 <h1 class="title day-date-title">{{dateOccurred}}</h1>
             </div>
             <div class="log-overlay">
-                <div class="media-content">
-                <div class="">
+                <div class="log-content">
                     <h3 class="title client-name two_point_four">{{name}}</h3>
                     <p class="subtitle issue one_point_five">{{issue}}</p>
                     <div class="down-arrow" onclick="showLogDetails({$logID})">
-                    <div class="icon is-large">
+                      <div class="icon is-large">
                         <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
-                    </div>
-                    </div>
-                </div>
-                    <div class="box desc-container animated is-hidden">
-                      <div class="media-left grey time-started-container">
-                        <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
                       </div>
                     </div>
                 </div>
+                <div class="box desc-container animated is-hidden">
+                    <div class="media-left grey time-started-container">
+                    <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
+                    </div>
+                </div>
+            </div>
             
             </div>
         </article>
@@ -460,7 +460,6 @@ function humanizeTime($time){
         <div class="message is-light" id="{{id}}" data-name="{{name}}" data-editing="false">
             <header class="message-header" data-detailsexpanded="false">
                 <h1 class="title is-marginless" contenteditable="false" data-idname="{{id}}">{{name}}</h1>
-
                 <button class="button card-header-icon client-details-toggle" type="button" onclick="showClientDetails('{{id}}')">
               <!--<span class="icon">
                 <i class="fa fa-angle-down"></i>
@@ -469,7 +468,6 @@ function humanizeTime($time){
               <span></span>
               <span></span>
             </button>
-
             </header>
             <div class="details-content is-hidden">
                 <div class="card-content">
@@ -518,6 +516,18 @@ function humanizeTime($time){
             </div>
         </div>
     </script>
-
-    </html>
+<script type="text/javascript">
+    (function() {
+        var path = '//easy.myfonts.net/v2/js?sid=310636(font-family=Yorkten+Slab+Condensed+Bold)&sid=310638(font-family=Yorkten+Slab+Condensed+Medium)&sid=310639(font-family=Yorkten+Slab+Condensed+Regular)&sid=310642(font-family=Yorkten+Slab+Condensed+Light)&key=G1qIkvCDhz',
+            protocol = ('https:' == document.location.protocol ? 'https:' : 'http:'),
+            trial = document.createElement('script');
+        trial.type = 'text/javascript';
+        trial.async = true;
+        trial.src = protocol + path;
+        var head = document.getElementsByTagName("head")[0];
+        head.appendChild(trial);
+    })();
+    
+</script>
+</html>
     <!--<p class="title day-date-title" id="wed-mar-22">Wednesday, March 22</p>-->
