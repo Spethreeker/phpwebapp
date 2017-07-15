@@ -14,46 +14,47 @@ $greetings_array = array("Hello, ", "Howdy, ", "What's up, ", "Bonjour, ", "Hola
 $greeting = $greetings_array[array_rand($greetings_array)];
 // $user_id = $_SESSION['id'];
 $log_array = array();
-$query = "SELECT recd.ID, recd.clientID, recd.issue, recd.hoursWorked, recd.dateOccurred, recd.timeStarted, recd.timeStopped, clients.name
+$returned_logs = array();
+$query = "SELECT recd.ID, recd.clientID, recd.issue, recd.hoursWorked, recd.dateOccurred, recd.timeStarted, recd.timeStopped,recd.dateEntered, clients.name
           FROM recordedLogs recd
           JOIN clients ON recd.clientID = clients.id
-          WHERE recd.userid = $user_id AND recd.dateOccurred <= NOW() ORDER BY recd.dateEntered ASC LIMIT 50";
+          WHERE recd.userid = $user_id AND recd.dateOccurred <= NOW() ORDER BY recd.dateOccurred DESC LIMIT 15";
 ($stmt = $db->query($query))
         || fail("query error".$db->error);
 for ($row_no = ($stmt->num_rows - 1); $row_no >= 0; $row_no-- ) {
         $stmt->data_seek($row_no);
-        $log_array[] = ($stmt->fetch_assoc());
+        $returned_logs[] = ($stmt->fetch_assoc());
 }
 $stmt->free_result();
 $db->close();
+
+$log_array = array_reverse($returned_logs);//Flips array around to correct order
+
 function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateOccurred) {
     $humanTimeStarted = date('G:i A', strtotime($timeStarted));
     echo  <<<EOT
         <div class="log" data-log-id="{$logID}" data-log-clicked="false">
           <div class="log-content">
             <h3 class="title client-name two_point_four">{$clientName}</h3>
-            <p class="subtitle issue one_point_five">{$issue}</p>
+            <p class="subtitle issue one_point_five">{$issue}</p>&nbsp<p class="title"></p>
             <div class="icon" onclick="showLogDetails({$logID})">
               <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
             </div>
-        </div>
-        <div class="box desc-container animated is-hidden">
+          </div>
+          <div class="box desc-container animated">
             <div class="log-left grey time-started-container">
             <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
             </div>
-        </div>
-           
-            
+          </div>
         </div>
 EOT;
 }
-function humanizeTime($time){
+function humanizeTime($time){ //runs when a new day is echo'd
     $day = date("l", $time).", ".date("F", $time)." ".date("j", $time).date("S", $time);
     return($day);
 }
 ?>
     <html>
-
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
@@ -308,17 +309,17 @@ function humanizeTime($time){
         </a>
             </div>
             <div class="log-container" id="log-container">
-                <?php
+<?php
         if (!isset($log_array[0])){ //New Guy
             echo '<div class="index-form">
                     <h1 class="title">Looks like you don\'t have any logs.</h1>
-                  </div>
-            ';
+                  </div>';
         }else{
         $dateChecker = $log_array[0]['dateOccurred'];
+        $timeChecker = $log_array[0]['timeStarted'];
         foreach ( $log_array as $log ) {
                 if ($dateChecker == strtotime($log['dateOccurred'])) {
-                    drawLog($log['ID'], $log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred']);
+                    drawLog($log['ID'], $log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred'], $log['dateEntered']);
                     $dateChecker = strtotime($log['dateOccurred']);
                 }else{ //New day
                     $dateChecker = strtotime($log['dateOccurred']);
@@ -329,11 +330,11 @@ function humanizeTime($time){
                             <h1 class="title day-date-title one_point_nine" id="">'.humanizeTime($dateChecker).'</h1> 
                             </div>
                          ';
-                       drawLog($log['ID'], $log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred']);
+                       drawLog($log['ID'], $log['name'], $log['issue'], $log['timeStarted'], $log['timeStopped'], $log['dateOccurred'], $log['dateEntered']);
                     }
                 }
             }
-        ?>
+?>
             </div>
         </div>
     </body>
@@ -411,49 +412,41 @@ function humanizeTime($time){
         };
     </script>
     <script id="log-template" type="text/x-handlebars-template">
-        <div class="log-overlay">
+            <div class="log" data-log-id="{$logID}" data-log-clicked="false">
             <div class="log-content">
-               
-                <h3 class="title client-name two_point_four">{{name}}</h3>
-                <p class="subtitle issue one_point_five">{{issue}}</p>
-                <div class="down-arrow" onclick="showLogDetails({$logID})">
-                  <div class="icon is-large">
-                    <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
-                  </div>
-                </div>
-               </div>
-                <div class="box desc-container animated is-hidden">
-                  <div class="log-left grey time-started-container">
-                    <h1 class="subtitle white-font"></h1>
-                  </div>
+                <h3 class="title client-name two_point_four">{name}</h3>
+                <p class="subtitle issue one_point_five">{issue}</p>
+                <div class="icon" onclick="showLogDetails({$logID})">
+                <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
                 </div>
             </div>
-            
-           
+            <div class="box desc-container animated is-hidden">
+                <div class="log-left grey time-started-container">
+                <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
+                </div>
+            </div>
+        </div>
     </script>
     <script id="day-template" type="text/x-handlebars-template">
         <article class="day" id="{{dateTimestamp}}" data-date-occurred="">
             <div class="day-header">
                 <h1 class="title day-date-title">{{dateOccurred}}</h1>
             </div>
-            <div class="log-overlay">
-                <div class="log-content">
-                    <h3 class="title client-name two_point_four">{{name}}</h3>
-                    <p class="subtitle issue one_point_five">{{issue}}</p>
-                    <div class="down-arrow" onclick="showLogDetails({$logID})">
-                      <div class="icon is-large">
-                        <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
-                      </div>
-                    </div>
-                </div>
-                <div class="box desc-container animated is-hidden">
-                    <div class="media-left grey time-started-container">
-                    <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
-                    </div>
+             <div class="log" data-log-id="{$logID}" data-log-clicked="false">
+            <div class="log-content">
+                <h3 class="title client-name two_point_four">{name}</h3>
+                <p class="subtitle issue one_point_five">{issue}</p>
+                <div class="icon" onclick="showLogDetails({{logId}})">
+                <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
                 </div>
             </div>
+            <div class="box desc-container animated is-hidden">
+                <div class="log-left grey time-started-container">
+                <h1 class="subtitle white-font">{{timeStarted}}</h1>
+                </div>
+            </div>
+        </div>
             
-            </div>
         </article>
     </script>
     <script id="client-template" type="text/x-handlebars-template">

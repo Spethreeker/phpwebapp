@@ -10,7 +10,7 @@ else
 $user_id = $_SESSION['id'];
 $log_id = clean_id('log_id');
 
-$query = "SELECT `description` FROM `recordedLogs` WHERE `ID` = ?";
+$query = "SELECT `description`, `timeStarted` FROM `recordedLogs` WHERE `ID` = ?";
 ($stmt = $db->prepare($query))
         || fail("query error".$db->errno);
 $stmt->bind_param("i", $log_id)

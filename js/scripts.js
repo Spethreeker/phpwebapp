@@ -263,6 +263,8 @@ function saveLog(){
     jsonObject.descripton = description;
     jsonObject.timeStopped = timeStopped;
     jsonObject.timeStarted = timeStarted;
+    jsonObject.logId = 12;
+   
     $.post('php/save-log.php',{
         client_id: selectedClientId,
         date_occurred: dateOccurred,
