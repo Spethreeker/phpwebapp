@@ -54,47 +54,8 @@ function humanizeTime($time){ //runs when a new day is echo'd
     return($day);
 }
 ?>
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link rel="stylesheet" href="css/bulma.css">
-        <link rel="stylesheet" href="css/style.css?fake=1234">
-        <link rel="stylesheet" href="css/awesomplete.css">
-        <link rel="stylesheet" href="css/awesomplete.base.css">
-        <link rel="stylesheet" href="css/default.css">
-        <link rel="stylesheet" href="css/default.date.css">
-        <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="images/favicons/apple-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="images/favicons/apple-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="images/favicons/apple-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="images/favicons/apple-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="images/favicons/apple-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-icon-180x180.png">
-        <link rel="icon" type="image/png" sizes="192x192" href="images/favicons/android-icon-192x192.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
-        <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="msapplication-TileImage" content="images/favicons/ms-icon-144x144.png">
-        <meta name="theme-color" content="#025D8C">
-        <script type='application/javascript' src='js/fastclick.min.js'></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-        <script src="https://use.fontawesome.com/a9de8a2dbb.js"></script>
-        <script src="js/parsley.min.js"></script>
-        <script>
-            var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
-                "October", "November", "December"
-            ];
-            var todaysdate = new Date();
-        </script>
-    </head>
-
+<html>
+<?php include("includes/head.inc");?>
     <body id="whole-thing">
         <nav class="nav grey has-shadow">
             <div class="nav-left is-hidden-mobile">
@@ -119,52 +80,7 @@ function humanizeTime($time){ //runs when a new day is echo'd
                 </div>
             </div>
         </nav>
-        <!--new-client-->
-        <form class="modal is-block is-hidden animated" id="client-details" data-parsley-validate>
-            <!--new client form-->
-            <div class="modal-background"></div>
-            <div class="modal-content" id="new-client-modal">
-                <div class="modal-card-head">
-                    <h1 class="modal-card-title has-text-centered">Add A Client</h1><button class="delete" type="button" onclick="show('client-details', 'fromtop')"></button></div>
-                <div class="modal-card-body">
-                    <div class="field">
-                        <label class="label" for="clientname">Client Name</label>
-                        <div class="control">
-                            <input type="text" class="input" id="newClientName" name="addClientname" placeholder="Client name" required/>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label" for="clientphone">Phone Number</label>
-                        <div class="control"><input type="tel" class="input" name="newClientPhone" id="newClientPhone" placeholder="#" required
-                            /></div>
-                    </div>
-                    <div class="field">
-                        <label class="label" for="clientcontact">Contact Name</label>
-                        <div class="control"><input type="text" class="input" name="newClientContact" id="newClientContact" required /></div>
-                    </div>
-                    <div class="field"><label class="label" for="clientadress">Address</label>
-                        <div class="control"><input type="text" class="input" name="newClientAddress" id="newClientAddress" required /></div>
-                    </div>
-                </div>
-                <div class="modal-card-foot has-text-centered" id="modal-foot">
-                    <div class="saved-indicator is-hidden animated" id="saved-indicator">
-                        <h1 class="has-text-centered">Saved!</h1>
-                    </div>
-                    <div class="log-action-group" id="save-buttons">
-                        <button type="button" class="submit-button button green" id="saveNewClientButton" onclick="saveNewClient()">
-                            <span class="icon"> <i class="fa fa-check" aria-hidden="true"></i>
-                            </span><p class="header">Save Client</p>
-                        </button>
-                        <button class="button red control" id="newCancelButton" type="button" onclick="show('client-details', 'fromtop'); toggleClientDetails()">
-                            <span class="icon"><i class="fa fa-times" aria-hidden="true">
-                            </i></span><p class="header">Close</p>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </form>
-
-        <!--all clients-->
+<?php include("includes/newclient.inc");?>
         <form class="modal is-block is-hidden animated" id="all-clients-panel">
             <div class="modal-background"></div>
             <div class="modal-card animated">
@@ -172,14 +88,8 @@ function humanizeTime($time){ //runs when a new day is echo'd
                     <h1 class="modal-card-title has-text-centered">Clients</h1>
                     <button type="button" class="delete" onclick="show('all-clients-panel', 'fromtop')"></button>
                 </header>
-                <!--<div class="tabs grey">
-                <p class="heading white-font" style="margin-left: 0; margin-right: 0;">Sort by:</p>
-                <ul><li> <a class="heading">Name</a></li>
-                 <li><a class="heading">Something else</a></li>
-               </div>-->
                 <section class="modal-card-body">
                     <div class="panel" id="all-clients-container">
-
                     </div>
                 </section>
                 <footer class="modal-card-foot">
@@ -210,104 +120,14 @@ function humanizeTime($time){ //runs when a new day is echo'd
                     <a class="button control light-blue is-fullwidth is-medium" type="button" onclick="show('options-panel', 'fromright')">
                    <span class="icon"><i class="fa fa-bars"></i></span>
                 </a>
-
                 </div>
             </div>
 
 
-            <!--new log form-->
-            <form id="log-form" class="log-form animated is-hidden" name="newlog" method="POST" class="log" data-parsley-validate>
-                <header class="modal-card-head">
-                    <h1 class="modal-card-title has-text-centered">New Log</h1>
-                    <button type="button" class="delete" onclick="show('log-form', 'fromleft')"></button>
-                </header>
-                <div class="notification message is-white">
-                    <div class="field">
-                        <label class="label" for="clientName">Client Name</label>
-                        <div class="control has-icons-left" id="add-client">
-                            <input type="search" class="input" id="clientName" name="clientname" placeholder="Search Clients" required/>
-                            <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
-                            <button type="button" class="button green" id="add-client-button" onclick="copyClientName(); show('client-details', 'fromtop')">New Client</button>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label" for="dateOccurred">Date</label>
-                        <div class="control">
-                            <input type="text" class="input" id="dateOccurred" />
-                        </div>
-                    </div>
-                    <div class="time-field">
-                        <div class="field">
-                            <label class="label" for="timeStarted">Time Started</label>
-                            <div class="control">
-                                <input type="text" class="input" id="timeStarted" />
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label" for="timeStopped">Time Stopped</label>
-                            <div class="control">
-                                <input type="time" class="input" id="timeStopped" />
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label" for="hoursWorked">Hours Worked</label>
-                            <div class="control">
-                                <input type="number" class="input" id="hoursWorked" placeholder="in hours" maxlength="4" size="4" required/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label " for="issue">Issue</label>
-                        <div class="control ">
-                            <input type="text" class="input" name="issue" id="issue" placeholder="What was wrong" required/>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label " for="longDescription">Work Description</label>
-                        <div class="control">
-                            <textarea type="textarea" class="textarea" id="description" placeholder="Describe" required></textarea>
-                        </div>
-                    </div>
-                    <div class="field is-grouped is-grouped-centered">
-                        <div class="control is-expanded">
-                            <a class="button" type="button" onclick="fillInLog();">
-                        <span class="icon"><i class="fa fa-plus"></i></span><span>Add Items</span></a>
-                      
-                        
-                        </div>
-                          
-                        <a class="control button green is-expanded" type="submit" id="submitbutton" name='Submit' onclick="saveLog()">
-                    <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
-                    </a>
-                        <a class="control button red is-expanded" type="button" onclick="show('log-form','fromleft')">
-                    <span class="icon"><i class="fa fa-times" aria-hidden="true"></i></span><span>Close</span>
-                    </a>
-                    </div>
-                </div>
-            </form>
+           
+<?php include("includes/newlog.inc");?>
 
-            <!--options panel-->
-            <div class="option-panel is-block animated is-hidden" id="options-panel">
-                <header class="modal-card-head">
-                    <h1 class="modal-card-title has-text-centered">Options</h1>
-                    <button type="button" class="delete" onclick="show('options-panel', 'fromright')"></button>
-                </header>
-
-                <div class="panel-tabs">
-                    <a class="label is-marginless is-active">Clients</a>
-                    <a class="label is-marginless">Account</a>
-                </div>
-                <a class="panel-block" onclick="clearlocal()">
-            <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i>
-            </span>
-            <p class="subtitle">Edit Client</p>
-        </a>
-                <a class="panel-block" onclick="generateClientList();show('all-clients-panel', 'fromtop')">
-            <span class="icon"><i class="fa fa-address-book" aria-hidden="true"></i>
-            </span>
-            <p class="subtitle">View Clients</p>
-        </a>
-            </div>
+<?php include("includes/options.inc");?>
             <div class="log-container" id="log-container">
 <?php
         if (!isset($log_array[0])){ //New Guy
