@@ -12,7 +12,7 @@ var new_client_name_input = $('#newClientName');
 var options_panel = $('#options-panel');
 var clientDetailsBox = null;
 var clientlist = [];
-var allClientsListGenerated = false;
+
 function clearLocal(){
     localStorage.clear();
     getClientList();
@@ -103,7 +103,6 @@ function saveNewClient() {
     newClientObject.newClientContact = $.trim($('#newClientContact').val());
     newClientObject.newClientAddress = $.trim($('#newClientAddress').val());
     $(save_new_client_button).toggleClass('is-loading');
-    
     $.post('php/save-client.php', {
         newName: newClientObject.newClientName,
         newPhone: newClientObject.newClientPhone,
@@ -115,18 +114,18 @@ $(saved_indicator).addClass('fadeIn');
     $(saved_indicator).removeClass('is-hidden');
     $('#saveNewClientButton').fadeOut('fast', function() {
     }).toggleClass('is-loading');
-        
        clearLocal();
     });
 };
 
+var allClientsListGenerated = false;
 function generateClientList() {
-    if (allClientsListGenerated == false){
+    let srtedList = clientlist.sort();
+    if (allClientsListGenerated === false){
         let all_clients_container = $('#all-clients-container');
-        let clientTemplate = document.getElementById('client-template').innerHTML;
-        let compiledTemplate = Handlebars.compile(clientTemplate);
-        for (var objectNumber = 0; objectNumber < clientlist.length; objectNumber++){
-            var element = clientlist[objectNumber];
+        let compiledTemplate = Handlebars.compile(document.getElementById('client-template').innerHTML);
+        for (var objectNumber = 0; objectNumber < srtedList.length; objectNumber++){
+            var element = srtedList[objectNumber];
             var ourGeneratedHTML = compiledTemplate(element);
             $(all_clients_container).append(ourGeneratedHTML);
         }

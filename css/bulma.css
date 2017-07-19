@@ -2832,7 +2832,7 @@ input[type="submit"].button {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
-  /*box-shadow: 0 1px 1px rgba(10, 10, 10, 0.1);*/
+  box-shadow: 0 1px 1px rgba(10, 10, 10, 0.1);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab');
+@import url('https://fonts.googleapis.com/css?family=Oxygen|Roboto+Slab');
 html{
     background: inherit;
     height: 100%
@@ -6,7 +6,7 @@ html{
 body{
     /*font-family: 'Oxygen', sans-serif;*/
     z-index: 1;
-font-family: 'Roboto', sans-serif;
+font-family: 'Oxygen', sans-serif;
 }
 .grey{background-color: #556270;}
 .white{
@@ -107,9 +107,7 @@ font-family: 'Roboto', sans-serif;
     display: flex;
     align-content: center;
 }
-.client-name{
- font-family: 'Roboto', sans-serif;
-}
+
 
 .client-name{
     font-size: 2.441em;
