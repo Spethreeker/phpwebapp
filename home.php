@@ -35,13 +35,13 @@ function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateO
     echo  <<<EOT
         <div class="log" data-log-id="{$logID}" data-log-clicked="false">
           <div class="log-content">
-            <h3 class="title client-name two_point_four">{$clientName}</h3>
-            <p class="subtitle issue one_point_five">{$issue}</p>&nbsp<p class="title"></p>
-            <div class="icon" onclick="showLogDetails({$logID})">
-              <i class="fa fa-arrow-down" aria-hidden="true" id="down-arrow"></i>
-            </div>
+            <h3 class="title client-name two_point_four">{$clientName}<span class="icon is-pulled-right" onclick="showLogDetails({$logID})">
+              <i class="fa fa-arrow-down subtitle" aria-hidden="true" id="down-arrow"></i>
+            </span></h3>
+            <p class="subtitle issue one_point_five">{$issue}
+            
           </div>
-          <div class="box desc-container animated">
+          <div class="box desc-container animated is-hidden">
             <div class="log-left grey time-started-container">
             <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
             </div>

@@ -1,4 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Oxygen|Roboto+Slab');
+@font-face {
+    font-family: 'yorktenslabnormregular';
+    src: url('fonts/yorktenslabnormregular-webfont.woff2') format('woff2'),
+         url('fonts/yorktenslabnormregular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html{
     background: inherit;
     height: 100%
@@ -6,7 +14,7 @@ html{
 body{
     /*font-family: 'Oxygen', sans-serif;*/
     z-index: 1;
-font-family: 'Oxygen', sans-serif;
+font-family: 'yorktenslabnormregular', sans-serif;
 }
 .grey{background-color: #556270;}
 .white{
@@ -40,7 +48,6 @@ font-family: 'Oxygen', sans-serif;
   color: #ccc;
 }
 .log + .log {
-      padding: 0px;
       margin-top: 10px;
 }
 .log-left,
@@ -107,8 +114,6 @@ font-family: 'Oxygen', sans-serif;
     display: flex;
     align-content: center;
 }
-
-
 .client-name{
     font-size: 2.441em;
    /*font-size: 2.178em;*/
@@ -121,8 +126,8 @@ font-family: 'Oxygen', sans-serif;
     color: #eee;
     font-weight: 500;
     padding: 5px 0px 5px 10px;
-   font-family: 'Roboto Slab';
-  
+    /* font-family: 'Roboto Slab'; */
+    font-family: 'yorktenslabnormregular', sans-serif;
 }
 .time-started-container{
     display: flex;
@@ -241,6 +246,10 @@ opacity: 0;
 }
 #add-log-button{
     z-index: 3;
+}
+#sort-row{
+    display: flex;
+    justify-content: space-between;
 }
 .down-arrow{
     display: block;
