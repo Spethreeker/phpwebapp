@@ -27,20 +27,31 @@ for ($row_no = ($stmt->num_rows - 1); $row_no >= 0; $row_no-- ) {
 }
 $stmt->free_result();
 $db->close();
-
 $log_array = array_reverse($returned_logs);//Flips array around to correct order
-
 function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateOccurred) {
     $humanTimeStarted = date('G:i A', strtotime($timeStarted));
     echo  <<<EOT
-        <div class="log" data-log-id="{$logID}" data-log-clicked="false">
+      <div class="log" data-log-id="{$logID}" data-log-clicked="false">
+        <div class="is-flex">    
+          
           <div class="log-content">
-            <h3 class="title client-name two_point_four">{$clientName}<span class="icon is-pulled-right" onclick="showLogDetails({$logID})">
-              <i class="fa fa-arrow-down subtitle" aria-hidden="true" id="down-arrow"></i>
-            </span></h3>
-            <p class="subtitle issue one_point_five">{$issue}
-            
+            <h2 class="title client-name two_point_four">{$clientName}
+              <span class="icon is-pulled-right" onclick="showLogDetails({$logID})">
+                <i class="fa fa-arrow-down subtitle" aria-hidden="true" id="down-arrow"></i>
+              </span>
+            </h2>
+            <p class="subtitle issue one_point_five">{$issue}</p>
           </div>
+        <div class="log-action-group">
+            <button class="button is-small log-action">
+                <span class="icon"><i class="fa fa-id-card-o" aria-hidden="true"></i>
+              </span>
+            </button>
+            <button class="button is-small log-action">
+
+            </button>
+          </div>
+        </div>
           <div class="box desc-container animated is-hidden">
             <div class="log-left grey time-started-container">
             <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
@@ -106,15 +117,12 @@ function humanizeTime($time){ //runs when a new day is echo'd
                 </a>
                 </div>
             </div>
-
-
-           
 <?php include("includes/newlog.inc");?>
-
 <?php include("includes/options.inc");?>
             <div class="log-container" id="log-container">
 <?php
-        if (!isset($log_array[0])){ //New Guy
+       /*New Guy*/ 
+        if (!isset($log_array[0])){
             echo '<div class="index-form">
                     <h1 class="title">Looks like you don\'t have any logs.</h1>
                   </div>';
@@ -313,18 +321,5 @@ function humanizeTime($time){ //runs when a new day is echo'd
             </div>
         </div>
     </script>
-<script type="text/javascript">
-    (function() {
-        var path = '//easy.myfonts.net/v2/js?sid=310636(font-family=Yorkten+Slab+Condensed+Bold)&sid=310638(font-family=Yorkten+Slab+Condensed+Medium)&sid=310639(font-family=Yorkten+Slab+Condensed+Regular)&sid=310642(font-family=Yorkten+Slab+Condensed+Light)&key=G1qIkvCDhz',
-            protocol = ('https:' == document.location.protocol ? 'https:' : 'http:'),
-            trial = document.createElement('script');
-        trial.type = 'text/javascript';
-        trial.async = true;
-        trial.src = protocol + path;
-        var head = document.getElementsByTagName("head")[0];
-        head.appendChild(trial);
-    })();
-    
-</script>
 </html>
     <!--<p class="title day-date-title" id="wed-mar-22">Wednesday, March 22</p>-->

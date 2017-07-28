@@ -1,4 +1,4 @@
-<form class="modal is-block  animated" id="all-clients-panel">
+<form class="modal is-block  animated is-hidden" id="all-clients-panel">
 <div class="modal-background"></div>
   <div class="modal-card animated">
     <header class="modal-card-head">

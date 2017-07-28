@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Oxygen|Roboto+Slab');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:300,400');
 @font-face {
     font-family: 'yorktenslabnormregular';
     src: url('fonts/yorktenslabnormregular-webfont.woff2') format('woff2'),
@@ -14,7 +14,8 @@ html{
 body{
     /*font-family: 'Oxygen', sans-serif;*/
     z-index: 1;
-font-family: 'yorktenslabnormregular', sans-serif;
+/* font-family: 'yorktenslabnormregular', sans-serif; */
+font-family: 'Roboto Slab', serif;
 }
 .grey{background-color: #556270;}
 .white{
@@ -50,6 +51,23 @@ font-family: 'yorktenslabnormregular', sans-serif;
 .log + .log {
       margin-top: 10px;
 }
+.log-action{
+    color: #4a4a4a;
+    flex: 1;
+    border-radius: 0px;
+}
+.log-action:last-child{
+   border-radius: 4px 0px 0px 4px !important;
+
+}
+.log-action-group{
+    border-left: solid 1px rgba(7, 7, 7, 0.7);
+    display: flex;
+    flex-direction: column;
+}
+.log-content{
+        padding: 6px 12px 10px 12px;
+}
 .log-left,
 .log-right {
   -ms-flex-preferred-size: auto;
@@ -71,15 +89,10 @@ font-family: 'yorktenslabnormregular', sans-serif;
   display: -ms-flexbox;
   display: flex;
   text-align: left;
+  flex-direction: column;
 }
 .media .content:not(:last-child) {
   margin-bottom: 0.75rem;
-}
-.day, .log {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-direction: column;
 }
 .media.is-large + .media {
   margin-top: 1.5rem;
@@ -106,7 +119,6 @@ font-family: 'yorktenslabnormregular', sans-serif;
     background-repeat: repeat;
     background-position: top;
     background-blend-mode: screen;
-    padding: 6px 12px 10px 12px;
 }
 
 .day-header{
@@ -126,8 +138,8 @@ font-family: 'yorktenslabnormregular', sans-serif;
     color: #eee;
     font-weight: 500;
     padding: 5px 0px 5px 10px;
-    /* font-family: 'Roboto Slab'; */
-    font-family: 'yorktenslabnormregular', sans-serif;
+     font-family: 'Roboto Slab'; 
+    /* font-family: 'yorktenslabnormregular', sans-serif; */
 }
 .time-started-container{
     display: flex;
@@ -220,11 +232,6 @@ font-family: 'yorktenslabnormregular', sans-serif;
 }
 .client-details-toggle.is-active span:nth-child(3) {
 opacity: 0;
-}
-.log-action-group{
-   margin-left: auto;
-   margin-top: auto;
-   margin-bottom: auto;
 }
 .panel-heading .delete{
     margin-right:-50px;
