@@ -12,7 +12,6 @@ var new_client_name_input = $('#newClientName');
 var options_panel = $('#options-panel');
 var clientDetailsBox = null;
 var clientlist = [];
-
 function clearLocal(){
     localStorage.clear();
     getClientList();
@@ -64,6 +63,7 @@ function createHTML(jsonObject) {
 function show(id, type, callback) {
     let that = document.getElementById(id);
     that.classList.remove("is-hidden");
+    that.classList.add("is-active");
     switch (type) {
         case 'fromright':
         if (that.classList.contains('slideInRight')){
@@ -314,9 +314,9 @@ function fillInLog(){
 function showLogDetails(id){
    var clickedLog = $('[data-log-id='+id+']');
    var descCont = clickedLog.find('.desc-container');
-   var downArrow = clickedLog.find('#down-arrow');
+   var btn = clickedLog.find('.client-details-toggle');
+   btn.toggleClass('is-active');
    if(clickedLog.attr('data-log-clicked') !== 'true'){
-    downArrow.toggleClass('spin-around');
     clickedLog.attr('data-log-clicked','true')
         $.ajax({
             type: 'GET',
@@ -331,12 +331,12 @@ function showLogDetails(id){
             // descCont.removeClass('is-hidden');
             // descCont.addClass('slideInDown');
             descCont.toggleClass('is-hidden');
-            downArrow.toggleClass('spin-around rotate')
+
         });
    }else{
     //    descCont.removeClass('slideInDown');
     //    descCont.addClass('slideOutUp');
     descCont.toggleClass('is-hidden');
-    downArrow.toggleClass('rotate');
+ 
    }
 };

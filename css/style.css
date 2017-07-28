@@ -51,22 +51,24 @@ font-family: 'Roboto Slab', serif;
 .log + .log {
       margin-top: 10px;
 }
-.log-action{
-    color: #4a4a4a;
+.action{
+    /* color: #4a4a4a; */
     flex: 1;
     border-radius: 0px;
 }
-.log-action:last-child{
-   border-radius: 4px 0px 0px 4px !important;
-
+.action:last-child{
+   border-radius: 0px 0px 4px 0px !important;
 }
-.log-action-group{
-    border-left: solid 1px rgba(7, 7, 7, 0.7);
+.action:first-child{
+   border-radius: 0px 4px 0px 0px !important;
+}
+.action-group{
+    border-left: solid 1px rgba(7, 7, 7, 0.3);
     display: flex;
     flex-direction: column;
 }
 .log-content{
-        padding: 6px 12px 10px 12px;
+      padding: 6px 12px 10px 12px;  
 }
 .log-left,
 .log-right {
@@ -119,8 +121,8 @@ font-family: 'Roboto Slab', serif;
     background-repeat: repeat;
     background-position: top;
     background-blend-mode: screen;
+    
 }
-
 .day-header{
     justify-content: space-between;
     display: flex;
@@ -276,9 +278,7 @@ opacity: 0;
     }
 }
 @media screen and (min-width: 769px){
-    .log-action-group .button{
-        min-width: 105px;
-    }
+    
     .time-field .field{
        margin-right: 3px;
     }
@@ -311,7 +311,7 @@ opacity: 0;
 }
 }
 @media screen and (max-width: 422px){
-    .log-action-group .button{
+    .action-group .button{
     border-radius: 4px;
     font-size: 0.90rem;
     }
@@ -441,4 +441,28 @@ opacity: 0;
     -webkit-transform:rotate(180deg); 
     -moz-transform:rotate(180deg); 
     -o-transform:rotate(180deg); 
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    margin-left: -160px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }

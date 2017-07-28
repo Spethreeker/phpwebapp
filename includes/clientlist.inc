@@ -7,7 +7,7 @@
     </header>
     <div class="message is-light" id="sort-row">
       <span class="message-header" id="sort-row"><p class="">Sort by:</p>
-        <a class="">Name</a><a class="">New</a><a class="">Recent</a>
+        <a class="button is-link">Name</a><a class="button is-link">New</a><a class="button is-link">Recent</a>
       </span>
     </div>
     <section class="modal-card-body">

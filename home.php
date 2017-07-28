@@ -32,24 +32,21 @@ function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateO
     $humanTimeStarted = date('G:i A', strtotime($timeStarted));
     echo  <<<EOT
       <div class="log" data-log-id="{$logID}" data-log-clicked="false">
-        <div class="is-flex">    
-          
+        <div class="is-flex" style="justify-content: space-between;">
           <div class="log-content">
             <h2 class="title client-name two_point_four">{$clientName}
-              <span class="icon is-pulled-right" onclick="showLogDetails({$logID})">
-                <i class="fa fa-arrow-down subtitle" aria-hidden="true" id="down-arrow"></i>
-              </span>
             </h2>
             <p class="subtitle issue one_point_five">{$issue}</p>
           </div>
-        <div class="log-action-group">
-            <button class="button is-small log-action">
+        <div class="action-group">
+            <button class="button action" type="button" onclick="showLogDetails({$logID})">
+              <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+            </button>
+            <button class="button action">
                 <span class="icon"><i class="fa fa-id-card-o" aria-hidden="true"></i>
               </span>
             </button>
-            <button class="button is-small log-action">
-
-            </button>
+            
           </div>
         </div>
           <div class="box desc-container animated is-hidden">
@@ -258,22 +255,25 @@ function humanizeTime($time){ //runs when a new day is echo'd
                 </div>
             </div>
         </div>
-            
         </article>
     </script>
     <script id="client-template" type="text/x-handlebars-template">
         <div class="message is-light" id="{{id}}" data-name="{{name}}" data-editing="false">
-            <header class="message-header" data-detailsexpanded="false">
+            <div class="is-flex" style="justify-content: space-between;">
+            <header class="message-header is-flex" data-detailsexpanded="false">
                 <h1 class="title is-marginless" contenteditable="false" data-idname="{{id}}">{{name}}</h1>
-                <button class="button card-header-icon client-details-toggle" type="button" onclick="showClientDetails('{{id}}')">
-              <!--<span class="icon">
-                <i class="fa fa-angle-down"></i>
-              </span>-->
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
             </header>
+            <div class="action-group">
+                <button class="button action" type="button" onclick="showClientDetails('{{id}}')">
+                  <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+                </button>
+                <button class="button action" type="button">
+                  <span class="icon">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </span>
+                </button>
+            </div>
+            </div>
             <div class="details-content is-hidden">
                 <div class="card-content">
                     <span class="loader has-text-centered is-large"></span>
@@ -298,11 +298,9 @@ function humanizeTime($time){ //runs when a new day is echo'd
                     <a class="button light-blue">View Logs</a>
                 </span>
                         <span class="control">
-                    <a class="button light-blue">Add Log</a>
-                </span>
-                        <span class="control">
                     <a class="button light-blue edit-button" onclick="editClient({{id}})" data-editing="true">Edit</a>
                 </span>
+                    <a class="button red">Delete</a>
                     </div>
                     <div class="modal client-edit-close-box" id="confirm-close-box">
                         <div class="message is-warning has-text-centered">
@@ -311,8 +309,7 @@ function humanizeTime($time){ //runs when a new day is echo'd
                             </div>
                             <div class="message-body">
                                 <button class="button" type="button" onclick="confirmEditClose()" value="Yes"></button>
-                                <button
-                                    class="button" type="button" onclick="">No</button>
+                                <button class="button" type="button" onclick="">No</button>
                             </div>
                         </div>
                     </div>

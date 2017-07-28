@@ -6,10 +6,21 @@
     <div class="notification message is-white">
         <div class="field">
             <label class="label" for="clientName">Client Name</label>
-            <div class="control has-icons-left" id="add-client">
+            <div class="field is-grouped is-horizontal">
+              <div class="control has-icons-left" id="add-client">
                 <input type="search" class="input" id="clientName" name="clientname" placeholder="Search Clients" required/>
                 <span class="icon is-small is-left"><i class="fa fa-user" aria-hidden="true"></i></span>
-                <button type="button" class="button green" id="add-client-button" onclick="copyClientName(); show('client-details', 'fromtop')">New Client</button>
+              </div>
+              <div class="control">
+                <button type="button" class="button" onclick="generateClientList(); show('all-clients-panel', 'fromtop');">
+                  <span class="icon">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                  </span>
+                </button>
+                <button type="button" class="button green" id="add-client-button" onclick="copyClientName(); show('client-details', 'fromtop')">
+                  New Client
+                </button>
+              </div>
             </div>
         </div>
         <div class="field">
