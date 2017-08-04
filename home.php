@@ -34,15 +34,14 @@ function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateO
       <div class="log" data-log-id="{$logID}" data-log-clicked="false">
         <div class="is-flex" style="justify-content: space-between;">
           <div class="log-content">
-            <h2 class="title client-name two_point_four">{$clientName}
-            </h2>
+            <h2 class="title client-name two_point_four">{$clientName}</h2>
             <p class="subtitle issue one_point_five">{$issue}</p>
           </div>
         <div class="action-group">
             <button class="button action" type="button" onclick="showLogDetails({$logID})">
               <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
             </button>
-            <button class="button action">
+            <button class="button action" onclick="">
                 <span class="icon"><i class="fa fa-id-card-o" aria-hidden="true"></i>
               </span>
             </button>

@@ -1,15 +1,14 @@
-<form class="modal is-block  animated is-hidden" id="all-clients-panel">
+<form class="modal is-block animated is-hidden" id="all-clients-panel">
 <div class="modal-background"></div>
   <div class="modal-card animated">
     <header class="modal-card-head">
       <h1 class="modal-card-title has-text-centered">Clients</h1>
       <button type="button" class="delete" onclick="show('all-clients-panel', 'fromtop')"></button>
     </header>
-    <div class="message is-light" id="sort-row">
-      <span class="message-header" id="sort-row"><p class="">Sort by:</p>
+      <div class="" id="sort-row">
+        <p class="">Sort by:</p>
         <a class="button is-link">Name</a><a class="button is-link">New</a><a class="button is-link">Recent</a>
-      </span>
-    </div>
+      </div>
     <section class="modal-card-body">
       <div class="panel" id="all-clients-container">
       </div>

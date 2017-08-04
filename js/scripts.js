@@ -134,8 +134,8 @@ function generateClientList() {
     } else {
         return false;
     }
-   
 };
+
 function showClientDetails(id, close) {
     var that  = $('#' + id);
      clientDetailsBox = $(that).find('.details-content');

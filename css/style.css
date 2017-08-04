@@ -258,7 +258,12 @@ opacity: 0;
 }
 #sort-row{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    background: whitesmoke;
+    padding: 10px;
+    padding-bottom: 20px;
+
+    align-content: center;
 }
 .down-arrow{
     display: block;
