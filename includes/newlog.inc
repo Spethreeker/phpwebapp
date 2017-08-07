@@ -22,9 +22,12 @@
                 </button>
               </div>
             </div>
+            <div>
+                <h4 class="help is-danger is-hidden" id="select-client-warning">Couldn't find that client</h4>
+            </div>
         </div>
         <div class="field">
-            <label class="label" for="dateOccurred">Date</label>
+            <label class="label">Date</label>
             <div class="control">
                 <input type="text" class="input" id="dateOccurred" />
             </div>
@@ -63,12 +66,12 @@
         </div>
         <div class="field is-grouped is-grouped-centered">
             <div class="control is-expanded">
-                <a class="button" type="button" onclick="fillInLog();">
+                <a class="button" type="button" onclick="awesomplete.open();">
             <span class="icon"><i class="fa fa-plus"></i></span><span>Add Items</span></a>
             </div>
             <a class="control button green is-expanded" type="submit" id="submitbutton" name='Submit' onclick="saveLog()">
-        <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
-        </a>
+              <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
+            </a>
             <a class="control button red is-expanded" type="button" onclick="show('log-form','fromleft')">
         <span class="icon"><i class="fa fa-times" aria-hidden="true"></i></span><span>Close</span>
         </a>

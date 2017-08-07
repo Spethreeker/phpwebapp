@@ -15,7 +15,7 @@ $user_id = $_SESSION['id'];
 
 $client_array = array();
  
-$query = "SELECT `id`,`name` FROM `clients` WHERE `userid` = ?";
+$query = "SELECT `id`,`name` FROM `clients` WHERE `active` = 1 AND `userid` = ?";
 ($stmt = $db->prepare($query))
         || fail("query error".$db->errno);
 $stmt->bind_param("i", $user_id)

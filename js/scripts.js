@@ -30,7 +30,7 @@ function getClientList() {
             clientNameList.push(value.name);
             });
         awesomplete.list = clientNameList;
-        console.log("went and got it");
+        console.log("got clientlist");
         localStorage.setItem('clientlist', JSON.stringify(data));
         clientlist = data;
     })
@@ -181,12 +181,24 @@ function showClientDetails(id, close) {
     $(that).attr('data-detailsexpanded', "true");
     }
 };
-
+function deleteClient(id) {
+    console.log(id);
+    var error =  null;
+    $.post('php/delete-client.php', {
+        clientID: id
+    }, function(data){
+        error = data;
+    }).done( function() {
+        console.log(error);
+    });
+}
 function editClient(id) {
-    var that = $('#' + id);
-    var editButton = $(that).find('.edit-button');
-    var detailsChanged = null;
-    if ($(that).attr('data-editing') === "true" && $(editButton).attr('data-editing') === "true"){
+    var that = $('#' + id),
+    data = null,
+    detailsChanged = null,
+    editBtn = $(that).find('.edit-button'),
+    deleteBtn = $(that).find('.delete-client-button');
+    if ($(that).attr('data-editing') === "true" && $(editBtn).attr('data-editing') === "true"){ //save editing
         var editedClientObj = {};
         var phone = $(that).find( $('[data-idphone="' + id + '"]') ).text();
         var addr = $(that).find( $('[data-idaddress="' + id + '"]') ).text();
@@ -200,7 +212,7 @@ function editClient(id) {
         newContact: contact,
         newAddress: addr
     }, function(data){
-        data = data;
+        var data = data;
         console.log(data);
     }).done( function() {
         if (data == " "){ 
@@ -209,7 +221,6 @@ function editClient(id) {
            clearLocal();
         });
     }
-
     if ($(that).attr('data-editing') === "true"){
         $('#'+id + '' + ' [contenteditable="true"]').each( function(){
             this.setAttribute('contenteditable', 'false');
@@ -219,12 +230,12 @@ function editClient(id) {
            this.classList.remove('is-disabled');
         });
         $(that).attr('data-editing', false);
-        editButton.addClass('light-blue');
-        editButton.removeClass('green');
-        editButton.text("Edit");
-       
+        editBtn.addClass('light-blue');
+        editBtn.removeClass('green');
+        editBtn.text("Edit");
+        deleteBtn.addClass('is-hidden');
     }
-    else if ($(that).attr('data-editing') === "false") {
+    else if ($(that).attr('data-editing') === "false") { //start editing
         $('#'+id + '' + ' [contenteditable="false"]').each( function(){
             this.setAttribute('contenteditable', 'true');
             this.classList.add('input');
@@ -236,13 +247,18 @@ function editClient(id) {
         this.classList.add('is-disabled');
         });
         $(that).attr('data-editing', true);
-        $(editButton).attr('data-editing', true);
-        editButton.addClass('green');
-        editButton.removeClass('light-blue');
-        editButton.text("Save");
+        $(editBtn).attr('data-editing', true);
+        editBtn.addClass('green');
+        editBtn.removeClass('light-blue');
+        editBtn.text("Save");
+        deleteBtn.removeClass('is-hidden');
     }
 }
 function saveLog(){
+    if (selectedClientId === null){
+        alert("You didn't select a client");
+        return;
+    }
     $('#submitbutton').toggleClass('is-loading');
     let clientName = $.trim($('#clientName').val());
     let dateOccurred = $.trim($('input[name=date_submit]').val());

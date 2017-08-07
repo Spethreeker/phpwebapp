@@ -1,5 +1,5 @@
 <form class="modal is-block animated is-hidden" id="all-clients-panel">
-<div class="modal-background"></div>
+ <div class="modal-background"></div>
   <div class="modal-card animated">
     <header class="modal-card-head">
       <h1 class="modal-card-title has-text-centered">Clients</h1>
