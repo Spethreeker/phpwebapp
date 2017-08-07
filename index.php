@@ -34,9 +34,9 @@
   </head>
 <body class="body index-body animated" id="index-body">
 <div class="container">
-  <div class="hero">
+  <div class="hero" style="background: #385D8A;">
     <div class="hero-header">&nbsp;</div>
-    <div class="hero-body animated" id="hero-body">
+    <div class="hero-body" id="hero-body" >
       <img class="image is-128x128 margin-auto-centered" src="images/hammerpen.png" alt="Worklogs" id="logo"/>
       <div class="has-text-centered">
         <h1 class="title is-2 white-font">Worklogs</h1>
@@ -54,7 +54,7 @@
         <span class="control">  <input type='email' class="input" name='email' id='Email'  required autofocus/></span>
        </div>
        <div class="field">
-       <label class="field-label label heading light-gray"  for='password' >Password</label>
+       <label class="label label heading light-gray" for='password'>Password</label>
           <span class="control">
           <input class="input"  type='password' name='password' id='password' required/>
         </span>
