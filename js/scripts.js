@@ -63,37 +63,45 @@ function createHTML(jsonObject) {
 function show(id, type, callback) {
     let that = document.getElementById(id);
     that.classList.remove("is-hidden");
-    that.classList.add("is-active");
+    that.classList.add('is-active');
     switch (type) {
         case 'fromright':
-        if (that.classList.contains('slideInRight')){
-            that.classList.remove('slideInRight');
-            that.classList.add('slideOutRight');
-        }else{
-            that.classList.add('slideInRight');
-            that.classList.remove('slideOutRight');
-        }
+            if (that.classList.contains('slideInRight')){
+                that.classList.remove('slideInRight');
+                that.classList.add('slideOutRight');
+            }else{
+                that.classList.add('slideInRight');
+                that.classList.remove('slideOutRight');
+            }
         break;
         case 'fromleft':
-         if (that.classList.contains('slideInLeft')){
-            that.classList.remove('slideInLeft');
-            that.classList.add('slideOutLeft');
-        }else{
-            that.classList.add('slideInLeft');
-            that.classList.remove('slideOutLeft');
-        }
+            if (that.classList.contains('slideInLeft')){
+                that.classList.remove('slideInLeft');
+                that.classList.add('slideOutLeft');
+            }else{
+                that.classList.add('slideInLeft');
+                that.classList.remove('slideOutLeft');
+            }
         break;
         case 'fromtop':
-        
-        if (that.classList.contains('slideInDown')){
-            that.classList.remove('slideInDown');
-            that.classList.add('slideOutUp');
-        }else{
-        that.classList.add('slideInDown');
-        that.classList.remove('slideOutUp');
-        }
+            if (that.classList.contains('slideInDown')){
+                that.classList.remove('slideInDown');
+                that.classList.add('slideOutUp');
+            }else{
+                that.classList.add('slideInDown');
+                that.classList.remove('slideOutUp');
+            }
+        break;
+        case 'fade':
+            if (that.classList.contains('fadeIn')){
+                that.classList.remove('fadeIn');
+                that.classList.add('fadeOut');
+            }else{
+                that.classList.add('fadeIn');
+                that.classList.remove('fadeOut');
+            }
     }
-    
+      
 };
 
 function saveNewClient() {
@@ -121,7 +129,7 @@ $(saved_indicator).addClass('fadeIn');
 var allClientsListGenerated = false;
 function generateClientList() {
     let srtedList = clientlist.sort();
-    if (allClientsListGenerated === false){
+    if (allClientsListGenerated === false){ //Makes sure the list only generates once
         let all_clients_container = $('#all-clients-container');
         let compiledTemplate = Handlebars.compile(document.getElementById('client-template').innerHTML);
         for (var objectNumber = 0; objectNumber < srtedList.length; objectNumber++){
@@ -167,7 +175,7 @@ function showClientDetails(id, close) {
             container.addClass('fadeIn');
             clientDetailsToggle.addClass('is-active');
     });
-     console.log("ajaxed");
+     console.log("got client details");
      $(that).attr("data-ajaxed", true);
 }
     if ($(that).attr('data-detailsexpanded') == "true"){
@@ -181,23 +189,30 @@ function showClientDetails(id, close) {
     $(that).attr('data-detailsexpanded', "true");
     }
 };
-function deleteClient(id) {
-    console.log(id);
+
+var clientToEdit = null;
+function delClient() {
     var error =  null;
     $.post('php/delete-client.php', {
-        clientID: id
+        clientID: clientToEdit,
     }, function(data){
         error = data;
     }).done( function() {
         console.log(error);
+        show('confirm-delete-modal', 'fade');
+        document.getElementById('confirm-delete-modal').classList.remove('is-active');
+        $('#'+clientToEdit).remove();
+        console.log('button works' + ' '+ clientToEdit);
     });
-}
+};
 function editClient(id) {
+    clientToEdit = id;
     var that = $('#' + id),
     data = null,
     detailsChanged = null,
     editBtn = $(that).find('.edit-button'),
     deleteBtn = $(that).find('.delete-client-button');
+    console.log(clientToEdit);
     if ($(that).attr('data-editing') === "true" && $(editBtn).attr('data-editing') === "true"){ //save editing
         var editedClientObj = {};
         var phone = $(that).find( $('[data-idphone="' + id + '"]') ).text();
@@ -307,11 +322,6 @@ function saveLog(){
     });
     event.preventDefault();
 };
-function randomWithRange(){
-   a=0, b=4;
-   var range = (a - b) + 1;     
-   return Math.round((Math.random() * range) + b);
-}
 function fillInLog(){
     let dateOccurred = $.trim($('input[name=date_submit]').val());
     var descriptions = ["Needed a new power supply", "Didn't pay electric bill", "House was too old","Talked too much"];

@@ -130,7 +130,7 @@ font-family: 'Roboto Slab', serif;
 }
 .client-name{
     font-size: 2.441em;
-   /*font-size: 2.178em;*/
+   
 }
 .issue, .desc-container,{
     /*font-size: 1.383em;*/
@@ -171,17 +171,14 @@ font-family: 'Roboto Slab', serif;
 }
 .desc-container{
     display: flex;
-    justify-content: space-between;
     box-shadow: 0px 0px 1px rgba(17, 17, 0, .1), 0px 0px 1px rgba(0, 0, 0, 0.5);
 }
-
 .work-duration-container{
     display: flex;
     flex-direction: row;
     color: slategray;
     font-size: 1em;
 }
-
 .logo{
     height: 100%;
 }
@@ -229,10 +226,12 @@ font-family: 'Roboto Slab', serif;
   opacity: 0;
 }
 .client-details-toggle.is-active span:nth-child(2) {
- 
 }
 .client-details-toggle.is-active span:nth-child(3) {
 opacity: 0;
+}
+.message-header{
+    flex-grow: 1;
 }
 .panel-heading .delete{
     margin-right:-50px;
@@ -435,6 +434,18 @@ opacity: 0;
 .slideOutRight {
   animation-name: slideOutRight;
   animation-duration: .3s
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+.fadeOut {
+  animation-name: fadeOut;
 }
 .spin-around{
     -webkit-animation: spinAround 500ms infinite linear;

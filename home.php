@@ -37,21 +37,23 @@ function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateO
             <h2 class="title client-name two_point_four">{$clientName}</h2>
             <p class="subtitle issue one_point_five">{$issue}</p>
           </div>
-        <div class="action-group">
-            <button class="button action" type="button" onclick="showLogDetails({$logID})">
-              <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
-            </button>
-            <button class="button action" onclick="">
-                <span class="icon"><i class="fa fa-id-card-o" aria-hidden="true"></i>
-              </span>
-            </button>
-            
+          <div style="flex-direction: row;">
+            <div class="grey time-started-container">
+              <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
+            </div>
+            <div class="action-group">
+              <button class="button action" type="button" onclick="showLogDetails({$logID})">
+                <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+              </button>
+              <button class="button action" onclick="">
+                  <span class="icon"><i class="fa fa-id-card-o" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
           <div class="box desc-container animated is-hidden">
-            <div class="log-left grey time-started-container">
-            <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
-            </div>
+            
           </div>
         </div>
 EOT;
@@ -266,14 +268,14 @@ function humanizeTime($time){ //runs when a new day is echo'd
     <div class="message is-light" id="{{id}}" data-name="{{name}}" data-editing="false">
         <div class="is-flex" style="justify-content: space-between;">
         <header class="message-header is-flex" data-detailsexpanded="false">
-            <h1 class="title is-marginless" contenteditable="false" data-idname="{{id}}">{{name}}</h1>
+            <h1 class="title client-name is-marginless" contenteditable="false" data-idname="{{id}}">{{name}}</h1>
         </header>
         <div class="action-group">
-            <button class="button action" type="button" onclick="showClientDetails('{{id}}')">
+            <button class="button action" type="button" onclick="showClientDetails('{{id}}')" title="View client details">
                 <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
             </button>
-            <button class="button action" type="button">
-                <span class="icon">
+            <button class="button action" type="button" title="Add a log for this client">
+                <span class="icon" >
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 </span>
             </button>
@@ -288,11 +290,11 @@ function humanizeTime($time){ //runs when a new day is echo'd
                         <h3 class="subtitle" data-idphone="{{id}}" contenteditable="false"></h3>
                     </div>
                     <div class="column">
-                        <h1 class="subtitle">Address</h1>
+                        <h2 class="subtitle"><strong>Address</strong></h2>
                         <p class="subtitle" data-idaddress="{{id}}" contenteditable="false"></p>
                     </div>
                     <div class="column">
-                        <h1 class="subtitle">Contact</h1>
+                        <h2 class="subtitle"><strong>Contact</strong></h2>
                         <p class="subtitle" data-idcontact="{{id}}" contenteditable="false"></p>
                     </div>
                 </div>
@@ -305,19 +307,9 @@ function humanizeTime($time){ //runs when a new day is echo'd
                     <span class="control">
                 <a class="button light-blue edit-button" onclick="editClient({{id}})" data-editing="true">Edit</a>
             </span>
-                <a class="button red is-hidden animated fadeIn delete-client-button" onclick="deleteClient({{id}})">Delete</a>
+                <a class="button red is-hidden animated fadeIn delete-client-button" onclick="show('confirm-delete-modal', 'fade');">Delete</a>
                 </div>
-                <div class="modal client-edit-close-box" id="confirm-close-box">
-                    <div class="message is-warning has-text-centered">
-                        <div class="message-header">
-                            <h1 class="">Close and Discard Changes?</h1>
-                        </div>
-                        <div class="message-body">
-                            <button class="button" type="button" onclick="confirmEditClose()" value="Yes"></button>
-                            <button class="button" type="button" onclick="">No</button>
-                        </div>
-                    </div>
-                </div>
+                
 
             </footer>
         </div>

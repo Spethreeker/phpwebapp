@@ -1,4 +1,16 @@
 <form class="modal is-block animated is-hidden" id="all-clients-panel">
+ <div class="modal animated client-edit-close-box" id="confirm-delete-modal">
+    <div class="message is-danger has-text-centered">
+        <div class="message-header">
+          <h1 class="">Delete Client?</h1>
+        </div>
+        <div class="message-body">
+          <p class="has-text-danger">This will also delete any logs for this client</p>
+          <button class="button" type="button" onclick="delClient()" id="confirm-close" value="Yes">Yes</button>
+          <button class="button" type="button" onclick="dontDel()">No</button>
+        </div>
+    </div>
+</div>
  <div class="modal-background"></div>
   <div class="modal-card animated">
     <header class="modal-card-head">
