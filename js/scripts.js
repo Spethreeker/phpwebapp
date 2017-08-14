@@ -59,11 +59,24 @@ function createHTML(jsonObject) {
     $('#' + dateTimeStamp).append(ourGeneratedHTML);
     }
 };
-
+function jobStat(stat){
+    var e=document.getElementById('job-finished-input'),
+        f=document.getElementById('job-ongoing-input');
+    if (stat === 'finished'){
+        e.classList.toggle('is-hidden');
+        f.classList.add('is-hidden');
+    }
+    if(stat === 'ongoing'){
+        f.classList.toggle('is-hidden');
+        e.classList.add('is-hidden');
+    }
+}
 function show(id, type, callback) {
     let that = document.getElementById(id);
     that.classList.remove("is-hidden");
-    that.classList.add('is-active');
+    if (that.classList.contains('modal')){
+      that.classList.add('is-active');
+    };
     switch (type) {
         case 'fromright':
             if (that.classList.contains('slideInRight')){
@@ -103,11 +116,10 @@ function show(id, type, callback) {
     }
       
 };
-
 function saveNewClient() {
     var newClientObject ={};
     newClientObject.newClientName =    $.trim($('#newClientName').val());
-    newClientObject.newClientPhone   = $.trim($('#newClientPhone').val());
+    newClientObject.newClientPhone = $.trim($('#newClientPhone').val());
     newClientObject.newClientContact = $.trim($('#newClientContact').val());
     newClientObject.newClientAddress = $.trim($('#newClientAddress').val());
     $(save_new_client_button).toggleClass('is-loading');
@@ -274,35 +286,39 @@ function saveLog(){
         alert("You didn't select a client");
         return;
     }
-    $('#submitbutton').toggleClass('is-loading');
-    let clientName = $.trim($('#clientName').val());
-    let dateOccurred = $.trim($('input[name=date_submit]').val());
+    
+    var clientName = $.trim($('#clientName').val());
+    var dateOccurred = $.trim($('input[name=date_submit]').val());
     var dateTimestamp = Date.parse(dateOccurred)/1000,
     timeStarted = $.trim($('input[name=started_submit]').val()),
     timeStopped = $.trim($('input[name=stopped_submit]').val()),
     hoursWorked = $.trim($('#hoursWorked').val()),
-    issue = $.trim($('#issue').val()),
-    description= $.trim($('#description').val());
-
+    issue = $.trim($('#issue').val());
+    
     var jsonObject = {};
     jsonObject.name = clientName;
-    jsonObject.issue = issue;
     jsonObject.dateOccurred = moment().format("dddd, Do");
     jsonObject.dateTimestamp = dateTimestamp;
-    jsonObject.hoursWorked = hoursWorked;
-    jsonObject.descripton = description;
-    jsonObject.timeStopped = timeStopped;
     jsonObject.timeStarted = timeStarted;
-    jsonObject.logId = 12;
-   
+    jsonObject.timeStopped = timeStopped;
+    jsonObject.hoursWorked = hoursWorked;
+    jsonObject.issue = issue;
+
+    for (var key in jsonObject) {
+        if (jsonObject[key] === null || jsonObject[key] === ""){
+            alert('Please fill in the '+key+' field');
+            return;
+        }
+    }
+    $('#submitbutton').toggleClass('is-loading');
     $.post('php/save-log.php',{
         client_id: selectedClientId,
         date_occurred: dateOccurred,
         hours_worked: hoursWorked,
         time_started: timeStarted,
         time_stopped: timeStopped,
-        issue: issue,
-        description: description
+        issue: issue
+       
     },function(data) {
         if (data.match(/[0-9]/i)){
             if (data.match(/[a-z]/i)){

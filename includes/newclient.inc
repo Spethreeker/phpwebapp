@@ -10,7 +10,9 @@
                         <div class="control">
                             <input type="text" class="input" id="newClientName" name="addClientname" placeholder="Client name" required/>
                         </div>
-                    </div>
+                        <button type="button" class="is-link" onclick="e=document.getElementById('newClientName'); window.open('https://www.google.com/search?q='+escape(e.value));">
+                            google this person</button>
+                        </div>
                     <div class="field">
                         <label class="label" for="clientphone">Phone Number</label>
                         <div class="control"><input type="tel" class="input" name="newClientPhone" id="newClientPhone" placeholder="#" required

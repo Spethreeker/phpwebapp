@@ -53,16 +53,23 @@
             </div>
         </div>
         <div class="field">
-            <label class="label " for="issue">Issue</label>
-            <div class="control ">
+            <label class="label" for="issue">Issue</label>
+            <div class="control">
                 <input type="text" class="input" name="issue" id="issue" placeholder="What was wrong" required/>
             </div>
         </div>
         <div class="field">
-            <label class="label " for="longDescription">Work Description</label>
+            <label class="label" for="status">Job Status</label>
             <div class="control">
-                <textarea type="textarea" class="textarea" id="description" placeholder="Describe" required></textarea>
+              <input name="status" id="finished-radio" type="radio" onclick="jobStat('finished');">
+              <label class="radio" for="finished-radio">Finished</label>
+              <input type="input" class="input is-hidden animated fadeIn" id="job-finished-input">
             </div>
+            <div class="control">
+              <input name="status" id="ongoing-radio" type="radio" onclick="jobStat('ongoing');">
+              <label class="radio" for="ongoing-radio">Ongoing</label>
+            </div>
+            <input type="input" class="input is-hidden animated fadeIn" id="job-ongoing-input">
         </div>
         <div class="field is-grouped is-grouped-centered">
             <div class="control is-expanded">
