@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <?php
     session_start();
-    ECHO $_SESSION['result'];
+    if (isset($_SESSION['result'])){
+        $result = $_SESSION['result'];
+    }
 ?>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>success</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-       <?php
-       if (isset($name
-       ))
-       echo($_GET['userFirstName']);
-       ?>
-        <a href="index.php">Log in now</a>
-    </body>
+   <?php include('includes/head.inc');?>
+<body class="body index-body animated" id="index-body">
+   <div class="box animated index-form margin-auto-centered" id="login-form">
+    <?php if (isset($result)){
+       echo $result;
+    }?>
+    <h2 class="title">We've sent you an email</h2>
+    <p class="subtitle">Please confirm your account to start using Worklogs!</p>
+  
+     
+   
+</div>
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Privacy Policy</a>
+ <footer>
+   <a href="https://seal.beyondsecurity.com/vulnerability-scanner-verification/worklogs.io"><img src="https://seal.beyondsecurity.com/verification-images/worklogs.io/vulnerability-scanner-2.gif" alt="Website Security Test" border="0" /></a></footer>
+</body>
 </html>

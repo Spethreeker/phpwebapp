@@ -1,7 +1,10 @@
 <?php 
     header('Content-Type: text/plain');
     require 'PasswordHash.php';
-    require 'config.php';
+   ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require "config.php";
     session_start();
     $debug = false;
     //Post Variables and normalizing them
@@ -22,11 +25,7 @@
         if (strlen($hash) < 20)
             fail('Failed to has new password');
         unset($hasher);
-    $op = $_POST['op'];
-    if ($op !== 'new' && $op !=='login')
-        fail('Unknown Request');
-       
-    if ($op === 'new'){
+    
     $activeHash = md5( rand(0, 1000));
       
     $db = new mysqli($db_host, $db_user, $db_pass, $db_name);
@@ -47,26 +46,20 @@
     $db->close();
     $_SESSION['result'] = 'User Created!';
     $to      = $email; // Send email to our user
-$subject = 'Signup | Verification'; // Give the email a subject 
+$subject = 'Confirm your Worklogs account'; // Give the email a subject 
 $message = '
 Thanks for signing up!
 Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.
 Please click this link to activate your account:
-http://45.56.100.209/verify.php?email='.$email.'&activeHash='.$activeHash.'
- 
-'; // Our message above including the link
-                     
+http://worklogs.io/verify.php?email='.$email.'&activeHash='.$activeHash.'
+'; // Our message above including the link      
 $headers = 'From:noreply@worklogs.io' . "\r\n"; // Set from headers
-mail($to, $subject, $message, $headers); // Send our email
+$success = mail($to, $subject, $message, $headers); // Send our email
+    if (!$success){
+        $errorMessage = error_get_last()['message'];
+        print_r($errorMessage);
     }
-    header("Location: success.php");
-    $_GET['userFirstName'] = $name;
-    unset($hasher);
-    
-
-
-
-
-
-    
+header("Location:../success.php");
+$_GET['userFirstName'] = $name;
+unset($hasher);
     ?>

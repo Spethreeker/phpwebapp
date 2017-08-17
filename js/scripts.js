@@ -59,7 +59,7 @@ function createHTML(jsonObject) {
     $('#' + dateTimeStamp).append(ourGeneratedHTML);
     }
 };
-function jobStat(stat){
+function toggStatus(stat){
     var e=document.getElementById('job-finished-input'),
         f=document.getElementById('job-ongoing-input');
     if (stat === 'finished'){
@@ -286,7 +286,7 @@ function saveLog(){
         alert("You didn't select a client");
         return;
     }
-    
+
     var clientName = $.trim($('#clientName').val());
     var dateOccurred = $.trim($('input[name=date_submit]').val());
     var dateTimestamp = Date.parse(dateOccurred)/1000,
@@ -295,6 +295,9 @@ function saveLog(){
     hoursWorked = $.trim($('#hoursWorked').val()),
     issue = $.trim($('#issue').val());
     
+    if (document.getElementById('finished-radio').checked){
+        
+    }
     var jsonObject = {};
     jsonObject.name = clientName;
     jsonObject.dateOccurred = moment().format("dddd, Do");
@@ -310,6 +313,7 @@ function saveLog(){
             return;
         }
     }
+
     $('#submitbutton').toggleClass('is-loading');
     $.post('php/save-log.php',{
         client_id: selectedClientId,

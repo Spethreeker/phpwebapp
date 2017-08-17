@@ -61,21 +61,18 @@
         <div class="field">
             <label class="label" for="status">Job Status</label>
             <div class="control">
-              <input name="status" id="finished-radio" type="radio" onclick="jobStat('finished');">
+              <input name="status" id="finished-radio" type="radio" onclick="toggStatus('finished');">
               <label class="radio" for="finished-radio">Finished</label>
-              <input type="input" class="input is-hidden animated fadeIn" id="job-finished-input">
+              <input type="input" class="input is-hidden animated fadeIn" id="job-finished-input" placeholder="Enter what fixed the issue">
             </div>
             <div class="control">
-              <input name="status" id="ongoing-radio" type="radio" onclick="jobStat('ongoing');">
+              <input name="status" id="ongoing-radio" type="radio" onclick="toggStatus('ongoing');">
               <label class="radio" for="ongoing-radio">Ongoing</label>
             </div>
-            <input type="input" class="input is-hidden animated fadeIn" id="job-ongoing-input">
+            <input type="input" class="input is-hidden animated fadeIn" id="job-ongoing-input" placeholder="Enter the status of the job">
         </div>
         <div class="field is-grouped is-grouped-centered">
-            <div class="control is-expanded">
-                <a class="button" type="button" onclick="awesomplete.open();">
-            <span class="icon"><i class="fa fa-plus"></i></span><span>Add Items</span></a>
-            </div>
+            
             <a class="control button green is-expanded" type="submit" id="submitbutton" name='Submit' onclick="saveLog()">
               <span class="icon" id="submitIcon"><i class="fa fa-check" aria-hidden="true"></i></span><span>Submit</span>
             </a>

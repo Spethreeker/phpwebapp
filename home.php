@@ -32,26 +32,24 @@ function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateO
     $humanTimeStarted = date('g:i A', strtotime($timeStarted));
     echo  <<<EOT
       <div class="log" data-log-id="{$logID}" data-log-clicked="false">
-        <div class="is-flex" style="justify-content: space-between;">
+        <div class="is-flex">
           <div class="log-content">
-            <h2 class="title client-name two_point_four">{$clientName}</h2>
-            <p class="subtitle issue one_point_five">{$issue}</p>
-          </div>
-          <div style="flex-direction: row;">
-            <div class="grey time-started-container">
-              <h1 class="subtitle white-font">{$humanTimeStarted}</h1>
+            <div>
+              <h2 class="title client-name two_point_four">{$clientName}</h2>
+              <p class="subtitle issue one_point_five">{$issue}</p>
             </div>
-            <div class="action-group">
+            <div class="log-actions">
               <button class="button action" type="button" onclick="showLogDetails({$logID})">
                 <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
               </button>
               <button class="button action" onclick="">
-                  <span class="icon"><i class="fa fa-id-card-o" aria-hidden="true"></i>
-                </span>
+                <span class="icon"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
               </button>
             </div>
-          </div>
-        </div>
+         </div>
+            </div>
+
+        
           <div class="box desc-container animated is-hidden">
             
           </div>

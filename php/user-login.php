@@ -22,26 +22,32 @@
     $name = '*';
     $hash='*';
     $id = '*';
-    ($stmt = $db->prepare('select id, name, password from users where email=?'))
+    ($stmt = $db->prepare('SELECT `id`, `name`, `password`, `active` from users where email=?'))
         || fail('MySQL prepare', $db->error);
     $stmt->bind_param('s', $email)
         || fail('MySQL bind_param', $db->error);
     $stmt->execute()
         || fail('MySQL execute', $db->error);
-    $stmt->bind_result($id, $name, $hash)
+    $stmt->bind_result($id, $name, $hash, $active)
         || fail('MySQL bind_result', $db->error);
     if(!$stmt->fetch() && $db->errno)
         fail('MySQL fetch', $db->error);
-        if ($hasher->CheckPassword($pass, $hash)) {
-        $_SESSION['id'] = $id;
-        $_SESSION['name'] = $name;
-        $_SESSION['loggedin'] = true;
-         header("Location: ../home.php");
-       }else{
-           $_SESSION['result'] = 'Authentication Failed :(';
-        header("Location: ../index.php");
-         
-        }
+    if ($active !== '1'){
+        $_SESSION['authenticated'] = "Your account isn't activated";
+        
+    }elseif($active === '1'){
+        $_SESSION['authenticated'] = 'Authentication';
+    }
+    // if ($hasher->CheckPassword($pass, $hash)) {
+    //     $_SESSION['id'] = $id;
+    //     $_SESSION['name'] = $name;
+    //     $_SESSION['loggedin'] = true;
+    //     header("Location: ../home.php");
+    // }else{
+       
+    header("Location: ../index.php");
+        
+    //}
     unset($hasher);
     $stmt->close();
     $db->close();

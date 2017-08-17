@@ -72,10 +72,10 @@
    </div>
    </div>
      <?php
-      if(!isset($_SESSION['result'])) {
+      if(!isset($_SESSION['authenticated'])) {
                             echo("<br>");
                         }else{
-                            echo $_SESSION['result']."<br>";
+                            echo $_SESSION['authenticated']."<br>";
       }?>
 </div>
 </div>

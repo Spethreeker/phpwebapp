@@ -68,7 +68,14 @@ font-family: 'Roboto Slab', serif;
     flex-direction: column;
 }
 .log-content{
-      padding: 6px 12px 10px 12px;  
+      padding: 6px 12px 5px 12px;  
+      display: flex;
+      flex-direction: column;
+     
+}
+.log-actions{
+    display: flex;
+    flex: 1;
 }
 .log-left,
 .log-right {
@@ -86,6 +93,7 @@ font-family: 'Roboto Slab', serif;
 .log-right {
   margin-left: 1rem;
 }
+
 .day, .log {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -121,7 +129,10 @@ font-family: 'Roboto Slab', serif;
     background-repeat: repeat;
     background-position: top;
     background-blend-mode: screen;
-    
+}
+.log.is-billable{
+    background-color: rgba(46, 138, 39, 0.5);
+    background-blend-mode: multiply;
 }
 .day-header{
     justify-content: space-between;
