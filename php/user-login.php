@@ -32,22 +32,18 @@
         || fail('MySQL bind_result', $db->error);
     if(!$stmt->fetch() && $db->errno)
         fail('MySQL fetch', $db->error);
-    if ($active !== '1'){
-        $_SESSION['authenticated'] = "Your account isn't activated";
+    if ($hasher->CheckPassword($pass, $hash) && ($active === 1)) {
+        $_SESSION['id'] = $id;
+        $_SESSION['name'] = $name;
+        $_SESSION['loggedin'] = true;
+        header("Location: ../home.php");
+    } else {
+        $_SESSION['authenticated'] = 'You\'re email or password is incorrect';
+        header("Location: ../index.php");
         
-    }elseif($active === '1'){
-        $_SESSION['authenticated'] = 'Authentication';
     }
-    // if ($hasher->CheckPassword($pass, $hash)) {
-    //     $_SESSION['id'] = $id;
-    //     $_SESSION['name'] = $name;
-    //     $_SESSION['loggedin'] = true;
-    //     header("Location: ../home.php");
-    // }else{
-       
-    header("Location: ../index.php");
-        
-    //}
+
+    
     unset($hasher);
     $stmt->close();
     $db->close();

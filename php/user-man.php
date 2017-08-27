@@ -28,9 +28,6 @@ require "config.php";
     
     $activeHash = md5( rand(0, 1000));
       
-    $db = new mysqli($db_host, $db_user, $db_pass, $db_name);
-    if (mysqli_connect_errno()) //connect to server
-        fail('MySQL connect', mysqli_connect_error());
     
     ($stmt = $db->prepare('insert into users (name, email, password, activeHash) values (?, ?, ?, ?)'))
         || fail('MySQL prepare', $db->error);
@@ -44,12 +41,12 @@ require "config.php";
     }
     $stmt->close();
     $db->close();
-    $_SESSION['result'] = 'User Created!';
-    $to      = $email; // Send email to our user
+    $_SESSION['result'] = 'Account Created';
+    $to = $email; // Send email to our user
 $subject = 'Confirm your Worklogs account'; // Give the email a subject 
 $message = '
-Thanks for signing up!
-Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.
+<h1>Thanks for signing up!</h1>
+Your account has been created, you can login with the following credentials after you have activated your account by clicking the url below.
 Please click this link to activate your account:
 http://worklogs.io/verify.php?email='.$email.'&activeHash='.$activeHash.'
 '; // Our message above including the link      
