@@ -35,7 +35,7 @@ function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateO
         <div class="is-flex">
           <div class="log-content">
             <div>
-              <h2 class="title client-name two_point_four">{$clientName}</h2>
+              <a class="title is-spaced client-name two_point_four">{$clientName}</a>
               <p class="subtitle issue one_point_five">{$issue}</p>
             </div>
             <div class="log-actions">
@@ -46,10 +46,8 @@ function drawLog($logID, $clientName, $issue, $timeStarted, $timeStopped, $dateO
                 <span class="icon"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>
               </button>
             </div>
-         </div>
-            </div>
-
-        
+          </div>
+        </div>
           <div class="box desc-container animated is-hidden">
             
           </div>

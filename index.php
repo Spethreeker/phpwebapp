@@ -59,6 +59,12 @@
           <input class="input"  type='password' name='password' id='password' required/>
         </span>
        </div>
+       <?php
+      if(!isset($_SESSION['authenticated'])) {
+                            echo("<br>");
+                        }else{
+                            echo $_SESSION['authenticated'];
+      }?>
      <div class="field is-fullwidth">
        <label class="subtitle is-6">&nbsp;</label>
        <span class="control">
@@ -71,12 +77,7 @@
    <a href="register.php" class="button is-link" id="register-link-button">Or register an account</a>
    </div>
    </div>
-     <?php
-      if(!isset($_SESSION['authenticated'])) {
-                            echo("<br>");
-                        }else{
-                            echo $_SESSION['authenticated']."<br>";
-      }?>
+     
 </div>
 </div>
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Privacy Policy</a>

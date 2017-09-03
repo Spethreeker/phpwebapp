@@ -38,7 +38,7 @@
         $_SESSION['loggedin'] = true;
         header("Location: ../home.php");
     } else {
-        $_SESSION['authenticated'] = 'You\'re email or password is incorrect';
+        $_SESSION['authenticated'] = '<div style="border: 1px #A40802 solid; padding: 5px;"><p style="color: #A40802;">You\'re email or password is incorrect</p></div>';
         header("Location: ../index.php");
         
     }
