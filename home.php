@@ -270,7 +270,7 @@ function humanizeTime($time){ //runs when a new day is echo'd
             <button class="button action" type="button" onclick="showClientDetails('{{id}}')" title="View client details">
                 <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
             </button>
-            <button class="button action" type="button" title="Add a log for this client">
+            <button class="button action" type="button" title="Add a log for this client" onclick="insrtClientId('{{id}}')">
                 <span class="icon" >
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 </span>
@@ -305,8 +305,6 @@ function humanizeTime($time){ //runs when a new day is echo'd
             </span>
                 <a class="button red is-hidden animated fadeIn delete-client-button" onclick="show('confirm-delete-modal', 'fade');">Delete</a>
                 </div>
-                
-
             </footer>
         </div>
     </div>

@@ -282,7 +282,7 @@ function editClient(id) {
     }
 }
 function saveLog(){
-    if (selectedClientId === null){
+    if (selectedClientId === null){ //makes sure client was selected before saving log
         alert("You didn't select a client");
         return;
     }
