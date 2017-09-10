@@ -65,11 +65,6 @@
               <label class="radio" for="finished-radio">Finished</label>
               <input type="input" class="input is-hidden animated fadeIn" id="job-finished-input" placeholder="Enter what fixed the issue">
             </div>
-            <div class="control">
-              <input name="status" id="ongoing-radio" type="radio" onclick="toggStatus('ongoing');">
-              <label class="radio" for="ongoing-radio">Ongoing</label>
-            </div>
-            <input type="input" class="input is-hidden animated fadeIn" id="job-ongoing-input" placeholder="Enter the status of the job">
         </div>
         <div class="field is-grouped is-grouped-centered">
             
