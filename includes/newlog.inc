@@ -59,11 +59,9 @@
             </div>
         </div>
         <div class="field">
-            <label class="label" for="status">Job Status</label>
+            <label class="label" for="status">Details</label>
             <div class="control">
-              <input name="status" id="finished-radio" type="radio" onclick="toggStatus('finished');">
-              <label class="radio" for="finished-radio">Finished</label>
-              <input type="input" class="input is-hidden animated fadeIn" id="job-finished-input" placeholder="Enter what fixed the issue">
+              <textarea class="textarea" placeholder="Enter any details you want to remember" id="logDetails"></textarea>
             </div>
         </div>
         <div class="field is-grouped is-grouped-centered">

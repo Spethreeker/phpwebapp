@@ -6,8 +6,8 @@
         </div>
         <div class="message-body">
           <p class="has-text-danger">This will also delete any logs for this client</p>
-          <button class="button" type="button" onclick="delClient()" id="confirm-close" value="Yes">Yes</button>
-          <button class="button" type="button" onclick="dontDel()">No</button>
+          <button class="button red" type="button" onclick="delClient()" id="confirm-close" value="Yes">Delete Client</button>
+          <button class="button" type="button" onclick="delClient('cancel')">Cancel</button>
         </div>
     </div>
 </div>

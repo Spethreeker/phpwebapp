@@ -5,7 +5,7 @@ session_start();
 <html>
   <?php include("includes/head.inc");?>
 <body class="index-body animated" id="index-body">
-    <div class="hero">
+    <div class="hero"style="background: #385D8A;">
     <div class="hero-header">&nbsp;</div>
     <div class="hero-body animated" id="hero-body">
       <img class="image is-128x128 margin-auto-centered" src="images/hammerpen.png" alt="Worklogs" id="logo"/>
@@ -14,7 +14,7 @@ session_start();
         <p class="subtitle is-4 off-white-font">A work journal I hope you'll like</p>
       </div>
     </div>
-    <div class="hero-foot">&nbsp;</div>
+    <div class="hero-foot"> &nbsp;</div>
   </div>
 <div class="container">
   <div class="card animated index-form" id="register-form">
@@ -30,21 +30,27 @@ session_start();
       <div class="field">
       <label for='Email' class="label heading" >Email Address</label>
           <div class="control">
-            <input type='email' class="input" name='email' id='Email' maxlength="50"/>
+            <input type='email' class="input" name='email' id='Email' maxlength="50" required/>
             </div>
           </div>
           <div class="field">
-            <label class="label heading"  for='password' >Password</label>
+            <label class="label heading" for='password' >Password</label>
           <div class="control">
-            <input class="input"  type='password' name='password' id='password' maxlength="50"/>
+            <input class="input"  type='password' name='password' id='password' maxlength="50" required/>
           </div>
         </div>
+        <div class="message">
+            <div class="message-body">
+              <p>Passwords have to be at least 8 characters and container a number.</p>
+            </div>
+          </div>
         <div class="field is-fullwidth">
           <label class="subtitle is-6">&nbsp;</label>
           <div class="control">
-            <input class="button blue is-medium is-fullwidth"  type='submit' name='Submit' value='Register'>
+            <input class="button light-blue is-medium is-fullwidth"  type='button' onclick="chkinpt()" name='Submit' value='Register'>
           </div>
         </div>
+       
   </form>
 <div class="card-footer">
      <div class="card-footer-item">
@@ -57,19 +63,27 @@ session_start();
 </body>
  <script src="js/scripts.js"></script>
      <script>
-
+    
       var index = document.getElementById('index-body');
       if ('addEventListener' in document) {  
         document.addEventListener('DOMContentLoaded', 
         function() { 
          index.classList.add('fadeIn');
         }, false);
-      };</script>
+      };
+      </script>
       <script>
-      $(function () {
-        var registerForm = $('#register').parsley();
-      });
-    </script>
+    function chkinpt(){
+        var password = document.getElementById('password');
+        var passvalue = password.value;
+        if (passvalue.length < 8){
+          password.style.borderColor = "red";
+          console.log('fix that password');
+          return;
+        };
+       document.register.submit();
+     };
+     </script>
     <script>
     function throwUpMessage() {
       alert(

@@ -16,9 +16,15 @@ function clearLocal(){
     localStorage.clear();
     getClientList();
 }
+
+
+
 $(function() {
     clearLocal();
 });
+
+
+
 function getClientList() {
  if (localStorage.getItem('clientlist') == null){
     $.ajax({
@@ -45,6 +51,8 @@ function getClientList() {
         }
 };
 
+
+
 function createHTML(jsonObject) {
   var dateTimeStamp = jsonObject.dateTimestamp //if it breaks i added 'var' here
   if (!document.getElementById(dateTimeStamp)){
@@ -59,6 +67,9 @@ function createHTML(jsonObject) {
     $('#' + dateTimeStamp).append(ourGeneratedHTML);
     }
 };
+
+
+
 function toggStatus(stat){
     var e=document.getElementById('job-finished-input'),
         f=document.getElementById('job-ongoing-input');
@@ -71,6 +82,9 @@ function toggStatus(stat){
         e.classList.add('is-hidden');
     }
 }
+
+
+
 function show(id, type, callback) {
     let that = document.getElementById(id);
     that.classList.remove("is-hidden");
@@ -109,13 +123,18 @@ function show(id, type, callback) {
             if (that.classList.contains('fadeIn')){
                 that.classList.remove('fadeIn');
                 that.classList.add('fadeOut');
+                that.classList.remove('is-active');
             }else{
                 that.classList.add('fadeIn');
                 that.classList.remove('fadeOut');
             }
+           
     }
       
 };
+
+
+
 function saveNewClient() {
     var newClientObject ={};
     newClientObject.newClientName =    $.trim($('#newClientName').val());
@@ -138,6 +157,8 @@ $(saved_indicator).addClass('fadeIn');
     });
 };
 
+
+
 var allClientsListGenerated = false;
 function generateClientList() {
     let srtedList = clientlist.sort();
@@ -155,6 +176,8 @@ function generateClientList() {
         return false;
     }
 };
+
+
 
 function showClientDetails(id, close) {
     var that  = $('#' + id);
@@ -202,8 +225,15 @@ function showClientDetails(id, close) {
     }
 };
 
+
+
 var clientToEdit = null;
-function delClient() {
+function delClient(del) {
+    
+    if (del === 'cancel'){
+        show('confirm-delete-modal', 'fade');
+        return;
+    }else{
     var error =  null;
     $.post('php/delete-client.php', {
         clientID: clientToEdit,
@@ -216,7 +246,11 @@ function delClient() {
         $('#'+clientToEdit).remove();
         console.log('button works' + ' '+ clientToEdit);
     });
+}
 };
+
+
+
 function editClient(id) {
     clientToEdit = id;
     var that = $('#' + id),
@@ -281,8 +315,11 @@ function editClient(id) {
         deleteBtn.removeClass('is-hidden');
     }
 }
+
+
+
 function saveLog(){
-    if (selectedClientId === null){ //makes sure client was selected before saving log
+    if (selectedClientId === null){ //makes sure a client was selected before saving log
         alert("You didn't select a client");
         return;
     }
@@ -293,11 +330,8 @@ function saveLog(){
     timeStarted = $.trim($('input[name=started_submit]').val()),
     timeStopped = $.trim($('input[name=stopped_submit]').val()),
     hoursWorked = $.trim($('#hoursWorked').val()),
-    issue = $.trim($('#issue').val());
-    
-    if (document.getElementById('finished-radio').checked){
-        
-    }
+    issue = $.trim($('#issue').val()),
+    details = $.trim($('#logDetails').val());
     var jsonObject = {};
     jsonObject.name = clientName;
     jsonObject.dateOccurred = moment().format("dddd, Do");
@@ -306,7 +340,7 @@ function saveLog(){
     jsonObject.timeStopped = timeStopped;
     jsonObject.hoursWorked = hoursWorked;
     jsonObject.issue = issue;
-
+    jsonObject.details = details;
     for (var key in jsonObject) {
         if (jsonObject[key] === null || jsonObject[key] === ""){
             alert('Please fill in the '+key+' field');
@@ -321,8 +355,8 @@ function saveLog(){
         hours_worked: hoursWorked,
         time_started: timeStarted,
         time_stopped: timeStopped,
-        issue: issue
-       
+        issue: issue,
+        details: details
     },function(data) {
         if (data.match(/[0-9]/i)){
             if (data.match(/[a-z]/i)){
@@ -342,6 +376,9 @@ function saveLog(){
     });
     event.preventDefault();
 };
+
+
+
 function fillInLog(){
     let dateOccurred = $.trim($('input[name=date_submit]').val());
     var descriptions = ["Needed a new power supply", "Didn't pay electric bill", "House was too old","Talked too much"];
@@ -357,6 +394,9 @@ function fillInLog(){
     $('#issue').val((issues[randomWithRange()]));
     $('#description').val((descriptions[randomWithRange()]));
 }
+
+
+
 function showLogDetails(id){
    var clickedLog = $('[data-log-id='+id+']');
    var descCont = clickedLog.find('.desc-container');
@@ -383,6 +423,25 @@ function showLogDetails(id){
     //    descCont.removeClass('slideInDown');
     //    descCont.addClass('slideOutUp');
     descCont.toggleClass('is-hidden');
- 
    }
+};
+
+
+function logForClient(id){
+    //selectedClientId is a global variable.
+    selectedClientId = id;
+    var clientName = null;
+    for (var objectNumber = 0; objectNumber < clientlist.length; objectNumber++) {
+        //loops through client list and finds the clients's name by their id number
+        var client = clientlist[objectNumber];
+        if (client.id == selectedClientId) {
+            clientName = client.name;
+        }
+    }
+    clientnameinput.value = clientName;
+    show('all-clients-panel', 'fromtop');
+    logForm = document.getElementById('log-form');
+    if (logForm.classList.contains('is-hidden') || logForm.classList.contains('slideOutLeft')){
+        show('log-form', 'fromleft');
+    };
 };

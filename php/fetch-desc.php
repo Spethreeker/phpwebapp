@@ -10,7 +10,7 @@ else
 $user_id = $_SESSION['id'];
 $log_id = clean_id('log_id');
 
-$query = "SELECT `description`, `timeStarted` FROM `recordedLogs` WHERE `ID` = ?";
+$query = "SELECT `details`, `timeStarted` FROM `recordedLogs` WHERE `ID` = ?";
 ($stmt = $db->prepare($query))
         || fail("query error".$db->errno);
 $stmt->bind_param("i", $log_id)
@@ -19,5 +19,5 @@ $stmt->execute()
         ||fail("execute:".$db->errno);   
 $result = $stmt->get_result();
 $description = $result->fetch_assoc();
-echo($description['description']);
+echo($description['details']);
 ?>

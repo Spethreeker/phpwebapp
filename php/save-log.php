@@ -7,17 +7,17 @@
     include 'config.php';
     $debug = true;
     $clientId = get_post_var('client_id');
-    $issue = get_post_var('issue');
     $date_occurred = get_post_var('date_occurred');
     $hours_worked = get_post_var('hours_worked');
-    $description = get_post_var('description');
     $time_started = get_post_var('time_started');
     $time_stopped = get_post_var('time_stopped');
+    $issue = get_post_var('issue');
+    $details = get_post_var('details');
     $userId= $_SESSION['id'];
    
-    ($stmt = $db->prepare('INSERT INTO recordedLogs (clientID, userid, issue, dateOccurred, timeStarted, timeStopped, hoursWorked, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'))
+    ($stmt = $db->prepare('INSERT INTO recordedLogs (clientID, userid, issue, dateOccurred, timeStarted, timeStopped, hoursWorked, details) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'))
         || fail('MySQL prepare', $db->error);
-    $stmt->bind_param('iissssis', $clientId, $_SESSION['id'], $issue, $date_occurred, $time_started, $time_stopped, $hours_worked, $description)
+    $stmt->bind_param('iissssis', $clientId, $_SESSION['id'], $issue, $date_occurred, $time_started, $time_stopped, $hours_worked, $details)
         || fail('MySQL bind_param', $db->error);
     $stmt->execute()
         || fail('MySQL execute', $db->error);

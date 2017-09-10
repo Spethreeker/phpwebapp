@@ -143,7 +143,8 @@ function humanizeTime($time){ //runs when a new day is echo'd
 ?>
             </div>
         </div>
-    </body>
+</body>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="js/awesomplete.min.js"></script>
@@ -170,10 +171,6 @@ function humanizeTime($time){ //runs when a new day is echo'd
             savelog();
             return false;
         });
-
-        function clearlocal() {
-            localStorage.clear();
-        };
     </script>
     <script>
         if ('addEventListener' in document) {
@@ -193,6 +190,7 @@ function humanizeTime($time){ //runs when a new day is echo'd
                     hiddenPrefix: 'stopped'
                 });
             }, false);
+
             var highlightedclient = null;
             document.addEventListener("awesomplete-highlight", function (callback) {
                 highlightedclient = callback.text;
@@ -223,6 +221,7 @@ function humanizeTime($time){ //runs when a new day is echo'd
             }, false);
         };
     </script>
+
 <script id="log-template" type="text/x-handlebars-template">
         <div class="log" data-log-id="{$logID}" data-log-clicked="false">
         <div class="log-content">
@@ -239,6 +238,7 @@ function humanizeTime($time){ //runs when a new day is echo'd
         </div>
     </div>
 </script>
+
 <script id="day-template" type="text/x-handlebars-template">
     <article class="day" id="{{dateTimestamp}}" data-date-occurred="">
         <div class="day-header">
@@ -260,6 +260,7 @@ function humanizeTime($time){ //runs when a new day is echo'd
     </div>
     </article>
 </script>
+
 <script id="client-template" type="text/x-handlebars-template">
     <div class="message is-light" id="{{id}}" data-name="{{name}}" data-editing="false">
         <div class="is-flex" style="justify-content: space-between;">
@@ -270,7 +271,7 @@ function humanizeTime($time){ //runs when a new day is echo'd
             <button class="button action" type="button" onclick="showClientDetails('{{id}}')" title="View client details">
                 <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
             </button>
-            <button class="button action" type="button" title="Add a log for this client" onclick="insrtClientId('{{id}}')">
+            <button class="button action" type="button" title="Add a log for this client" onclick="logForClient('{{id}}')">
                 <span class="icon" >
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 </span>
