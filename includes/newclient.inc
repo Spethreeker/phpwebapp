@@ -18,13 +18,13 @@
                         <div class="control"><input type="tel" class="input" name="newClientPhone" id="newClientPhone" placeholder="#" required
                             /></div>
                     </div>
-                    <div class="field">
-                        <label class="label" for="clientcontact">Contact Name</label>
-                        <div class="control"><input type="text" class="input" name="newClientContact" id="newClientContact" required /></div>
-                    </div>
                     <div class="field"><label class="label" for="clientadress">Address</label>
                         <div class="control"><input type="text" class="input" name="newClientAddress" id="newClientAddress" required /></div>
                     </div>
+                                <div class="field">
+                                    <label class="label" for="clientcontact">Contact Name</label>
+                                    <div class="control"><input type="text" class="input" name="newClientContact" id="newClientContact" required /></div>
+                                </div>
                 </div>
                 <div class="modal-card-foot has-text-centered" id="modal-foot">
                     <div class="saved-indicator is-hidden animated" id="saved-indicator">
