@@ -18,7 +18,7 @@ $returned_logs = array();
 $query = "SELECT recd.ID, recd.clientID, recd.issue, recd.hoursWorked, recd.dateOccurred, recd.timeStarted, recd.timeStopped,recd.dateEntered, clients.name
           FROM recordedLogs recd
           JOIN clients ON recd.clientID = clients.id
-          WHERE recd.userid = $user_id AND clients.active = 1 AND recd.dateOccurred <= NOW() ORDER BY recd.dateOccurred DESC LIMIT 15";
+          WHERE recd.userid = $user_id AND clients.active = 1 AND recd.dateOccurred ORDER BY recd.dateOccurred DESC LIMIT 15";
 ($stmt = $db->query($query))
         || fail("query error".$db->error);
 for ($row_no = ($stmt->num_rows - 1); $row_no >= 0; $row_no-- ) {

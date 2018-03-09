@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab:300,400');
-@font-face {
-    font-family: 'yorktenslabnormregular';
-    src: url('fonts/yorktenslabnormregular-webfont.woff2') format('woff2'),
-         url('fonts/yorktenslabnormregular-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
+
 
 html{
     background: inherit;
@@ -21,7 +15,7 @@ font-family: 'Roboto Slab', serif;
 .white{
     background-color: white;
 }
-.white-font{color: #FCF9FC;}
+.white-font{color: #FCF9FC; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.20) !important;}
 .off-white-font{ color: #CCCCCC;}
 .black-font{color: slategrey;}
 .blue-font{color: #025D8C !important;}
@@ -125,7 +119,8 @@ font-family: 'Roboto Slab', serif;
   -ms-flex-negative: 1;
     background-color: rgba(155, 155, 155, 0);
     border-radius: 4px 4px 4px 4px;
-    background-image: url('../images/paper_fibers.png');
+    /* background-image: url('../images/paper_fibers.png'); */
+    background: #f0f0f0;
     background-repeat: repeat;
     background-position: top;
     background-blend-mode: screen;
@@ -152,6 +147,7 @@ font-family: 'Roboto Slab', serif;
     font-weight: 500;
     padding: 5px 0px 5px 10px;
      font-family: 'Roboto Slab'; 
+     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.40) !important;
     /* font-family: 'yorktenslabnormregular', sans-serif; */
 }
 .time-started-container{

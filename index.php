@@ -53,9 +53,9 @@ session_start();
      
 </div>
 </div>
-    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Privacy Policy</a>
  <footer>
-   <a href="https://seal.beyondsecurity.com/vulnerability-scanner-verification/worklogs.io"><img src="https://seal.beyondsecurity.com/verification-images/worklogs.io/vulnerability-scanner-2.gif" alt="Website Security Test" border="0" /></a></footer>
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Privacy Policy</a>
+   </footer>
 </body>
      <script src="js/scripts.js"></script>
 </html>
