@@ -12,7 +12,7 @@ session_start();
     <div class="hero-body" id="hero-body" >
       <img class="image is-128x128 margin-auto-centered" src="images/hammerpen.png" alt="Worklogs" id="logo"/>
       <div class="has-text-centered">
-        <h1 class="title is-2 white-font">Worklogs</h1>
+        <h1 class="title is-2 white-font">Worklogs 🍳</h1>
         <p class="subtitle is-4 off-white-font">A work journal on the Internet</p>
       </div>
     </div>
